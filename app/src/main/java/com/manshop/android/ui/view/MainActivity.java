@@ -1,0 +1,175 @@
+package com.manshop.android.ui.view;
+
+import android.content.Intent;
+import android.os.Bundle;
+import android.support.design.widget.BottomNavigationView;
+import android.support.design.widget.NavigationView;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.view.ViewPager;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.app.ActionBar;
+import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.widget.TextView;
+
+import com.manshop.android.R;
+import com.manshop.android.adapter.ViewPagerAdapter;
+import com.manshop.android.ui.base.BaseActivity;
+
+public class MainActivity extends BaseActivity {
+    private DrawerLayout mDrawerLayout;
+    private NavigationView navView;
+    private SwipeRefreshLayout swipeRefreshLayout;
+    private TextView test;
+    private ViewPager viewPager;
+    private MenuItem menuItem;
+    private BottomNavigationView bottomNavigationView;
+    private Intent intent;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+//        标题栏
+        final Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        mDrawerLayout = (DrawerLayout) findViewById(R.id.myDrawer);
+        final ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.setDisplayHomeAsUpEnabled(true);
+            actionBar.setHomeAsUpIndicator(R.drawable.ic_info);
+        }
+        //侧边栏菜单功能实现
+        navView = (NavigationView) findViewById(R.id.nav_info);
+        navView.setCheckedItem(R.id.item_address);
+        navView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.item_address:
+                        intent = new Intent(MainActivity.this,AddressDetailActivity.class);
+                        startActivity(intent);
+                        break;
+                    case R.id.item_setting:
+                        mDrawerLayout.closeDrawers();
+                        break;
+                    case R.id.item_logout:
+                        intent = new Intent(MainActivity.this,LoginActivity.class);
+                        startActivity(intent);
+                        break;
+                }
+                return true;
+            }
+        });
+        //刷新主界面
+        swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.srefresh_refresh);
+        swipeRefreshLayout.setColorSchemeResources(R.color.colorPrimary);
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                refreshHome();
+            }
+        });
+        //底部菜单栏界面切换
+        viewPager = (ViewPager) findViewById(R.id.vp_min);
+        bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_menu);
+        bottomNavigationView.setOnNavigationItemSelectedListener(
+                new BottomNavigationView.OnNavigationItemSelectedListener() {
+                    @Override
+                    public boolean onNavigationItemSelected(MenuItem item) {
+                        switch (item.getItemId()) {
+                            case R.id.item_home:
+                                viewPager.setCurrentItem(0);
+                                toolbar.setTitle("漫街");
+                                break;
+                            case R.id.item_message:
+                                viewPager.setCurrentItem(1);
+                                toolbar.setTitle("消息");
+                                break;
+                            case R.id.item_personal:
+                                viewPager.setCurrentItem(2);
+                                toolbar.setTitle("我的");
+                                break;
+                        }
+                        return false;
+                    }
+                });
+        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            //在屏幕滚动过程中不断被调用
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            //代表哪个页面被选中
+            @Override
+            public void onPageSelected(int position) {
+                if (menuItem != null) {
+                    menuItem.setChecked(false);
+                } else {
+                    bottomNavigationView.getMenu().getItem(0).setChecked(false);
+                }
+                menuItem = bottomNavigationView.getMenu().getItem(position);
+                menuItem.setChecked(true);
+            }
+
+            //在手指操作屏幕的时候发生变化
+            @Override
+            public void onPageScrollStateChanged(int state) {
+            }
+        });
+        //设置缓存，不会重复加载数据
+        viewPager.setOffscreenPageLimit(3);
+        setupViewPager(viewPager);
+    }
+
+    //加载标题栏
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.item_toolbar_menu, menu);
+        return true;
+    }
+
+    //标题栏按钮功能实现
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                mDrawerLayout.openDrawer(GravityCompat.START);
+                break;
+            case R.id.item_search:
+                Intent intent = new Intent(MainActivity.this,SearchActivity.class);
+                startActivity(intent);
+                break;
+            default:
+        }
+        return true;
+    }
+
+    //刷新
+    private void refreshHome() {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        test.setText("gh");
+                        swipeRefreshLayout.setRefreshing(false);
+                    }
+                });
+            }
+        }).start();
+    }
+
+    //底部菜单栏适配器
+    private void setupViewPager(ViewPager viewPager) {
+        ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
+        adapter.addFragment(HomeFragment.newInstance("ic_home"));
+        adapter.addFragment(MessageFragment.newInstance("ic_message"));
+        adapter.addFragment(PersonalFragment.newInstance("per"));
+        viewPager.setAdapter(adapter);
+    }
+}
