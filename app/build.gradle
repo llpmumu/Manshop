@@ -39,5 +39,10 @@ dependencies {
     compile 'com.youth.banner:banner:1.4.10'
 
     testCompile 'junit:junit:4.12'
-    compile files('libs/mysql-connector-java-5.1.32-bin.jar')
+//    compile files('libs/mysql-connector-java-5.1.32-bin.jar')
+
+    //圆形头像
+    compile 'com.makeramen:roundedimageview:2.2.1'
+    //图片异步加载
+    compile 'com.facebook.fresco:fresco:0.12.0'
 }

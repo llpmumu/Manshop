@@ -6,11 +6,15 @@ package com.manshop.android.ui.view;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.manshop.android.R;
+import com.manshop.android.adapter.GoodsRecycleAdapter;
+import com.manshop.android.model.Goods;
 import com.manshop.android.util.GlideImageLoader;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
@@ -21,6 +25,10 @@ import java.util.Arrays;
 import java.util.List;
 
 public class HomeFragment extends Fragment {
+    //商品列表
+    RecyclerView recyclerview;
+    private List<Goods> mGood;
+    //轮播图
     private List<Integer> images = new ArrayList<>();
     private String[] titles = {
             "title1",
@@ -64,6 +72,42 @@ public class HomeFragment extends Fragment {
         banner.setIndicatorGravity(BannerConfig.CENTER);
         //banner设置方法全部调用完毕时最后调用
         banner.start();
+
+        initData();
+
+        recyclerview = (RecyclerView) view.findViewById(R.id.recycle);
+        LinearLayoutManager manager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
+        recyclerview.setLayoutManager(manager);
+        GoodsRecycleAdapter adapter = new GoodsRecycleAdapter(getActivity(), mGood);
+        recyclerview.setAdapter(adapter);
         return view;
+    }
+
+    private void initData() {
+        mGood = new ArrayList<>();
+        List<String> mPic = new ArrayList<>();
+        mPic.add("https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=3373321088,605628612&fm=27&gp=0.jpg");
+        mPic.add("https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=3373321088,605628612&fm=27&gp=0.jpg");
+        mPic.add("https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=3373321088,605628612&fm=27&gp=0.jpg");
+        mPic.add("https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=3373321088,605628612&fm=27&gp=0.jpg");
+        mPic.add("https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=3373321088,605628612&fm=27&gp=0.jpg");
+        mPic.add("https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=3373321088,605628612&fm=27&gp=0.jpg");
+        mGood.add(
+                new Goods("https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=2450994032,3525797548&fm=27&gp=0.jpg",
+                        "123", "456", "\n\n789",mPic));
+        mGood.add(
+                new Goods("https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=2450994032,3525797548&fm=27&gp=0.jpg",
+                        "123", "456", "789",mPic));
+        mGood.add(
+                new Goods("https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=2450994032,3525797548&fm=27&gp=0.jpg",
+                        "123", "456", "789",mPic));
+        mGood.add(
+                new Goods("https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=2450994032,3525797548&fm=27&gp=0.jpg",
+                        "123", "456", "789",mPic));
+        mGood.add(
+                new Goods("https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=2450994032,3525797548&fm=27&gp=0.jpg",
+                        "123", "456", "789",mPic));
+
+
     }
 }

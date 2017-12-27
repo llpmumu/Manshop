@@ -7,12 +7,14 @@
     android:orientation="vertical">
     <!--侧边栏头部-->
     <!--头像-->
-    <com.manshop.android.util.CircleImageView
+    <com.makeramen.roundedimageview.RoundedImageView
         android:id="@+id/icon_image"
         android:layout_width="100dp"
         android:layout_height="100dp"
-        android:layout_centerInParent="true"
-        app:CircularImageSrc="@drawable/ic_tou" />
+        android:src="@drawable/ic_tou"
+        app:riv_border_color="@color/transparent"
+        app:riv_border_width="2dp"
+        app:riv_oval="true" />
 
     <!--昵称-->
     <TextView
