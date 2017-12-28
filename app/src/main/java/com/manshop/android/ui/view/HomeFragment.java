@@ -11,6 +11,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ScrollView;
 
 import com.manshop.android.R;
 import com.manshop.android.adapter.GoodsRecycleAdapter;
@@ -26,7 +27,7 @@ import java.util.List;
 
 public class HomeFragment extends Fragment {
     //商品列表
-    RecyclerView recyclerview;
+    private RecyclerView recyclerview;
     private List<Goods> mGood;
     //轮播图
     private List<Integer> images = new ArrayList<>();
@@ -37,6 +38,8 @@ public class HomeFragment extends Fragment {
             "title4",
             "title5",
     };
+
+    private ScrollView mScrollView;
     public static HomeFragment newInstance(String index) {
         HomeFragment f = new HomeFragment();
         Bundle args = new Bundle();
@@ -80,6 +83,8 @@ public class HomeFragment extends Fragment {
         recyclerview.setLayoutManager(manager);
         GoodsRecycleAdapter adapter = new GoodsRecycleAdapter(getActivity(), mGood);
         recyclerview.setAdapter(adapter);
+
+        mScrollView = (ScrollView) view.findViewById(R.id.scrollView);
         return view;
     }
 

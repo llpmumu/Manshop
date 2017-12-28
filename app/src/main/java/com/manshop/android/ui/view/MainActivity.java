@@ -21,7 +21,7 @@ import com.manshop.android.ui.base.BaseActivity;
 public class MainActivity extends BaseActivity {
     private DrawerLayout mDrawerLayout;
     private NavigationView navView;
-    private SwipeRefreshLayout swipeRefreshLayout;
+//    private SwipeRefreshLayout swipeRefreshLayout;
     private TextView test;
     private ViewPager viewPager;
     private MenuItem menuItem;
@@ -64,14 +64,14 @@ public class MainActivity extends BaseActivity {
             }
         });
         //刷新主界面
-        swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.srefresh_refresh);
-        swipeRefreshLayout.setColorSchemeResources(R.color.colorPrimary);
-        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                refreshHome();
-            }
-        });
+//        swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.srefresh_refresh);
+//        swipeRefreshLayout.setColorSchemeResources(R.color.colorPrimary);
+//        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+//            @Override
+//            public void onRefresh() {
+//                refreshHome();
+//            }
+//        });
         //底部菜单栏界面切换
         viewPager = (ViewPager) findViewById(R.id.vp_min);
         bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_menu);
@@ -149,20 +149,20 @@ public class MainActivity extends BaseActivity {
     }
 
     //刷新
-    private void refreshHome() {
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        test.setText("gh");
-                        swipeRefreshLayout.setRefreshing(false);
-                    }
-                });
-            }
-        }).start();
-    }
+//    private void refreshHome() {
+//        new Thread(new Runnable() {
+//            @Override
+//            public void run() {
+//                runOnUiThread(new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        test.setText("gh");
+//                        swipeRefreshLayout.setRefreshing(false);
+//                    }
+//                });
+//            }
+//        }).start();
+//    }
 
     //底部菜单栏适配器
     private void setupViewPager(ViewPager viewPager) {
