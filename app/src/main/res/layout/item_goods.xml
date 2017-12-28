@@ -57,6 +57,6 @@
     <View
         android:id="@+id/view"
         android:layout_width="match_parent"
-        android:layout_height="4px"
-        android:background="#66CCFF" />
+        android:layout_height="8px"
+        android:background="#f4f5f5" />
 </LinearLayout>
