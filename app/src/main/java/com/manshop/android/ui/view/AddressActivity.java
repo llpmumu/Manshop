@@ -1,6 +1,8 @@
 package com.manshop.android.ui.view;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.view.GravityCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
@@ -34,15 +36,31 @@ public class AddressActivity extends BaseActivity {
         super.showToolbar();
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        return super.onOptionsItemSelected(item);
-    }
+//    @Override
+//    public boolean onOptionsItemSelected(MenuItem item) {
+//        return super.onOptionsItemSelected(item);
+//    }
 
     //加载标题栏
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.item_toolbar_address, menu);
+        return true;
+    }
+
+    //标题栏按钮功能实现
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                return super.onOptionsItemSelected(item);
+//                break;
+            case R.id.item_newaddress:
+                Intent intent = new Intent(AddressActivity.this,EditAddressActivity.class);
+                startActivity(intent);
+                break;
+            default:
+        }
         return true;
     }
 

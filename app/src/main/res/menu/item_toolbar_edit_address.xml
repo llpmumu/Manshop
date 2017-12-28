@@ -2,8 +2,8 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
-        android:id="@+id/item_newaddress"
-        android:title="新建"
+        android:id="@+id/item_save_address"
+        android:title="保存"
         app:showAsAction="ifRoom">
     </item>
 </menu>
