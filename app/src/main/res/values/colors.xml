@@ -7,4 +7,6 @@
     <color name="textColor">#FFF</color>
     <color name="transparent">#00000000</color>
     <color name="red">#ff0000</color>
+    <color name="splitline">#d2cece</color>
+    <color name="white">#ffffff</color>
 </resources>

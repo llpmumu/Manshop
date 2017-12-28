@@ -4,13 +4,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import com.manshop.android.R;
-import com.manshop.android.ui.base.BaseActivity;
 
-public class AddressListActivity extends BaseActivity {
+public class EditAddressActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_address_list);
+        setContentView(R.layout.activity_edit_address);
     }
 }
