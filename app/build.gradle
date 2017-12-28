@@ -28,8 +28,6 @@ dependencies {
 
     //    compile files('libs/mysql-connector-java-5.1.32-bin.jar')
 
-    //圆形头像
-    //图片异步加载
     compile 'com.android.support:appcompat-v7:25.2.0'
     compile 'com.android.support:design:25.2.0'
     compile 'com.android.support:support-vector-drawable:25.2.0'
@@ -41,7 +39,12 @@ dependencies {
     compile 'com.google.code.gson:gson:2.7'
     compile 'com.github.bumptech.glide:glide:3.7.0'
     compile 'com.youth.banner:banner:1.4.10'
+
+//    圆形头像
     compile 'com.makeramen:roundedimageview:2.2.1'
+//    图片异步加载
     compile 'com.facebook.fresco:fresco:0.12.0'
+//富文本编辑器
+    compile 'com.huangdali:mricheditor:1.0.1'
     testCompile 'junit:junit:4.12'
 }

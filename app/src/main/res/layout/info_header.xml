@@ -2,15 +2,15 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="210dp"
+    android:layout_height="60dp"
     android:background="@color/colorPrimary"
-    android:orientation="vertical">
+    android:orientation="horizontal">
     <!--侧边栏头部-->
     <!--头像-->
     <com.makeramen.roundedimageview.RoundedImageView
         android:id="@+id/icon_image"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
         android:src="@drawable/ic_tou"
         app:riv_border_color="@color/transparent"
         app:riv_border_width="2dp"
@@ -22,7 +22,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:gravity="center"
+        android:layout_toRightOf="@id/icon_image"
         android:text="11"
         android:textSize="20sp" />
 </RelativeLayout>

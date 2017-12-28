@@ -32,38 +32,36 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:paddingTop="10dp"
         android:paddingBottom="10dp"
         android:paddingLeft="10dp"
         android:paddingRight="10dp"
-        >
+        android:paddingTop="10dp">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:paddingTop="10dp"
-            android:paddingBottom="10dp">
+            android:paddingBottom="10dp"
+            android:paddingTop="10dp">
 
 
             <TextView
                 android:layout_width="60dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="收件人"/>
+                android:text="收件人" />
 
-            <com.example.cne_shop.widget.MyEditText
+            <EditText
                 android:id="@+id/consignee_name"
                 android:layout_width="match_parent"
                 android:layout_height="35dp"
                 android:layout_gravity="center"
-                android:hint="请输入收件人姓名"
-                android:textSize="14sp"
+                android:background="@color/white"
                 android:enabled="true"
+                android:hint="请输入收件人姓名"
                 android:paddingLeft="5dp"
                 android:paddingRight="5dp"
-                android:background="@color/white"
-                />
+                android:textSize="14sp" />
 
         </LinearLayout>
 
@@ -71,52 +69,50 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:paddingTop="10dp"
-            android:paddingBottom="10dp">
+            android:paddingBottom="10dp"
+            android:paddingTop="10dp">
 
             <TextView
                 android:layout_width="60dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="联系电话"/>
+                android:text="联系电话" />
 
 
-            <com.example.cne_shop.widget.MyEditText
+            <EditText
                 android:id="@+id/consignee_phone"
                 android:layout_width="match_parent"
                 android:layout_height="35dp"
                 android:layout_gravity="center"
+                android:background="@color/white"
+                android:enabled="true"
                 android:hint="请输入收件人电话"
                 android:paddingLeft="5dp"
-                android:textSize="14sp"
                 android:paddingRight="5dp"
-                android:enabled="true"
-                android:background="@color/white"
-                />
+                android:textSize="14sp" />
 
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingTop="10dp"
+            android:orientation="horizontal"
             android:paddingBottom="10dp"
-            android:orientation="horizontal">
+            android:paddingTop="10dp">
 
             <TextView
+                android:id="@+id/select_consigneeAdr"
                 android:layout_width="60dp"
                 android:layout_height="35dp"
                 android:gravity="center_vertical|left"
-                android:id="@+id/select_consigneeAdr"
-                android:text="联系地址"/>
+                android:text="联系地址" />
 
             <TextView
+                android:id="@+id/consigneeAdr"
                 android:layout_width="match_parent"
                 android:layout_height="35dp"
-                android:hint="请选择收件人地址"
                 android:gravity="center_vertical|left"
-                android:id="@+id/consigneeAdr"
-                />
+                android:hint="请选择收件人地址" />
 
         </LinearLayout>
 
@@ -124,28 +120,27 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingTop="10dp"
+            android:orientation="horizontal"
             android:paddingBottom="10dp"
-            android:orientation="horizontal">
+            android:paddingTop="10dp">
 
             <TextView
                 android:layout_width="60dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="详细地址"/>
+                android:text="详细地址" />
 
-            <com.example.cne_shop.widget.MyEditText
+            <EditText
                 android:id="@+id/consignee_address"
                 android:layout_width="match_parent"
                 android:layout_height="35dp"
-                android:background="@color/white"
-                android:paddingLeft="5dp"
-                android:hint="请填写收件人详细地址"
-                android:paddingRight="5dp"
-                android:enabled="true"
-                android:textSize="14sp"
                 android:layout_gravity="center"
-                />
+                android:background="@color/white"
+                android:enabled="true"
+                android:hint="请填写收件人详细地址"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
+                android:textSize="14sp" />
 
         </LinearLayout>
 

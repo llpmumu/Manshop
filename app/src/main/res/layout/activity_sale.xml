@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_gravity="center"
+    android:background="@color/splitline"
     android:orientation="vertical"
     tools:context="com.manshop.android.ui.view.SaleActivity">
 
@@ -40,40 +41,55 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_margin="10dp"
+            android:background="@color/white"
             android:orientation="vertical"
             android:padding="10dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:padding="5dp">
 
                 <EditText
                     android:id="@+id/et_sale_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="标题" />
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="3dp"
+                    android:background="@color/splitline" />
 
                 <EditText
-                    android:id="@+id/et_sale_detail"
+                    android:id="@+id/etContent"
                     android:layout_width="match_parent"
-                    android:layout_height="350dp"
-                    android:gravity="top"
-                    android:hint="具体内容" />
+                    android:layout_height="wrap_content"
+                    android:background="@null"
+                    android:hint="具体内容..."
+                    android:lines="3"
+                    android:paddingTop="8dp" />
 
-                <!--<ImageButton-->
-                    <!--android:id="@+id/ibtn_sale_image"-->
-                    <!--android:layout_width="wrap_content"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:background="@color/transparent"-->
-                    <!--android:src="@drawable/ic_upimage" />-->
+                <ImageView
+                    android:id="@+id/im_add_pic"
+                    android:layout_width="96dp"
+                    android:layout_height="96dp"
+                    android:layout_marginTop="24dp"
+                    android:src="@drawable/ic_addpic" />
 
             </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="3dp"
+                android:background="@color/splitline" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:padding="5dp">
+
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -86,14 +102,13 @@
                     android:id="@+id/et_sale_price"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="2"
-                    android:background="@android:drawable/alert_light_frame" />
+                    android:layout_weight="2" />
             </LinearLayout>
 
             <Button
                 android:id="@+id/btn_sale_confirm"
                 android:layout_width="match_parent"
-                android:layout_height="35dp"
+                android:layout_height="40dp"
                 android:layout_marginTop="10dp"
                 android:background="@drawable/btn_shape"
                 android:padding="0dp"

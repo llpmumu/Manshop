@@ -26,7 +26,7 @@ public class EditAddressActivity extends BaseActivity {
     //加载标题栏
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.item_toolbar_address, menu);
+        getMenuInflater().inflate(R.menu.item_toolbar_edit_address, menu);
         return true;
     }
 
