@@ -36,11 +36,6 @@ public class AddressActivity extends BaseActivity {
         super.showToolbar();
     }
 
-//    @Override
-//    public boolean onOptionsItemSelected(MenuItem item) {
-//        return super.onOptionsItemSelected(item);
-//    }
-
     //加载标题栏
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
