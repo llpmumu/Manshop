@@ -81,6 +81,7 @@ public class HomeFragment extends Fragment {
         recyclerview = (RecyclerView) view.findViewById(R.id.recycle);
         LinearLayoutManager manager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
         recyclerview.setLayoutManager(manager);
+        recyclerview.setNestedScrollingEnabled(false);
         GoodsRecycleAdapter adapter = new GoodsRecycleAdapter(getActivity(), mGood);
         recyclerview.setAdapter(adapter);
 
