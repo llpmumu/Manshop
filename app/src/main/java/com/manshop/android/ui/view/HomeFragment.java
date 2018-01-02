@@ -9,6 +9,7 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ScrollView;
@@ -39,7 +40,7 @@ public class HomeFragment extends Fragment {
             "title5",
     };
 
-    private ScrollView mScrollView;
+//    private ScrollView mScrollView;
     public static HomeFragment newInstance(String index) {
         HomeFragment f = new HomeFragment();
         Bundle args = new Bundle();
@@ -85,9 +86,10 @@ public class HomeFragment extends Fragment {
         GoodsRecycleAdapter adapter = new GoodsRecycleAdapter(getActivity(), mGood);
         recyclerview.setAdapter(adapter);
 
-        mScrollView = (ScrollView) view.findViewById(R.id.scrollView);
+//        mScrollView = (ScrollView) view.findViewById(R.id.scrollView);
         return view;
     }
+
 
     private void initData() {
         mGood = new ArrayList<>();
