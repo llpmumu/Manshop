@@ -10,8 +10,6 @@
     <!-- if you want to load images from a file OR from the internet -->
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
-
-
     <application
         android:name=".MyApplication"
         android:allowBackup="true"
@@ -34,10 +32,11 @@
         <activity android:name=".ui.view.SearchActivity" />
         <activity android:name=".ui.view.SaleActivity" />
         <activity android:name=".ui.view.AddressActivity" />
-        <activity android:name=".ui.view.ProductDetailActivity"></activity>
+        <activity android:name=".ui.view.ProductDetailActivity" />
         <activity android:name=".ui.view.LeaveMessageActivity" />
         <activity android:name=".ui.view.ComiketActivity" />
-        <activity android:name=".ui.view.EditAddressActivity"></activity>
+        <activity android:name=".ui.view.EditAddressActivity" />
+        <activity android:name=".ui.view.DialogueActivity"></activity>
     </application>
 
 </manifest>
