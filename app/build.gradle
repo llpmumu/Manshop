@@ -44,7 +44,7 @@ dependencies {
     compile 'com.makeramen:roundedimageview:2.2.1'
 //    图片异步加载
     compile 'com.facebook.fresco:fresco:0.12.0'
-//富文本编辑器
-    compile 'com.huangdali:mricheditor:1.0.1'
+
+
     testCompile 'junit:junit:4.12'
 }
