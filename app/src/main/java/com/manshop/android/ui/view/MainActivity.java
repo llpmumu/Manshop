@@ -23,7 +23,8 @@ public class MainActivity extends BaseActivity {
 //    private SwipeRefreshLayout swipeRefreshLayout;
     private TextView test;
     private ViewPager viewPager;
-    private MenuItem menuItem;
+    private MenuItem menuItemFrag;
+    private MenuItem toolbarMenu;
     private BottomNavigationView bottomNavigationView;
     private Intent intent;
 
@@ -82,14 +83,17 @@ public class MainActivity extends BaseActivity {
                             case R.id.item_home:
                                 viewPager.setCurrentItem(0);
                                 toolbar.setTitle("漫街");
+                                toolbarMenu.setVisible(true);
                                 break;
                             case R.id.item_message:
                                 viewPager.setCurrentItem(1);
                                 toolbar.setTitle("消息");
+                                toolbarMenu.setVisible(false);
                                 break;
                             case R.id.item_personal:
                                 viewPager.setCurrentItem(2);
                                 toolbar.setTitle("我的");
+                                toolbarMenu.setVisible(false);
                                 break;
                         }
                         return false;
@@ -105,13 +109,13 @@ public class MainActivity extends BaseActivity {
             //代表哪个页面被选中
             @Override
             public void onPageSelected(int position) {
-                if (menuItem != null) {
-                    menuItem.setChecked(false);
+                if (menuItemFrag != null) {
+                    menuItemFrag.setChecked(false);
                 } else {
                     bottomNavigationView.getMenu().getItem(0).setChecked(false);
                 }
-                menuItem = bottomNavigationView.getMenu().getItem(position);
-                menuItem.setChecked(true);
+                menuItemFrag = bottomNavigationView.getMenu().getItem(position);
+                menuItemFrag.setChecked(true);
             }
 
             //在手指操作屏幕的时候发生变化
@@ -128,6 +132,8 @@ public class MainActivity extends BaseActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.item_toolbar_menu, menu);
+        toolbarMenu = menu.findItem(R.id.item_search);
+
         return true;
     }
 

@@ -5,11 +5,11 @@ import android.os.Bundle;
 
 import com.manshop.android.R;
 
-public class LeaveMessageActivity extends AppCompatActivity {
+public class GoodDetailActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_leave_message);
+        setContentView(R.layout.activity_good_detail);
     }
 }
