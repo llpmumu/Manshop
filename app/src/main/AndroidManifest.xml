@@ -36,7 +36,9 @@
         <activity android:name=".ui.view.LeaveMessageActivity" />
         <activity android:name=".ui.view.ComiketActivity" />
         <activity android:name=".ui.view.EditAddressActivity" />
-        <activity android:name=".ui.view.DialogueActivity"></activity>
+        <activity android:name=".ui.view.DialogueActivity">
+
+        </activity>
     </application>
 
 </manifest>
