@@ -1,28 +1,62 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="80dp"
-    android:background="@color/colorPrimary">
-    <!--侧边栏头部-->
-    <!--头像-->
-    <com.makeramen.roundedimageview.RoundedImageView
-        android:id="@+id/icon_image"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:src="@drawable/ic_tou"
-        app:riv_border_color="@color/transparent"
-        app:riv_border_width="2dp"
-        app:riv_oval="true"
-        android:layout_gravity="left|center"/>
+    android:layout_height="100dp"
+    android:background="@color/colorPrimary"
+    android:padding="10dp">
 
-    <!--昵称-->
-    <TextView
-        android:id="@+id/tv_username"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="11"
-        android:layout_marginLeft="10dp"
-        android:layout_gravity="left|center"
-        android:textSize="20sp" />
-</LinearLayout>
+    <!--未登录状态-->
+    <LinearLayout
+        android:id="@+id/before_login"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="invisible"
+        android:orientation="vertical">
+        <!--头像-->
+        <com.makeramen.roundedimageview.RoundedImageView
+            android:id="@+id/ic_unlogin"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_gravity="left|center"
+            android:src="@drawable/ic_unlogin"
+            app:riv_border_color="@color/transparent"
+            app:riv_border_width="2dp"
+            app:riv_oval="true" />
+
+        <TextView
+            android:id="@+id/imlogin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:text="点击头像立即登录" />
+    </LinearLayout>
+
+    <!--已登录状态-->
+    <LinearLayout
+        android:id="@+id/after_login"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="visible"
+        android:orientation="vertical">
+        <!--侧边栏头部-->
+        <!--头像-->
+        <com.makeramen.roundedimageview.RoundedImageView
+            android:id="@+id/icon_image"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_gravity="left|center"
+            android:src="@drawable/ic_tou"
+            app:riv_border_color="@color/transparent"
+            app:riv_border_width="2dp"
+            app:riv_oval="true" />
+
+        <!--昵称-->
+        <TextView
+            android:id="@+id/tv_username"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="11"
+            android:textSize="20sp" />
+    </LinearLayout>
+</FrameLayout>
