@@ -13,6 +13,7 @@ import com.youth.banner.loader.ImageLoader;
  */
 
 public class GlideImageLoader extends ImageLoader{
+//  轮播图加载图片方法
     @Override
     public void displayImage(Context context, Object path, ImageView imageView) {
         //Glide 加载图片简单用法
