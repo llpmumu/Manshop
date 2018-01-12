@@ -11,14 +11,29 @@ public class Goods {
     private String username;
     private String price;
     private String details;
+    private String title;
     private List<String> pics;
 
-    public Goods(String photo, String username, String price, String details,List<String> pics) {
+    public Goods(String title, String price, List<String> pics) {
+        this.price = price;
+        this.title = title;
+        this.pics = pics;
+    }
+
+    public Goods(String photo, String username, String price, String details, List<String> pics) {
         this.photo = photo;
         this.username = username;
         this.price = price;
         this.details = details;
         this.pics = pics;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public String getPhoto() {

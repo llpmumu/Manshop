@@ -95,7 +95,6 @@ public class GoodsRecycleAdapter extends RecyclerView.Adapter<GoodsRecycleAdapte
         TextView username;
         TextView price;
         TextView detail;
-        View view;
         RecyclerView recyclerView;
 
         public ViewHolder(View itemView) {
@@ -104,7 +103,6 @@ public class GoodsRecycleAdapter extends RecyclerView.Adapter<GoodsRecycleAdapte
             username = (TextView) itemView.findViewById(R.id.user_name);
             price = (TextView) itemView.findViewById(R.id.goods_price);
             detail = (TextView) itemView.findViewById(R.id.goods_description);
-            view = (View)itemView.findViewById(R.id.view);
             recyclerView = (RecyclerView)itemView.findViewById(R.id.image_recycler);
         }
     }
