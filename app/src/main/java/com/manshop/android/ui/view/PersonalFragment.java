@@ -4,7 +4,6 @@ package com.manshop.android.ui.view;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -53,7 +52,7 @@ public class PersonalFragment extends Fragment {
                 mPerList.get(position);
                 switch (position) {
                     case 0:
-                        Intent intent = new Intent(getActivity(),SaleActivity.class);
+                        Intent intent = new Intent(getActivity(),PublishActivity.class);
                         startActivity(intent);
                         break;
                     default:
@@ -64,7 +63,6 @@ public class PersonalFragment extends Fragment {
     }
 
     public void initPer() {
-        mPerList.add("我要发布");
         mPerList.add("我发布的");
         mPerList.add("我卖出的");
         mPerList.add("我出租的");
