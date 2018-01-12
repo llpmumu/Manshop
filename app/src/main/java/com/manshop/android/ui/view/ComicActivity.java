@@ -5,11 +5,11 @@ import android.os.Bundle;
 
 import com.manshop.android.R;
 
-public class ComiketActivity extends AppCompatActivity {
+public class ComicActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_comiket);
+        setContentView(R.layout.activity_comic);
     }
 }

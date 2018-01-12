@@ -4,6 +4,7 @@ package com.manshop.android.ui.view;
  * Created by Lin on 2017/10/31.
  */
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -13,6 +14,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ScrollView;
+import android.widget.TextView;
 
 import com.manshop.android.R;
 import com.manshop.android.adapter.GoodsRecycleAdapter;
@@ -40,7 +42,7 @@ public class HomeFragment extends Fragment {
             "title5",
     };
 
-//    private ScrollView mScrollView;
+    //    private ScrollView mScrollView;
     public static HomeFragment newInstance(String index) {
         HomeFragment f = new HomeFragment();
         Bundle args = new Bundle();
@@ -52,6 +54,7 @@ public class HomeFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
+//        轮播图
         Banner banner = (Banner) view.findViewById(R.id.banner);
         images.add(R.drawable.img_lunbo1);
         images.add(R.drawable.img_lunbo2);
@@ -77,8 +80,8 @@ public class HomeFragment extends Fragment {
         //banner设置方法全部调用完毕时最后调用
         banner.start();
 
+//        商品列表
         initData();
-
         recyclerview = (RecyclerView) view.findViewById(R.id.recycle);
         LinearLayoutManager manager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
         recyclerview.setLayoutManager(manager);
@@ -86,7 +89,14 @@ public class HomeFragment extends Fragment {
         GoodsRecycleAdapter adapter = new GoodsRecycleAdapter(getActivity(), mGood);
         recyclerview.setAdapter(adapter);
 
-//        mScrollView = (ScrollView) view.findViewById(R.id.scrollView);
+
+        TextView tvShow = (TextView) view.findViewById(R.id.tv_show);
+        tvShow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getActivity(), ComicActivity.class));
+            }
+        });
         return view;
     }
 
@@ -102,19 +112,19 @@ public class HomeFragment extends Fragment {
         mPic.add("https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=3373321088,605628612&fm=27&gp=0.jpg");
         mGood.add(
                 new Goods("https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=2450994032,3525797548&fm=27&gp=0.jpg",
-                        "123", "456", "\n\n789",mPic));
+                        "123", "456", "\n\n789", mPic));
         mGood.add(
                 new Goods("https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=2450994032,3525797548&fm=27&gp=0.jpg",
-                        "123", "456", "789",mPic));
+                        "123", "456", "789", mPic));
         mGood.add(
                 new Goods("https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=2450994032,3525797548&fm=27&gp=0.jpg",
-                        "123", "456", "789",mPic));
+                        "123", "456", "789", mPic));
         mGood.add(
                 new Goods("https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=2450994032,3525797548&fm=27&gp=0.jpg",
-                        "123", "456", "789",mPic));
+                        "123", "456", "789", mPic));
         mGood.add(
                 new Goods("https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=2450994032,3525797548&fm=27&gp=0.jpg",
-                        "123", "456", "789",mPic));
+                        "123", "456", "789", mPic));
 
 
     }

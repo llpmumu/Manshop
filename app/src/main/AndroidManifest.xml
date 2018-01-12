@@ -33,7 +33,7 @@
         <activity android:name=".ui.view.SaleActivity" />
         <activity android:name=".ui.view.AddressActivity" />
         <activity android:name=".ui.view.GoodDetailActivity" />
-        <activity android:name=".ui.view.ComiketActivity" />
+        <activity android:name=".ui.view.ComicActivity" />
         <activity android:name=".ui.view.EditAddressActivity" />
         <activity android:name=".ui.view.DialogueActivity">
 
