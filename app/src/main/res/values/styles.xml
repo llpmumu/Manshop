@@ -10,6 +10,18 @@
     </style>
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
+    <style name="line">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">1dp</item>
+        <item name="android:background">@color/splitline</item>
+    </style>
+
+    <style name="line_mid">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">3dp</item>
+        <item name="android:background">@color/splitline</item>
+    </style>
 </resources>

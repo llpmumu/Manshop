@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            app:titleTextColor="@color/textColor">
+
+            <TextView
+                android:id="@+id/toolbar_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="我要发货"
+                android:textColor="#fff"
+                android:textSize="20sp" />
+        </android.support.v7.widget.Toolbar>
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:paddingBottom="10dp"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        android:paddingTop="10dp">
+
+        <TextView
+            android:id="@+id/tip"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:paddingBottom="5dp"
+            android:text="买家收货地址"
+            android:textColor="@color/cardview_shadow_start_color" />
+
+        <TextView
+            android:id="@+id/userMsg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@id/tip"
+            android:paddingBottom="5dp"
+            android:text="小庄(158*****397)"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/address"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_below="@id/userMsg"
+            android:text="西安邮电大学长安区西区16栋118" />
+
+        <ImageButton
+            android:id="@+id/consigneeMsg"
+            android:layout_width="40dp"
+            android:layout_height="60dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:background="@color/white"
+            android:paddingLeft="10dp"
+            android:paddingRight="30dp"
+            android:src="@drawable/ic_right" />
+    </RelativeLayout>
+
+    <View style="@style/line_mid" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:paddingTop="10dp"
+        android:orientation="vertical">
+        <EditText
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:hint="请输快递单号"
+            android:background="@null"
+            android:drawableLeft="@drawable/ic_delivery"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingTop="5dp"
+            android:text="无需快递"
+            android:textColor="@color/blue"
+            android:textSize="13sp"/>
+    </LinearLayout>
+
+</LinearLayout>

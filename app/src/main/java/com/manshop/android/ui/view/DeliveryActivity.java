@@ -6,11 +6,11 @@ import android.os.Bundle;
 import com.manshop.android.R;
 import com.manshop.android.ui.base.BaseActivity;
 
-public class OrderActivity extends BaseActivity {
+public class DeliveryActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_order);
+        setContentView(R.layout.activity_delivery);
     }
 }
