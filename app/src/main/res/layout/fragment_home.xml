@@ -6,11 +6,16 @@
     android:layout_gravity="center"
     android:orientation="vertical">
 
-    <android.support.v4.widget.SwipeRefreshLayout
-        android:id="@+id/srefresh_refresh"
+    <com.cjj.MaterialRefreshLayout
+        android:id="@+id/matfresh_refresh"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        app:overlay="true"
+        app:wave_show="true"
+        app:wave_color="#90ffffff"
+        app:progress_colors="@array/material_colors"
+        app:wave_height_type="higher">
 
         <android.support.v4.widget.NestedScrollView
             android:id="@+id/scrollView"
@@ -79,5 +84,5 @@
                     android:layout_margin="10dp" />
             </LinearLayout>
         </android.support.v4.widget.NestedScrollView>
-    </android.support.v4.widget.SwipeRefreshLayout>
+    </com.cjj.MaterialRefreshLayout>
 </LinearLayout>
