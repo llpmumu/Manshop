@@ -17,9 +17,9 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="?attr/colorPrimary"
-            app:titleTextColor="@color/textColor"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
             app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-            app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
+            app:titleTextColor="@color/textColor">
 
             <TextView
                 android:id="@+id/toolbar_title"
@@ -59,10 +59,7 @@
                     android:background="@null"
                     android:hint="标题" />
 
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="3dp"
-                    android:background="@color/splitline" />
+                <View style="@style/line" />
 
                 <EditText
                     android:id="@+id/etContent"
@@ -83,10 +80,7 @@
 
             </LinearLayout>
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="3dp"
-                android:background="@color/splitline" />
+            <View style="@style/line" />
 
             <RadioGroup
                 android:id="@+id/RadioGroup01"
@@ -111,55 +105,51 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="5dp"
-                android:layout_gravity="center">
+                android:layout_gravity="center"
+                android:layout_margin="5dp">
 
-                <LinearLayout
-                    android:id="@+id/linear1"
-                    android:layout_width="match_parent"
+                <TextView
+                    android:id="@+id/tv_tip1"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:text="价格"
+                    android:textSize="20sp" />
 
-                    <TextView
-                        android:id="@+id/tv_tip1"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="价格        "
-                        android:textSize="20sp" />
-
-                    <EditText
-                        android:id="@+id/et_sale_price"
-                        android:layout_width="200dp"
-                        android:layout_height="wrap_content" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
+                <EditText
+                    android:id="@+id/et_sale_price"
+                    android:layout_width="200dp"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/linear1"
-                    android:orientation="horizontal"
-                    android:visibility="visible">
+                    android:layout_alignBaseline="@+id/tv_tip1"
+                    android:layout_marginLeft="60dp"
+                    android:layout_toRightOf="@+id/tv_tip1" />
 
-                    <TextView
-                        android:id="@+id/tv_tip2"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignLeft="@id/tv_tip1"
-                        android:text="租赁价格"
-                        android:textSize="20sp" />
+                <TextView
+                    android:id="@+id/tv_tip2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignLeft="@id/tv_tip1"
+                    android:layout_below="@+id/tv_tip1"
+                    android:paddingTop="5dp"
+                    android:text="租赁价格"
+                    android:textSize="20sp" />
 
-                    <EditText
-                        android:id="@+id/et_rent_price"
-                        android:layout_width="200dp"
-                        android:layout_height="wrap_content"
-                        android:layout_alignLeft="@id/et_sale_price" />
+                <EditText
+                    android:id="@+id/et_rent_price"
+                    android:layout_width="200dp"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBaseline="@+id/tv_tip2"
+                    android:layout_alignLeft="@id/et_sale_price"
+                    android:layout_below="@+id/tv_tip1"
+                    android:layout_toRightOf="@+id/tv_tip2" />
 
-                    <Spinner
-                        android:id="@+id/sp_time"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:entries="@array/sp_time" />
-                </LinearLayout>
+                <Spinner
+                    android:id="@+id/sp_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/tv_tip1"
+                    android:layout_toRightOf="@+id/et_rent_price"
+                    android:entries="@array/sp_time"
+                    android:layout_alignBaseline="@+id/tv_tip2"/>
             </RelativeLayout>
 
 
