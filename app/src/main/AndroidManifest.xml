@@ -33,17 +33,14 @@
         <activity android:name=".ui.view.SearchActivity" />
         <activity android:name=".ui.view.PublishActivity" />
         <activity android:name=".ui.view.AddressActivity" />
-        <activity android:name=".ui.view.GoodDetailActivity"></activity>
+        <activity android:name=".ui.view.GoodDetailActivity" />
         <activity android:name=".ui.view.ComicActivity" />
         <activity android:name=".ui.view.EditAddressActivity" />
         <activity android:name=".ui.view.DialogueActivity" />
         <activity android:name=".ui.view.NewPublishActivity" />
-        <activity android:name=".ui.view.MyNewOrderActivity">
-
-        </activity>
-        <activity android:name=".ui.view.DeliveryActivity">
-
-        </activity>
+        <activity android:name=".ui.view.MyNewOrderActivity"></activity>
+        <activity android:name=".ui.view.DeliveryActivity"></activity>
+        <activity android:name=".ui.view.OrderDetailActivity"></activity>
     </application>
 
 </manifest>
