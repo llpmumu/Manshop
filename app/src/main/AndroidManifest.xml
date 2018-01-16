@@ -21,7 +21,13 @@
         <activity android:name=".ui.view.WelcomeActivity" />
         <activity
             android:name=".ui.view.MainActivity"
-            android:label="@string/app_name" />
+            android:label="@string/app_name">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity android:name=".ui.view.LoginActivity" />
         <activity android:name=".ui.view.RegisterActivity" />
         <activity android:name=".ui.view.SearchActivity" />
@@ -36,11 +42,7 @@
 
         </activity>
         <activity android:name=".ui.view.DeliveryActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
     </application>
 
