@@ -7,6 +7,7 @@ import android.util.Log;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.google.gson.Gson;
 import com.manshop.android.myException.GET_RESPONSE_MESSAGE_FAILURE;
 
 import java.io.IOException;
@@ -28,6 +29,7 @@ import okhttp3.Response;
 public class okHttpUtil {
     private static OkHttpClient client;
     private Handler handler;
+    private Gson gson;
     public static final MediaType JSON_TYPE = MediaType.parse("application/json; charset=utf-8");
 
 
@@ -46,6 +48,7 @@ public class okHttpUtil {
                 .writeTimeout(5, TimeUnit.SECONDS)
                 .readTimeout(5, TimeUnit.SECONDS)
                 .build();
+        gson=new Gson();
         handler = new Handler(Looper.getMainLooper());
     }
 
@@ -124,12 +127,12 @@ public class okHttpUtil {
                     JSONObject json = JSON.parseObject(result);
                     Log.d("----", "------------------------------------jqury:" + result);
                     if (json.getInteger("code") == 200) {
+//                        Object obj = gson.fromJson(result , callback.type);
+//                        System.out.println(callback.type);
                         callbackSuccess(callback , response , result);
-//                        callback.callBackSuccess(response, result);
-
-                    } else if (json.getInteger("code") == 205) {
-                        callbackError(callback , response , result);
-//                        callback.onError(response, null);
+                    }
+                    else if (json.getInteger("code") == 205) {
+                        callbackError(callback , response , null);
                     }
                 }
             }
@@ -161,19 +164,5 @@ public class okHttpUtil {
             }
         });
     }
-
-//    handler = new Handler() {
-//        @Override
-//        public void handleMessage(android.os.Message msg) {
-//            String s = (String) msg.obj;
-//            JSONObject json = JSON.parseObject(s);
-//            if(json.getInteger("code")==200){
-//                json.getString("msg");
-//            }else if(json.getInteger("code") == 205){
-//                json.getString("msg");
-//            }
-//        }
-//    };
-
 
 }

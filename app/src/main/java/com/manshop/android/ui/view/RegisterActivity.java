@@ -10,9 +10,11 @@ import android.widget.Toast;
 
 import com.manshop.android.R;
 import com.manshop.android.model.User;
+import com.manshop.android.model.msg.LoginRespMsg;
 import com.manshop.android.okHttp.CallBack;
 import com.manshop.android.ui.base.BaseActivity;
 import com.manshop.android.okHttp.okHttpUtil;
+import com.manshop.android.util.Constant;
 
 import java.io.IOException;
 import java.lang.reflect.Type;
@@ -82,7 +84,7 @@ public class RegisterActivity extends BaseActivity {
         final Map<String, String> param = new HashMap<>();
         param.put("phone", phone);
         param.put("password", password);
-        okhttp.doPost("http://10.0.2.2:8080/user/register", new CallBack(RegisterActivity.this) {
+        okhttp.doPost(Constant.baseURL + "user/register", new CallBack(RegisterActivity.this) {
 
             @Override
             public void onError(Response response, Exception e) throws IOException {
@@ -91,8 +93,19 @@ public class RegisterActivity extends BaseActivity {
 
             @Override
             public void callBackSuccess(Response response, Object o) throws IOException {
-                startActivity(new Intent(RegisterActivity.this, LoginActivity.class));
+                Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
+                startActivity(intent);
+//                if (userLoginRespMsg.getStatus() == 1) {
+//                    Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
+//                    startActivity(intent);
+//                    finish();
+//                }
             }
+
+//            @Override
+//            public void callBackSuccess(Response response, Object o) throws IOException {
+//                startActivity(new Intent(RegisterActivity.this, LoginActivity.class));
+//            }
         }, param);
     }
 }

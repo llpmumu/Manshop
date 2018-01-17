@@ -11,10 +11,14 @@ import android.widget.Toast;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.manshop.android.MyApplication;
 import com.manshop.android.R;
+import com.manshop.android.model.User;
+import com.manshop.android.model.msg.LoginRespMsg;
 import com.manshop.android.okHttp.CallBack;
 import com.manshop.android.ui.base.BaseActivity;
 import com.manshop.android.okHttp.okHttpUtil;
+import com.manshop.android.util.Constant;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -70,39 +74,10 @@ public class LoginActivity extends BaseActivity {
             Toast.makeText(getApplicationContext(), "密码不能为空", Toast.LENGTH_SHORT).show();
             return;
         }
-
-//        new Thread() {
-//            @Override
-//            public void run() {
-//                try {
-//                    String path = okHttpUtil.doPost("http://10.0.2.2:8080/user/login", param);
-//                    Message msg = new Message();
-//                    msg.obj = path;
-//                    handler.sendMessage(msg);
-//
-//                    startActivity(new Intent(LoginActivity.this, MainActivity.class));
-//                } catch (IOException e) {
-//                    e.printStackTrace();
-//                }
-//            }
-//        }.start();
-//    }
-//    Handler handler = new Handler() {
-//        @Override
-//        public void handleMessage(android.os.Message msg) {
-//            String s = (String) msg.obj;
-//            JSONObject json = JSON.parseObject(s);
-//            if(json.getInteger("code")==200){
-////                Toast.makeText(getApplicationContext(),"successful",Toast.LENGTH_SHORT).show();
-//            }else if(json.getInteger("code") == 205){
-//                Toast.makeText(getApplicationContext(),json.getString("data"),Toast.LENGTH_SHORT).show();
-//            }
-//        }
-//    };
         final Map<String, String> param = new HashMap<>();
         param.put("phone", phone);
         param.put("password", password);
-        okhttp.doPost("http://10.0.2.2:8080/user/login", new CallBack(LoginActivity.this) {
+        okhttp.doPost(Constant.baseURL+"user/login", new CallBack(LoginActivity.this) {
 
             @Override
             public void onError(Response response, Exception e) throws IOException {
@@ -111,8 +86,13 @@ public class LoginActivity extends BaseActivity {
 
             @Override
             public void callBackSuccess(Response response, Object o) throws IOException {
-                startActivity(new Intent(LoginActivity.this,MainActivity.class));
+
             }
+
+//            @Override
+//            public void callBackSuccess(Response response, Object o) throws IOException {
+//                LoginRespMsg<User> userLoginRespMsg = new LoginRespMsg<>;
+
         },param);
     }
 }

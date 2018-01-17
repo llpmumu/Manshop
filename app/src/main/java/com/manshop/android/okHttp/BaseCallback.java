@@ -14,6 +14,22 @@ import okhttp3.Response;
  */
 
 public abstract class BaseCallback {
+//    public Type type ;
+//
+//    static Type getSuperclassTypeParameter(Class<?> subclass ){
+//        Type superClass = subclass.getGenericSuperclass() ;
+//        if (superClass instanceof Class){
+//            throw new RuntimeException("Missing type parameter") ;
+//        }
+//        ParameterizedType parameterizedType = (ParameterizedType) superClass;
+//        return $Gson$Types.canonicalize(parameterizedType.getActualTypeArguments()[0]) ;
+//    }
+//
+//
+//
+//    public BaseCallback(){
+//        this.type = getSuperclassTypeParameter(this.getClass()) ;
+//    }
 
     public abstract void onRequestBefore();
     public abstract void onFailure(Request request, IOException e) ;
