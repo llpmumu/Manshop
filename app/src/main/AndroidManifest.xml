@@ -18,9 +18,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.view.WelcomeActivity" ></activity>
+        <activity android:name=".ui.view.activity.WelcomeActivity" ></activity>
         <activity
-            android:name=".ui.view.MainActivity"
+            android:name=".ui.view.activity.MainActivity"
             android:label="@string/app_name">
             <intent-filter>
             <action android:name="android.intent.action.MAIN" />
@@ -28,19 +28,19 @@
             <category android:name="android.intent.category.LAUNCHER" />
         </intent-filter>
         </activity>
-        <activity android:name=".ui.view.LoginActivity" />
-        <activity android:name=".ui.view.RegisterActivity" />
-        <activity android:name=".ui.view.SearchActivity" />
-        <activity android:name=".ui.view.PublishActivity" />
-        <activity android:name=".ui.view.AddressActivity" />
-        <activity android:name=".ui.view.GoodDetailActivity" />
-        <activity android:name=".ui.view.ComicActivity" />
-        <activity android:name=".ui.view.EditAddressActivity" />
-        <activity android:name=".ui.view.DialogueActivity" />
-        <activity android:name=".ui.view.NewPublishActivity" />
-        <activity android:name=".ui.view.MyNewOrderActivity"></activity>
-        <activity android:name=".ui.view.DeliveryActivity"></activity>
-        <activity android:name=".ui.view.OrderDetailActivity"></activity>
+        <activity android:name=".ui.view.activity.LoginActivity" />
+        <activity android:name=".ui.view.activity.RegisterActivity" />
+        <activity android:name=".ui.view.activity.SearchActivity" />
+        <activity android:name=".ui.view.activity.PublishActivity" />
+        <activity android:name=".ui.view.activity.AddressActivity" />
+        <activity android:name=".ui.view.activity.GoodDetailActivity" />
+        <activity android:name=".ui.view.activity.ComicActivity" />
+        <activity android:name=".ui.view.activity.EditAddressActivity" />
+        <activity android:name=".ui.view.activity.DialogueActivity" />
+        <activity android:name=".ui.view.activity.NewPublishActivity" />
+        <activity android:name=".ui.view.activity.MyNewOrderActivity"></activity>
+        <activity android:name=".ui.view.activity.DeliveryActivity"></activity>
+        <activity android:name=".ui.view.activity.OrderDetailActivity"></activity>
     </application>
 
 </manifest>

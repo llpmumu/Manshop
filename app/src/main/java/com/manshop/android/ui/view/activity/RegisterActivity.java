@@ -1,4 +1,4 @@
-package com.manshop.android.ui.view;
+package com.manshop.android.ui.view.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,15 +9,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.manshop.android.R;
-import com.manshop.android.model.User;
-import com.manshop.android.model.msg.LoginRespMsg;
 import com.manshop.android.okHttp.CallBack;
 import com.manshop.android.ui.base.BaseActivity;
-import com.manshop.android.okHttp.okHttpUtil;
+import com.manshop.android.okHttp.OkHttp;
 import com.manshop.android.util.Constant;
 
 import java.io.IOException;
-import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -30,7 +27,7 @@ public class RegisterActivity extends BaseActivity {
     //文本框
     private EditText etPhone;
     private EditText etPassword;
-    private okHttpUtil okhttp = okHttpUtil.getOkhttpHelper();
+    private OkHttp okhttp = OkHttp.getOkhttpHelper();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -95,17 +92,7 @@ public class RegisterActivity extends BaseActivity {
             public void callBackSuccess(Response response, Object o) throws IOException {
                 Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
                 startActivity(intent);
-//                if (userLoginRespMsg.getStatus() == 1) {
-//                    Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
-//                    startActivity(intent);
-//                    finish();
-//                }
             }
-
-//            @Override
-//            public void callBackSuccess(Response response, Object o) throws IOException {
-//                startActivity(new Intent(RegisterActivity.this, LoginActivity.class));
-//            }
         }, param);
     }
 }

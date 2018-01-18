@@ -1,4 +1,4 @@
-package com.manshop.android.ui.view;
+package com.manshop.android.ui.view.activity;
 
 import android.content.Intent;
 import android.content.res.AssetManager;

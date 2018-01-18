@@ -23,7 +23,7 @@
             app:riv_oval="true" />
 
         <TextView
-            android:id="@+id/imlogin"
+            android:id="@+id/tvlogin"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"

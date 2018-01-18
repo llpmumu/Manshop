@@ -1,4 +1,4 @@
-package com.manshop.android.ui.view;
+package com.manshop.android.ui.view.activity;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;

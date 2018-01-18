@@ -1,8 +1,7 @@
-package com.manshop.android.ui.view;
+package com.manshop.android.ui.view.activity;
 
 import android.content.Intent;
 import android.os.Handler;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import com.manshop.android.R;

@@ -4,7 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.widget.Toast;
 
-import com.manshop.android.ui.view.LoginActivity;
+import com.manshop.android.ui.view.activity.LoginActivity;
 
 import java.io.IOException;
 

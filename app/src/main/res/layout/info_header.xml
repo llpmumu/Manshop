@@ -1,37 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="100dp"
     android:background="@color/colorPrimary"
     android:padding="10dp">
 
-    <!--未登录状态-->
-    <LinearLayout
-        android:id="@+id/before_login"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:visibility="invisible"
-        android:orientation="vertical">
-        <!--头像-->
-        <com.makeramen.roundedimageview.RoundedImageView
-            android:id="@+id/ic_unlogin"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:layout_gravity="left|center"
-            android:src="@drawable/ic_unlogin"
-            app:riv_border_color="@color/transparent"
-            app:riv_border_width="2dp"
-            app:riv_oval="true" />
+    <!--&lt;!&ndash;未登录状态&ndash;&gt;-->
+    <!--<LinearLayout-->
+        <!--android:id="@+id/before_login"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:visibility="gone"-->
+        <!--android:orientation="vertical">-->
+        <!--&lt;!&ndash;头像&ndash;&gt;-->
+        <!--<com.makeramen.roundedimageview.RoundedImageView-->
+            <!--android:id="@+id/ic_unlogin"-->
+            <!--android:layout_width="60dp"-->
+            <!--android:layout_height="60dp"-->
+            <!--android:layout_gravity="left|center"-->
+            <!--android:src="@drawable/ic_unlogin"-->
+            <!--app:riv_border_color="@color/transparent"-->
+            <!--app:riv_border_width="2dp"-->
+            <!--app:riv_oval="true" />-->
 
-        <TextView
-            android:id="@+id/imlogin"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
-            android:text="点击头像立即登录"
-            android:textColor="@color/white"/>
-    </LinearLayout>
+        <!--<TextView-->
+            <!--android:id="@+id/imlogin"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_gravity="bottom"-->
+            <!--android:text="点击头像立即登录"-->
+            <!--android:textColor="@color/white"/>-->
+    <!--</LinearLayout>-->
 
     <!--已登录状态-->
     <RelativeLayout
@@ -43,7 +43,7 @@
         <!--侧边栏头部-->
         <!--头像-->
         <com.makeramen.roundedimageview.RoundedImageView
-            android:id="@+id/icon_image"
+            android:id="@+id/im_head"
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:layout_gravity="left|center"
@@ -60,8 +60,8 @@
             android:text="11"
             android:gravity="center"
             android:textColor="@color/white"
-            android:layout_below="@+id/icon_image"
-            android:layout_alignLeft="@+id/icon_image"
+            android:layout_below="@id/im_head"
+            android:layout_alignLeft="@id/im_head"
             android:textSize="20sp" />
     </RelativeLayout>
-</FrameLayout>
+</LinearLayout>

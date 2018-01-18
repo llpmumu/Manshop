@@ -26,7 +26,7 @@ import okhttp3.Response;
  * Created by Lin on 2018/1/16.
  */
 
-public class okHttpUtil {
+public class OkHttp {
     private static OkHttpClient client;
     private Handler handler;
     private Gson gson;
@@ -42,18 +42,18 @@ public class okHttpUtil {
     //    static {
 //        client = new OkHttpClient();
 //    }
-    private okHttpUtil() {
+    private OkHttp() {
         client = new OkHttpClient.Builder()
                 .connectTimeout(5, TimeUnit.SECONDS)
                 .writeTimeout(5, TimeUnit.SECONDS)
                 .readTimeout(5, TimeUnit.SECONDS)
                 .build();
-        gson=new Gson();
+        gson = new Gson();
         handler = new Handler(Looper.getMainLooper());
     }
 
-    public static okHttpUtil getOkhttpHelper() {
-        return new okHttpUtil();
+    public static OkHttp getOkhttpHelper() {
+        return new OkHttp();
     }
 
 
@@ -125,14 +125,12 @@ public class okHttpUtil {
                     //提交成功，得到回返信息
                     String result = response.body().string();
                     JSONObject json = JSON.parseObject(result);
-                    Log.d("----", "------------------------------------jqury:" + result);
+                    Log.d("----", "------------------------------------result:" + result);
+                    Log.d("----", "------------------------------------json:" + json);
                     if (json.getInteger("code") == 200) {
-//                        Object obj = gson.fromJson(result , callback.type);
-//                        System.out.println(callback.type);
-                        callbackSuccess(callback , response , result);
-                    }
-                    else if (json.getInteger("code") == 205) {
-                        callbackError(callback , response , null);
+                        callbackSuccess(callback, response, result);
+                    } else if (json.getInteger("code") == 205) {
+                        callbackError(callback, response, null);
                     }
                 }
             }
@@ -152,12 +150,12 @@ public class okHttpUtil {
         });
     }
 
-    private void callbackError (final BaseCallback baseCallback , final Response response , final Object object){
+    private void callbackError(final BaseCallback baseCallback, final Response response, final Object object) {
         handler.post(new Runnable() {
             @Override
             public void run() {
                 try {
-                    baseCallback.onError(response , new GET_RESPONSE_MESSAGE_FAILURE("获取服务器信息失败"));
+                    baseCallback.onError(response, new GET_RESPONSE_MESSAGE_FAILURE("获取服务器信息失败"));
                 } catch (IOException e) {
                     e.printStackTrace();
                 }

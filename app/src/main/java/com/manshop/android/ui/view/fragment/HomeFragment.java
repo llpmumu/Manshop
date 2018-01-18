@@ -1,4 +1,4 @@
-package com.manshop.android.ui.view;
+package com.manshop.android.ui.view.fragment;
 
 /**
  * Created by Lin on 2017/10/31.
@@ -10,15 +10,14 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.manshop.android.R;
 import com.manshop.android.adapter.GoodsRecycleAdapter;
 import com.manshop.android.model.Goods;
+import com.manshop.android.ui.view.activity.ComicActivity;
 import com.manshop.android.util.GlideImageLoader;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;

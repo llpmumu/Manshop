@@ -1,8 +1,7 @@
-package com.manshop.android.ui.view;
+package com.manshop.android.ui.view.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.view.GravityCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.Menu;

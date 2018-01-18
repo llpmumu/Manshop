@@ -7,7 +7,7 @@
     android:clipToPadding="true"
     android:fitsSystemWindows="true"
     android:orientation="vertical"
-    tools:context="com.manshop.android.ui.view.GoodDetailActivity">
+    tools:context="com.manshop.android.ui.view.activity.GoodDetailActivity">
 
     <LinearLayout
         android:layout_width="match_parent"

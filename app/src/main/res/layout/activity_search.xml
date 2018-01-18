@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.manshop.android.ui.view.SearchActivity">
+    tools:context="com.manshop.android.ui.view.activity.SearchActivity">
 
     <LinearLayout
         android:layout_width="match_parent"

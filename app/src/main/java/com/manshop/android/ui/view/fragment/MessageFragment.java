@@ -1,4 +1,4 @@
-package com.manshop.android.ui.view;
+package com.manshop.android.ui.view.fragment;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
