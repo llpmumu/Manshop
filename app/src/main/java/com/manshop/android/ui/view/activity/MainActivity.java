@@ -32,9 +32,6 @@ import com.manshop.android.ui.view.fragment.HomeFragment;
 import com.manshop.android.ui.view.fragment.MessageFragment;
 import com.manshop.android.ui.view.fragment.PersonalFragment;
 
-
-import java.util.logging.LogRecord;
-
 public class MainActivity extends BaseActivity {
     private Toolbar toolbar;
     //侧边栏
@@ -45,6 +42,7 @@ public class MainActivity extends BaseActivity {
     private RelativeLayout after;
     private RoundedImageView head;
     private TextView tvUsername;
+    private TextView test;
     //中间
     private ViewPager viewPager;
     private MenuItem menuItemFrag;
@@ -74,12 +72,9 @@ public class MainActivity extends BaseActivity {
         viewPager.setOffscreenPageLimit(3);
         setupViewPager(viewPager);
 
-        LinearLayout info = (LinearLayout) getLayoutInflater().inflate(R.layout.info_header, null);
-//        before = (LinearLayout) info.findViewById(R.id.before_login);
-        after = (RelativeLayout) info.findViewById(R.id.after_login);
+        RelativeLayout info = (RelativeLayout) navView.inflateHeaderView(R.layout.info_header);
         head = (RoundedImageView) info.findViewById(R.id.im_head);
         tvUsername = (TextView) info.findViewById(R.id.tv_username);
-
     }
 
     public void addListener() {
@@ -181,61 +176,18 @@ public class MainActivity extends BaseActivity {
         });
     }
 
-    private Handler handler = new Handler();
-//    {
-//        public void handleMessage(Message msg) {
-//            SharedPreferences share = getSharedPreferences("User", MODE_PRIVATE);
-//            Log.d("user", "login");
-//            if (share != null) {
-////            before.setVisibility(View.GONE);
-////                after.setVisibility(View.VISIBLE);
-//                Glide.with(MainActivity.this).load(share.getString("head", "")).into(head);
-//                tvUsername.setText("789");
-////            tvUsername.setText(share.getString("username",""));
-//                Log.d("user", tvUsername.getText().toString());
-//                Log.d("user", share.getString("head", ""));
-//                Log.d("user", share.getString("username", ""));
-//            } else {
-////            after.setVisibility(View.INVISIBLE);
-////            before.setVisibility(View.VISIBLE);
-////            Glide.with(this).load(R.drawable.ic_unlogin).into(head);
-////            tvUsername.setText("点击头像立即登录");
-//                Log.d("user", "invisible");
-//            }
-//        }
-//    };
-
     public void showUser() {
-        new Thread() {
-            @Override
-            public void run() {
-                try {
-                    //你的处理逻辑,这里简单睡眠一秒
-                    this.sleep(1000);
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            //你的处理逻辑
-                            SharedPreferences share = getSharedPreferences("User", MODE_PRIVATE);
-                            Log.d("user", "login");
-                            if (share != null) {
-                                Glide.with(MainActivity.this).load(share.getString("head", "")).into(head);
-                                tvUsername.setText("789");
-                                Log.d("user", tvUsername.getText().toString());
-                                Log.d("user", share.getString("head", ""));
-                                Log.d("user", share.getString("username", ""));
-                            } else {
-//            Glide.with(this).load(R.drawable.ic_unlogin).into(head);
-//            tvUsername.setText("点击头像立即登录");
-                                Log.d("user", "invisible");
-                            }
-                        }
-                    });
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            }
-        }.start();
+        SharedPreferences share = getSharedPreferences("User", MODE_PRIVATE);
+        Log.d("user", "login");
+        if (share != null) {
+            Glide.with(MainActivity.this).load(share.getString("head", "")).into(head);
+            tvUsername.setText(share.getString("username", ""));
+            Log.d("user", share.getString("head", ""));
+            Log.d("user", share.getString("username", ""));
+        } else {
+            Glide.with(this).load(R.drawable.ic_unlogin).into(head);
+            tvUsername.setText("点击头像立即登录");
+        }
     }
 
     @Override
