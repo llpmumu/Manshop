@@ -5,7 +5,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Looper;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -71,6 +73,7 @@ public class PersonalFragment extends Fragment {
         else {
             head.setVisibility(View.INVISIBLE);
             tvLogin.setVisibility(View.VISIBLE);
+            Log.d("user","un");
         }
     }
 

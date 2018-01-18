@@ -187,6 +187,7 @@ public class MainActivity extends BaseActivity {
         } else {
             Glide.with(this).load(R.drawable.ic_unlogin).into(head);
             tvUsername.setText("点击头像立即登录");
+            Log.d("user", "no");
         }
     }
 
