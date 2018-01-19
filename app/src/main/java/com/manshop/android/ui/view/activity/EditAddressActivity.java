@@ -88,9 +88,9 @@ public class EditAddressActivity extends BaseActivity {
 
     public void init() {
         tvConsigneeAdr = (TextView) findViewById(R.id.consignee_address);
-        etConsigneeName= (EditText) findViewById(R.id.consignee_name);
-        etConsigneePhone= (EditText) findViewById(R.id.consignee_phone);
-        etConsigneeDetailAdr= (EditText) findViewById(R.id.consignee_detail_address);
+        etConsigneeName = (EditText) findViewById(R.id.consignee_name);
+        etConsigneePhone = (EditText) findViewById(R.id.consignee_phone);
+        etConsigneeDetailAdr = (EditText) findViewById(R.id.consignee_detail_address);
         tvConsigneeAdr.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -109,13 +109,14 @@ public class EditAddressActivity extends BaseActivity {
     }
 
     private OkHttp okhttp = OkHttp.getOkhttpHelper();
-    public void saveAddress(){
+
+    public void saveAddress() {
         String name = etConsigneeName.getText().toString();
         String phone = etConsigneePhone.getText().toString();
         String address = tvConsigneeAdr.getText().toString();
         String detailAdr = etConsigneeDetailAdr.getText().toString();
         final Map<String, Object> param = new HashMap<>();
-        param.put("uid",MyApplication.getInstance().getUserId());
+        param.put("uid", MyApplication.getInstance().getUserId());
         param.put("consignee", name);
         param.put("addphone", phone);
         param.put("address", address + detailAdr);
@@ -183,8 +184,8 @@ public class EditAddressActivity extends BaseActivity {
 
     //地址选择器
     public void showAdrPickerView(final List<String> province,
-                                   final List<List<String>> city,
-                                   final List<List<List<String>>> county) {
+                                  final List<List<String>> city,
+                                  final List<List<List<String>>> county) {
 
         OptionsPickerView pvOptions = new OptionsPickerView.Builder(this, new OptionsPickerView.OnOptionsSelectListener() {
             @Override
