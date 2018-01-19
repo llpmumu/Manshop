@@ -179,15 +179,15 @@ public class MainActivity extends BaseActivity {
     public void showUser() {
         SharedPreferences share = getSharedPreferences("User", MODE_PRIVATE);
         Log.d("user", "login");
-        if (share != null) {
+        if (share.getInt("id",-1) != -1) {
             Glide.with(MainActivity.this).load(share.getString("head", "")).into(head);
             tvUsername.setText(share.getString("username", ""));
             Log.d("user", share.getString("head", ""));
             Log.d("user", share.getString("username", ""));
-        } else {
+        }
+        else{
             Glide.with(this).load(R.drawable.ic_unlogin).into(head);
             tvUsername.setText("点击头像立即登录");
-            Log.d("user", "no");
         }
     }
 

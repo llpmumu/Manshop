@@ -47,11 +47,10 @@ public class AddressActivity extends BaseActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
-                return super.onOptionsItemSelected(item);
-//                break;
+                startActivity(new Intent(AddressActivity.this,MainActivity.class));
+                break;
             case R.id.item_newaddress:
-                Intent intent = new Intent(AddressActivity.this,EditAddressActivity.class);
-                startActivity(intent);
+                startActivity(new Intent(AddressActivity.this,EditAddressActivity.class));
                 break;
             default:
         }
@@ -60,11 +59,10 @@ public class AddressActivity extends BaseActivity {
 
     private void init(){
         mAddress = new ArrayList<>();
-        mAddress.add( new Address(1,"Jame","13459427684","杭州市拱墅区湖州街51号,浙江大学城市学院","123456",true));
-        mAddress.add( new Address(1,"Jame","13459427684","杭州市拱墅区湖州街51号,浙江大学城市学院","123456",false));
-        mAddress.add( new Address(1,"Jame","13459427684","杭州市拱墅区湖州街51号,浙江大学城市学院","123456",false));
-        mAddress.add( new Address(1,"Jame","13459427684","杭州市拱墅区湖州街51号,浙江大学城市学院","123456",false));
-        mAddress.add( new Address(1,"Jame","13459427684","杭州市拱墅区湖州街51号,浙江大学城市学院","123456",false));
-
+        mAddress.add( new Address(1,"Jame","13459427684","杭州市拱墅区湖州街51号,浙江大学城市学院",true));
+        mAddress.add( new Address(1,"Jame","13459427684","杭州市拱墅区湖州街51号,浙江大学城市学院",false));
+        mAddress.add( new Address(1,"Jame","13459427684","杭州市拱墅区湖州街51号,浙江大学城市学院",false));
+        mAddress.add( new Address(1,"Jame","13459427684","杭州市拱墅区湖州街51号,浙江大学城市学院",false));
+        mAddress.add( new Address(1,"Jame","13459427684","杭州市拱墅区湖州街51号,浙江大学城市学院",false));
     }
 }

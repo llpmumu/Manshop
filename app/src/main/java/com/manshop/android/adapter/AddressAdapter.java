@@ -43,8 +43,8 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.ViewHold
         Address address = mList.get(position);
         holder.isCheck.setChecked(address.isDefault());
         holder.name.setText(address.getConsignee());
-        holder.telnum.setText(showPhone(address.getPhone()));
-        holder.address.setText(address.getAddr());
+        holder.telnum.setText(showPhone(address.getAddressPhone()));
+        holder.address.setText(address.getAddress());
         holder.checktext.setText(address.isDefault() ? "默认地址" : "设为默认");
     }
 

@@ -11,6 +11,7 @@ import android.widget.Toast;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.manshop.android.MyApplication;
 import com.manshop.android.R;
 import com.manshop.android.model.User;
 import com.manshop.android.okHttp.CallBack;
@@ -54,7 +55,7 @@ public class LoginActivity extends BaseActivity {
         etPhone = (TextView) findViewById(R.id.et_phone);
         etPassword = (TextView) findViewById(R.id.et_password);
         SharedPreferences share = getSharedPreferences("User", MODE_PRIVATE);
-        if (share != null) {
+        if (share.getInt("id",-1) != -1) {
             Log.d("user", share.getString("phone", "")+"-"+share.getString("password", ""));
             etPhone.setText(share.getString("phone", ""));
             etPassword.setText(share.getString("password", ""));
@@ -79,7 +80,7 @@ public class LoginActivity extends BaseActivity {
             Toast.makeText(getApplicationContext(), "密码不能为空", Toast.LENGTH_SHORT).show();
             return;
         }
-        final Map<String, String> param = new HashMap<>();
+        final Map<String, Object> param = new HashMap<>();
         param.put("phone", phone);
         param.put("password", password);
         okhttp.doPost(Constant.baseURL + "user/login", new CallBack(LoginActivity.this) {
@@ -94,13 +95,16 @@ public class LoginActivity extends BaseActivity {
                 JSONObject json = JSON.parseObject((String) o);
                 User user = json.getObject("data", User.class);
                 SharePreferenceUtil sharePreferenceHelper = new SharePreferenceUtil(LoginActivity.this);
-                Map<String, Object> map = new HashMap<String, Object>();
+                Map<String, Object> map = new HashMap<>();
+                map.put("id", user.getId());
                 map.put("username", user.getUsername());
                 map.put("password", user.getPassword());
                 map.put("head", user.getHead());
                 map.put("phone", user.getPhone());
                 sharePreferenceHelper.saveSharePreference("User", map);
-                Log.d("--", "------map" + map);
+                Log.d("user", "------map" + map);
+                Log.d("user", "------user" + user);
+                MyApplication.getInstance().setUser(user);
                 startActivity(new Intent(LoginActivity.this, MainActivity.class));
             }
         }, param);

@@ -5,36 +5,35 @@ package com.manshop.android.model;
  */
 
 public class Address {
-    private int id ;
-    private String consignee ;
-    private String phone ;
-    private String addr ;
-    private String postalCode ;
-    private boolean isDefault ;
+    private Integer id;
+    private User user;
+    private String consignee;
+    private String address;
+    private String addphone;
+    private boolean isDefault;
 
-    public Address(int id, String consignee, String phone, String addr, String postalCode, boolean isDefault) {
+    public Address(int id, String consignee, String phone, String addr, boolean isDefault) {
         this.id = id;
         this.consignee = consignee;
-        this.phone = phone;
-        this.addr = addr;
-        this.postalCode = postalCode;
+        this.addphone = phone;
+        this.address = addr;
         this.isDefault = isDefault;
     }
 
-    public String getZipCode() {
-        return postalCode;
-    }
-
-    public void setZipCode(String postalCode) {
-        this.postalCode = postalCode;
-    }
-
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public String getConsignee() {
@@ -45,20 +44,20 @@ public class Address {
         this.consignee = consignee;
     }
 
-    public String getPhone() {
-        return phone;
+    public String getAddress() {
+        return address;
     }
 
-    public void setPhone(String phone) {
-        this.phone = phone;
+    public void setAddress(String address) {
+        this.address = address;
     }
 
-    public String getAddr() {
-        return addr;
+    public String getAddressPhone() {
+        return addphone;
     }
 
-    public void setAddr(String addr) {
-        this.addr = addr;
+    public void setAddressPhone(String addphone) {
+        this.addphone = addphone;
     }
 
     public boolean isDefault() {

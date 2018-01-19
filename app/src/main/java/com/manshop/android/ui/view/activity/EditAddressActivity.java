@@ -1,61 +1,62 @@
 package com.manshop.android.ui.view.activity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.AssetManager;
 import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.bigkoo.pickerview.OptionsPickerView;
+import com.manshop.android.MyApplication;
 import com.manshop.android.R;
+import com.manshop.android.model.Address;
 import com.manshop.android.model.city.Privince;
 import com.manshop.android.model.city.XmlParserHandler;
+import com.manshop.android.okHttp.CallBack;
+import com.manshop.android.okHttp.OkHttp;
 import com.manshop.android.ui.base.BaseActivity;
+import com.manshop.android.util.Constant;
 
 import org.xml.sax.SAXException;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 
+import okhttp3.Response;
+
 public class EditAddressActivity extends BaseActivity {
-    private TextView consigneeAdr;
+    private EditText etConsigneeName;
+    private EditText etConsigneePhone;
+    private TextView tvConsigneeAdr;
+    private EditText etConsigneeDetailAdr;
     private List<String> province;
     private List<List<String>> city;
     private List<List<List<String>>> county;
-    private List<List<List<String>>> zip_codes;
-    private String zip_code;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_address);
         showToolbar();
-        consigneeAdr = (TextView) findViewById(R.id.consigneeAdr);
-        consigneeAdr.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                try {
-                    getAddressData();
-                    showAdrPickerView(province, city, county);
-                } catch (ParserConfigurationException e) {
-                    e.printStackTrace();
-                } catch (SAXException e) {
-                    e.printStackTrace();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        });
+        init();
     }
 
     @Override
@@ -73,14 +74,73 @@ public class EditAddressActivity extends BaseActivity {
     //标题栏按钮功能实现
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        return super.onOptionsItemSelected(item);
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                finish();
+                break;
+            case R.id.item_saveaddress:
+                saveAddress();
+                break;
+            default:
+        }
+        return true;
     }
 
-    private void getAdrMsg(List<Privince> privinceModels) {
+    public void init() {
+        tvConsigneeAdr = (TextView) findViewById(R.id.consignee_address);
+        etConsigneeName= (EditText) findViewById(R.id.consignee_name);
+        etConsigneePhone= (EditText) findViewById(R.id.consignee_phone);
+        etConsigneeDetailAdr= (EditText) findViewById(R.id.consignee_detail_address);
+        tvConsigneeAdr.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                try {
+                    getAddressData();
+                    showAdrPickerView(province, city, county);
+                } catch (ParserConfigurationException e) {
+                    e.printStackTrace();
+                } catch (SAXException e) {
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+    }
+
+    private OkHttp okhttp = OkHttp.getOkhttpHelper();
+    public void saveAddress(){
+        String name = etConsigneeName.getText().toString();
+        String phone = etConsigneePhone.getText().toString();
+        String address = tvConsigneeAdr.getText().toString();
+        String detailAdr = etConsigneeDetailAdr.getText().toString();
+        final Map<String, Object> param = new HashMap<>();
+        param.put("uid",MyApplication.getInstance().getUserId());
+        param.put("consignee", name);
+        param.put("addphone", phone);
+        param.put("address", address + detailAdr);
+        param.put("isDefault", "false");
+        okhttp.doPost(Constant.baseURL + "address/newAddress", new CallBack(EditAddressActivity.this) {
+
+            @Override
+            public void onError(Response response, Exception e) throws IOException {
+                Toast.makeText(getApplicationContext(), "新建地址失败", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void callBackSuccess(Response response, Object o) throws IOException {
+                Log.d("address", "new success");
+                finish();
+                Intent intent = new Intent(EditAddressActivity.this, AddressActivity.class);
+                startActivity(intent);
+            }
+        }, param);
+    }
+
+    public void getAdrMsg(List<Privince> privinceModels) {
         province = new ArrayList<String>();
         city = new ArrayList<List<String>>();
         county = new ArrayList<List<List<String>>>();
-        zip_codes = new ArrayList<List<List<String>>>();
 
         for (int i = 0; i < privinceModels.size(); i++) {
 
@@ -105,12 +165,11 @@ public class EditAddressActivity extends BaseActivity {
             }
             city.add(cityNames);
             county.add(District);
-            zip_codes.add(DistrictCode);
         }
     }
 
-    private void getAddressData() throws ParserConfigurationException, SAXException, IOException {
-
+    //获取全国地址信息
+    public void getAddressData() throws ParserConfigurationException, SAXException, IOException {
         SAXParserFactory spf = SAXParserFactory.newInstance();
         SAXParser sp = spf.newSAXParser();
         XmlParserHandler sfh = new XmlParserHandler();
@@ -123,7 +182,7 @@ public class EditAddressActivity extends BaseActivity {
     }
 
     //地址选择器
-    private void showAdrPickerView(final List<String> province,
+    public void showAdrPickerView(final List<String> province,
                                    final List<List<String>> city,
                                    final List<List<List<String>>> county) {
 
@@ -131,8 +190,7 @@ public class EditAddressActivity extends BaseActivity {
             @Override
             public void onOptionsSelect(int options1, int option2, int options3, View v) {
                 //返回的分别是三个级别的选中位置
-                consigneeAdr.setText(province.get(options1) + city.get(options1).get(option2) + county.get(options1).get(option2).get(options3));
-                zip_code = zip_codes.get(options1).get(option2).get(options3);
+                tvConsigneeAdr.setText(province.get(options1) + city.get(options1).get(option2) + county.get(options1).get(option2).get(options3));
             }
         })
                 .setSubmitText("确定")//确定按钮文字
@@ -146,7 +204,6 @@ public class EditAddressActivity extends BaseActivity {
                 .setTitleBgColor(Color.WHITE)//标题背景颜色 Night mode
                 .setBgColor(Color.WHITE)//滚轮背景颜色 Night mode
                 .setContentTextSize(18)//滚轮文字大小
-//                .setLinkage(false)//设置是否联动，默认true
                 .setLabels("", "", "")//设置选择的三级单位
                 .isCenterLabel(false) //是否只显示中间选中项的label文字，false则每项item全部都带有label。
                 .setCyclic(false, false, false)//循环与否

@@ -65,15 +65,14 @@ public class PersonalFragment extends Fragment {
     }
 
     public void showUser(SharedPreferences user){
-        if (user != null){
+        if (user.getInt("id",-1) != -1){
             head.setVisibility(View.VISIBLE);
             tvLogin.setVisibility(View.INVISIBLE);
             Glide.with(getActivity()).load(user.getString("head","")).into(head);
         }
-        else {
+        else{
             head.setVisibility(View.INVISIBLE);
             tvLogin.setVisibility(View.VISIBLE);
-            Log.d("user","un");
         }
     }
 

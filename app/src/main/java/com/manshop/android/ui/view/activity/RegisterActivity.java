@@ -78,7 +78,7 @@ public class RegisterActivity extends BaseActivity {
             Toast.makeText(getApplicationContext(), "密码长度为6-16", Toast.LENGTH_SHORT).show();
             return;
         }
-        final Map<String, String> param = new HashMap<>();
+        final Map<String, Object> param = new HashMap<>();
         param.put("phone", phone);
         param.put("password", password);
         okhttp.doPost(Constant.baseURL + "user/register", new CallBack(RegisterActivity.this) {
