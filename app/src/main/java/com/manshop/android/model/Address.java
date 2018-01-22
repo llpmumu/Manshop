@@ -6,17 +6,21 @@ package com.manshop.android.model;
 
 public class Address {
     private Integer id;
-    private User user;
+    private Integer uid;
     private String consignee;
     private String address;
     private String addphone;
     private boolean isDefault;
 
-    public Address(int id, String consignee, String phone, String addr, boolean isDefault) {
+    public Address() {
+        super();
+    }
+    public Address(Integer id, Integer uid, String consignee, String address, String addphone, boolean isDefault) {
         this.id = id;
+        this.uid = uid;
         this.consignee = consignee;
-        this.addphone = phone;
-        this.address = addr;
+        this.address = address;
+        this.addphone = addphone;
         this.isDefault = isDefault;
     }
 
@@ -28,12 +32,12 @@ public class Address {
         this.id = id;
     }
 
-    public User getUser() {
-        return user;
+    public Integer getUid() {
+        return uid;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setUid(Integer uid) {
+        this.uid = uid;
     }
 
     public String getConsignee() {
@@ -52,11 +56,11 @@ public class Address {
         this.address = address;
     }
 
-    public String getAddressPhone() {
+    public String getAddphone() {
         return addphone;
     }
 
-    public void setAddressPhone(String addphone) {
+    public void setAddphone(String addphone) {
         this.addphone = addphone;
     }
 
@@ -66,5 +70,17 @@ public class Address {
 
     public void setDefault(boolean aDefault) {
         isDefault = aDefault;
+    }
+
+    @Override
+    public String toString() {
+        return "Address{" +
+                "id=" + id +
+                ", uid=" + uid +
+                ", consignee='" + consignee + '\'' +
+                ", address='" + address + '\'' +
+                ", addphone='" + addphone + '\'' +
+                ", isDefault=" + isDefault +
+                '}';
     }
 }

@@ -2,6 +2,7 @@ package com.manshop.android.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RadioButton;
@@ -10,7 +11,9 @@ import android.widget.TextView;
 import com.makeramen.roundedimageview.RoundedImageView;
 import com.manshop.android.R;
 import com.manshop.android.model.Address;
+import com.manshop.android.ui.base.BaseActivity;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -43,7 +46,7 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.ViewHold
         Address address = mList.get(position);
         holder.isCheck.setChecked(address.isDefault());
         holder.name.setText(address.getConsignee());
-        holder.telnum.setText(showPhone(address.getAddressPhone()));
+        holder.telnum.setText(showPhone(address.getAddphone()));
         holder.address.setText(address.getAddress());
         holder.checktext.setText(address.isDefault() ? "默认地址" : "设为默认");
     }
@@ -52,6 +55,7 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.ViewHold
     public int getItemCount() {
         return mList.size();
     }
+
 
     class ViewHolder extends RecyclerView.ViewHolder {
         TextView name;
@@ -78,4 +82,5 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.ViewHold
     private String showPhone(String phone) {
         return phone.substring(0, 3) + "*****" + phone.substring(phone.length() - 3);
     }
+
 }

@@ -29,7 +29,6 @@ public class PublishActivity extends BaseActivity {
         recyclerview.setNestedScrollingEnabled(false);
         PublishAdapter adapter = new PublishAdapter(this, mGood);
         recyclerview.setAdapter(adapter);
-
     }
 
     @Override

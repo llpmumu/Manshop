@@ -4,12 +4,13 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.BaseAdapter;
 import android.widget.Toast;
 
 import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.manshop.android.MyApplication;
 import com.manshop.android.R;
@@ -29,7 +30,9 @@ import java.util.Map;
 import okhttp3.Response;
 
 public class AddressActivity extends BaseActivity {
-    private List<Address> mAddress;
+    private List<Address> mAddress=new ArrayList<>();
+    private RecyclerView recyclerView;
+    private AddressAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,12 +43,10 @@ public class AddressActivity extends BaseActivity {
 
     public void init() {
         showToolbar();
-        initAddress();
-        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recycleView_address);
+        recyclerView = (RecyclerView) findViewById(R.id.recycleView_address);
         LinearLayoutManager manager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(manager);
-        AddressAdapter adapter = new AddressAdapter(this, mAddress);
-        recyclerView.setAdapter(adapter);
+        initAddress();
     }
 
     @Override
@@ -77,12 +78,6 @@ public class AddressActivity extends BaseActivity {
 
     private OkHttp okHttp = OkHttp.getOkhttpHelper();
     private void initAddress() {
-        mAddress = new ArrayList<>();
-//        mAddress.add(new Address(1, "Jame", "13459427684", "杭州市拱墅区湖州街51号,浙江大学城市学院", true));
-//        mAddress.add(new Address(1, "Jame", "13459427684", "杭州市拱墅区湖州街51号,浙江大学城市学院", false));
-//        mAddress.add(new Address(1, "Jame", "13459427684", "杭州市拱墅区湖州街51号,浙江大学城市学院", false));
-//        mAddress.add(new Address(1, "Jame", "13459427684", "杭州市拱墅区湖州街51号,浙江大学城市学院", false));
-//        mAddress.add(new Address(1, "Jame", "13459427684", "杭州市拱墅区湖州街51号,浙江大学城市学院", false));
         Map<String, Object> param = new HashMap<>();
         param.put("uid", MyApplication.getInstance().getUserId());
         okHttp.doPost(Constant.baseURL + "address/getAddress", new CallBack(AddressActivity.this) {
@@ -94,16 +89,22 @@ public class AddressActivity extends BaseActivity {
             @Override
             public void callBackSuccess(Response response, Object o) throws IOException {
                 JSONObject json = JSON.parseObject((String) o);
-                JSONArray addressJson = json.getJSONArray("data");
-                List<Address> maddress = null;
-//                mAddress = new ArrayList<>();
-                for (int i = 0; i < addressJson.size(); i++) {
-                    //提取出family中的所有
-                    Address address = json.getObject("data", Address.class);
-                    address.setUser(MyApplication.getInstance().getUser());
-                    maddress.add(address);
+                Object jsonArray = json.get("data");
+                System.out.println(jsonArray);
+                List<Address> listAddress = JSON.parseArray(jsonArray+"", Address.class);
+                Log.d("address"," "+mAddress.size());
+                for (Address address : listAddress) {
+                    Log.d("address"," "+address.toString());
+                    mAddress.add(address);
+                    Log.d("address"," 2222221    "+mAddress.size());
                 }
+                adapter = new AddressAdapter(AddressActivity.this, mAddress);
+                recyclerView.setAdapter(adapter);
+                addConsigneeAddressAdapterListener() ;
             }
         },param);
+    }
+
+    public void addConsigneeAddressAdapterListener() {
     }
 }
