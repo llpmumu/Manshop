@@ -2,15 +2,19 @@ package com.manshop.android.ui.view.activity;
 
 import android.Manifest;
 import android.app.Dialog;
+import android.content.ContentUris;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
+import android.provider.DocumentsContract;
 import android.provider.MediaStore;
 import android.support.annotation.IdRes;
 import android.os.Bundle;
@@ -39,6 +43,7 @@ import com.manshop.android.ui.base.BaseActivity;
 import net.bither.util.NativeUtil;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -60,15 +65,13 @@ public class NewPublishActivity extends BaseActivity {
     private GridView gw;
     private List<Map<String, Object>> datas;
     private GridViewAddImgesAdpter gridViewAddImgesAdpter;
-    private Dialog dialog;
     private final int PHOTO_REQUEST_CAREMA = 1;// 拍照
     private final int PHOTO_REQUEST_GALLERY = 2;// 从相册中选择
-//     private static final String PHOTO_FILE_NAME = "temp_photo.jpg";
+    //     private static final String PHOTO_FILE_NAME = "temp_photo.jpg";
     private File tempFile;
     private final String IMAGE_DIR = Environment.getExternalStorageDirectory() + "/gridview/";
     /* 头像名称 */
     private final String PHOTO_FILE_NAME = "temp_photo.jpg";
-
 
 
     @Override
@@ -102,10 +105,10 @@ public class NewPublishActivity extends BaseActivity {
         saleRb = (RadioButton) findViewById(R.id.rb_sale);
         rentRb = (RadioButton) findViewById(R.id.rb_rent);
 
-        tip1= (TextView) findViewById(R.id.tv_tip1);
+        tip1 = (TextView) findViewById(R.id.tv_tip1);
 
-        tip2= (TextView) findViewById(R.id.tv_tip2);
-        tip3= (TextView) findViewById(R.id.tv_tip3);
+        tip2 = (TextView) findViewById(R.id.tv_tip2);
+        tip3 = (TextView) findViewById(R.id.tv_tip3);
         et2 = (EditText) findViewById(R.id.et_rent_price);
 
         pubRg.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
@@ -181,12 +184,12 @@ public class NewPublishActivity extends BaseActivity {
         gw.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
-                pop.showAtLocation(view,Gravity.CENTER_HORIZONTAL|Gravity.BOTTOM, 0, 0);
+                pop.showAtLocation(view, Gravity.CENTER_HORIZONTAL | Gravity.BOTTOM, 0, 0);
             }
         });
     }
 
-    public void popWindows(){
+    public void popWindows() {
 //        View view = getLayoutInflater().inflate(R.layout.item_popupwindows, null);
 //        pop = new PopupWindow(NewPublishActivity.this);
 //        popup = (LinearLayout) view.findViewById(R.id.popup);
@@ -267,12 +270,15 @@ public class NewPublishActivity extends BaseActivity {
 //            Intent intent = new Intent();// 启动系统相机
 //            intent.putExtra(MediaStore.EXTRA_OUTPUT, uri);
 //            intent.setAction(MediaStore.ACTION_IMAGE_CAPTURE);
-            Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+//            Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+//            intent.putExtra(MediaStore.EXTRA_OUTPUT, uri);
+////            intent.addCategory(intent.CATEGORY_DEFAULT);
+//            // 开启一个带有返回值的Activity，请求码为PHOTO_REQUEST_CAREMA
+//            startActivityForResult(intent, PHOTO_REQUEST_CAREMA);
+            //启动相机程序
+            Intent intent = new Intent("android.media.action.IMAGE_CAPTURE");
             intent.putExtra(MediaStore.EXTRA_OUTPUT, uri);
-//            intent.addCategory(intent.CATEGORY_DEFAULT);
-            // 开启一个带有返回值的Activity，请求码为PHOTO_REQUEST_CAREMA
             startActivityForResult(intent, PHOTO_REQUEST_CAREMA);
-
         } else {
             Toast.makeText(this, "未找到存储卡，无法拍照！", Toast.LENGTH_SHORT).show();
         }
@@ -305,7 +311,6 @@ public class NewPublishActivity extends BaseActivity {
         Intent intent = new Intent("android.intent.action.GET_CONTENT");
         intent.setType("image/*");
         startActivityForResult(intent, PHOTO_REQUEST_GALLERY);
-
 //        Intent intent = new Intent();
 //        intent.addCategory(Intent.CATEGORY_OPENABLE);
 //        intent.setType("image/*");
@@ -320,43 +325,78 @@ public class NewPublishActivity extends BaseActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+//        super.onActivityResult(requestCode, resultCode, data);
+//        if (resultCode == RESULT_OK) {
+//            if (requestCode == PHOTO_REQUEST_GALLERY) {
+//                // 从相册返回的数据
+//                if (data != null) {
+//                    // 得到图片的全路径
+//                    Uri uri = data.getData();
+//                    String[] proj = {MediaStore.Images.Media.DATA};
+//                    //好像是android多媒体数据库的封装接口，具体的看Android文档
+//                    Cursor cursor = managedQuery(uri, proj, null, null, null);
+//                    //按我个人理解 这个是获得用户选择的图片的索引值
+//                    int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+//                    //将光标移至开头 ，这个很重要，不小心很容易引起越界
+//                    cursor.moveToFirst();
+//                    //最后根据索引值获取图片路径
+//                    String path = cursor.getString(column_index);
+//
+//                    uploadImage(path);
+//                }
+//
+//            } else if (requestCode == PHOTO_REQUEST_CAREMA) {
+//                if (resultCode != RESULT_CANCELED) {
+//                    // 从相机返回的数据
+//                    if (hasSdcard()) {
+//                        if (tempFile != null) {
+//                            uploadImage(tempFile.getPath());
+//                        } else {
+//                            Toast.makeText(this, "相机异常请稍后再试！", Toast.LENGTH_SHORT).show();
+//                        }
+//
+//                        Log.i("images", "拿到照片path=" + tempFile.getPath());
+//                    } else {
+//                        Toast.makeText(this, "未找到存储卡，无法存储照片！", Toast.LENGTH_SHORT).show();
+//                    }
+//                }
+//            }
+//
+//        }
         super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == RESULT_OK) {
-            if (requestCode == PHOTO_REQUEST_GALLERY) {
-                // 从相册返回的数据
-                if (data != null) {
-                    // 得到图片的全路径
-                    Uri uri = data.getData();
-                    String[] proj = {MediaStore.Images.Media.DATA};
-                    //好像是android多媒体数据库的封装接口，具体的看Android文档
-                    Cursor cursor = managedQuery(uri, proj, null, null, null);
-                    //按我个人理解 这个是获得用户选择的图片的索引值
-                    int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
-                    //将光标移至开头 ，这个很重要，不小心很容易引起越界
-                    cursor.moveToFirst();
-                    //最后根据索引值获取图片路径
-                    String path = cursor.getString(column_index);
+        switch (requestCode) {
+            case RESULT_CANCELED:
+                if (resultCode == RESULT_OK) {
+                    if (data != null) {
+                        // 得到图片的全路径
+                        Uri uri = data.getData();
+                        String[] proj = {MediaStore.Images.Media.DATA};
+                        //好像是android多媒体数据库的封装接口，具体的看Android文档
+                        Cursor cursor = managedQuery(uri, proj, null, null, null);
+                        //按我个人理解 这个是获得用户选择的图片的索引值
+                        int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+                        //将光标移至开头 ，这个很重要，不小心很容易引起越界
+                        cursor.moveToFirst();
+                        //最后根据索引值获取图片路径
+                        String path = cursor.getString(column_index);
 
-                    uploadImage(path);
-                }
-
-            } else if (requestCode == PHOTO_REQUEST_CAREMA) {
-                if (resultCode != RESULT_CANCELED) {
-                    // 从相机返回的数据
-                    if (hasSdcard()) {
-                        if (tempFile != null) {
-                            uploadImage(tempFile.getPath());
-                        } else {
-                            Toast.makeText(this, "相机异常请稍后再试！", Toast.LENGTH_SHORT).show();
-                        }
-
-                        Log.i("images", "拿到照片path=" + tempFile.getPath());
-                    } else {
-                        Toast.makeText(this, "未找到存储卡，无法存储照片！", Toast.LENGTH_SHORT).show();
+                        uploadImage(path);
                     }
                 }
-            }
-
+                break;
+            case PHOTO_REQUEST_GALLERY:
+                if (resultCode == RESULT_OK) {
+                    //判断手机系统版本号
+                    if (Build.VERSION.SDK_INT > 19) {
+                        //4.4及以上系统使用这个方法处理图片
+                        handleImgeOnKitKat(data);
+                    } else {
+                        handleImageBeforeKitKat(data);
+                    }
+                }
+                break;
+            default:
+                break;
         }
     }
 
@@ -370,6 +410,68 @@ public class NewPublishActivity extends BaseActivity {
 
         }
     };
+
+    /**
+     *4.4以下系统处理图片的方法
+     * */
+    private void handleImageBeforeKitKat(Intent data) {
+        Uri uri = data.getData();
+        String imagePath = getImagePath(uri,null);
+        displayImage(imagePath);
+    }
+
+    /**
+     * 4.4及以上系统处理图片的方法
+     * */
+    private void handleImgeOnKitKat(Intent data) {
+        String imagePath = null;
+        Uri uri = data.getData();
+        if (DocumentsContract.isDocumentUri(this,uri)) {
+            //如果是document类型的uri，则通过document id处理
+            String docId = DocumentsContract.getDocumentId(uri);
+            if ("com.android.providers.media.documents".equals(uri.getAuthority())) {
+                //解析出数字格式的id
+                String id = docId.split(":")[1];
+                String selection = MediaStore.Images.Media._ID + "=" + id;
+                imagePath = getImagePath(MediaStore.Images.Media.EXTERNAL_CONTENT_URI,selection);
+            }else if ("com.android.providers.downloads.documents".equals(uri.getAuthority())) {
+                Uri contentUri = ContentUris.withAppendedId(Uri.parse("content://downloads/public_downloads"),Long.valueOf(docId));
+                imagePath = getImagePath(contentUri,null);
+            }else if ("content".equalsIgnoreCase(uri.getScheme())) {
+                //如果是content类型的uri，则使用普通方式处理
+                imagePath = getImagePath(uri,null);
+            }else if ("file".equalsIgnoreCase(uri.getScheme())) {
+                //如果是file类型的uri，直接获取图片路径即可
+                imagePath = uri.getPath();
+            }
+            //根据图片路径显示图片
+            displayImage(imagePath);
+        }
+    }
+
+    /**
+     * 根据图片路径显示图片的方法
+     * */
+    private void displayImage(String imagePath) {
+        if (imagePath != null) {
+            Bitmap bitmap = BitmapFactory.decodeFile(imagePath);
+        }
+    }
+
+    /**
+     * 通过uri和selection来获取真实的图片路径
+     * */
+    private String getImagePath(Uri uri,String selection) {
+        String path = null;
+        Cursor cursor = getContentResolver().query(uri,null,selection,null,null);
+        if (cursor != null) {
+            if (cursor.moveToFirst()) {
+                path = cursor.getString(cursor.getColumnIndex(MediaStore.Images.Media.DATA));
+            }
+            cursor.close();
+        }
+        return path;
+    }
 
     /**
      * 上传图片
@@ -408,8 +510,8 @@ public class NewPublishActivity extends BaseActivity {
     }
 
     public void photoPath(String path) {
-        Map<String,Object> map=new HashMap<>();
-        map.put("path",path);
+        Map<String, Object> map = new HashMap<>();
+        map.put("path", path);
         datas.add(map);
         gridViewAddImgesAdpter.notifyDataSetChanged();
     }
