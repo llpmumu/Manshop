@@ -4,11 +4,15 @@
 
     <!-- 联网权限 -->
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.CAMERA" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
-    <!-- if you want to load images from a file OR from the internet -->
+    <!-- sd卡写权限 -->
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+
+    <!--相机权限-->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.CAMERA"/>
+
 
     <application
         android:name=".MyApplication"
@@ -18,15 +22,15 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.view.activity.WelcomeActivity" ></activity>
+        <activity android:name=".ui.view.activity.WelcomeActivity"></activity>
         <activity
             android:name=".ui.view.activity.MainActivity"
             android:label="@string/app_name">
             <intent-filter>
-            <action android:name="android.intent.action.MAIN" />
+                <action android:name="android.intent.action.MAIN" />
 
-            <category android:name="android.intent.category.LAUNCHER" />
-        </intent-filter>
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity android:name=".ui.view.activity.LoginActivity" />
         <activity android:name=".ui.view.activity.RegisterActivity" />
@@ -37,7 +41,9 @@
         <activity android:name=".ui.view.activity.ComicActivity" />
         <activity android:name=".ui.view.activity.EditAddressActivity" />
         <activity android:name=".ui.view.activity.DialogueActivity" />
-        <activity android:name=".ui.view.activity.NewPublishActivity" />
+        <activity
+            android:name=".ui.view.activity.NewPublishActivity"
+            android:windowSoftInputMode="stateHidden" />
         <activity android:name=".ui.view.activity.MyNewOrderActivity"></activity>
         <activity android:name=".ui.view.activity.DeliveryActivity"></activity>
         <activity android:name=".ui.view.activity.OrderDetailActivity"></activity>

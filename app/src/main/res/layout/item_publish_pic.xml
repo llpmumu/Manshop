@@ -1,16 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
-    <FrameLayout
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="66dp"
+    android:layout_height="66dp">
+
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
         <ImageView
-            android:id="@+id/item_grida_image"
+            android:id="@+id/iv_image"
             android:layout_width="match_parent"
+            android:gravity="center"
             android:layout_height="match_parent"
-            android:scaleType="fitXY"
-            android:src="@drawable/ic_addpic" >
-        </ImageView>
-    </FrameLayout>
-</LinearLayout>
+            android:scaleType="centerCrop"/>
+
+        <Button
+            android:id="@+id/bt_del"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_alignParentRight="true"
+            android:background="@drawable/ic_del" />
+    </RelativeLayout>
+
+</RelativeLayout>
