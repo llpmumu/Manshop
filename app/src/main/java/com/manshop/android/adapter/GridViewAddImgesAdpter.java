@@ -28,7 +28,7 @@ public class GridViewAddImgesAdpter extends BaseAdapter {
      * 可以动态设置最多上传几张，之后就不显示+号了，用户也无法上传了
      * 默认9张
      */
-    private int maxImages = 9;
+    private int maxImages = 6;
 
     public GridViewAddImgesAdpter(List<Map<String, Object>> datas, Context context) {
         this.datas = datas;
@@ -87,8 +87,6 @@ public class GridViewAddImgesAdpter extends BaseAdapter {
 
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
-
-
         ViewHolder viewHolder = null;
         if (convertView == null) {
             convertView = inflater.inflate(R.layout.item_publish_pic, parent, false);
@@ -125,9 +123,7 @@ public class GridViewAddImgesAdpter extends BaseAdapter {
             viewHolder.ivimage.setScaleType(ImageView.ScaleType.FIT_XY);
             viewHolder.btdel.setVisibility(View.GONE);
         }
-
         return convertView;
-
     }
 
     public class ViewHolder {
