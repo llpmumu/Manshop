@@ -7,12 +7,10 @@
 
     <!-- sd卡写权限 -->
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
-    <!--相机权限-->
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.CAMERA"/>
-
+    <!-- 相机权限 -->
+    <uses-permission android:name="android.permission.CAMERA" />
 
     <application
         android:name=".MyApplication"
@@ -22,15 +20,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.view.activity.WelcomeActivity"></activity>
+        <activity android:name=".ui.view.activity.WelcomeActivity" />
         <activity
             android:name=".ui.view.activity.MainActivity"
             android:label="@string/app_name">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity android:name=".ui.view.activity.LoginActivity" />
         <activity android:name=".ui.view.activity.RegisterActivity" />
@@ -43,10 +37,16 @@
         <activity android:name=".ui.view.activity.DialogueActivity" />
         <activity
             android:name=".ui.view.activity.NewPublishActivity"
-            android:windowSoftInputMode="stateHidden" />
-        <activity android:name=".ui.view.activity.MyNewOrderActivity"></activity>
-        <activity android:name=".ui.view.activity.DeliveryActivity"></activity>
-        <activity android:name=".ui.view.activity.OrderDetailActivity"></activity>
+            android:windowSoftInputMode="stateHidden" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".ui.view.activity.MyNewOrderActivity" />
+        <activity android:name=".ui.view.activity.DeliveryActivity" />
+        <activity android:name=".ui.view.activity.OrderDetailActivity" />
     </application>
 
 </manifest>

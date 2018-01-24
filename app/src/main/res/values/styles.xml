@@ -24,4 +24,5 @@
         <item name="android:layout_height">3dp</item>
         <item name="android:background">@color/splitline</item>
     </style>
+
 </resources>

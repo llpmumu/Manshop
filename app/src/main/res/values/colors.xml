@@ -2,6 +2,7 @@
 <resources>
     <color name="colorPrimary">#40950f</color>
     <color name="colorPrimaryDark">#40950f</color>
+    <color name="multiple_image_select_primaryDark">#40950f</color>
     <color name="colorAccent">#64dd1d</color>
     <color name="colorbtn1">#3e9a09</color>
     <color name="textColor">#FFF</color>
@@ -10,4 +11,5 @@
     <color name="splitline">#d2cece</color>
     <color name="white">#ffffff</color>
     <color name="blue">#58D3F7</color>
+
 </resources>

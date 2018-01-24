@@ -83,7 +83,6 @@ public class GridViewAddImgesAdpter extends BaseAdapter {
     public void notifyDataSetChanged(List<Map<String, Object>> datas) {
         this.datas = datas;
         this.notifyDataSetChanged();
-
     }
 
     @Override

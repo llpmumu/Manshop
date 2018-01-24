@@ -3,22 +3,16 @@ package com.manshop.android.ui.view.activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Looper;
-import android.os.Message;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
-import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -31,6 +25,7 @@ import com.manshop.android.ui.base.BaseActivity;
 import com.manshop.android.ui.view.fragment.HomeFragment;
 import com.manshop.android.ui.view.fragment.MessageFragment;
 import com.manshop.android.ui.view.fragment.PersonalFragment;
+
 
 public class MainActivity extends BaseActivity {
     private Toolbar toolbar;
@@ -75,8 +70,8 @@ public class MainActivity extends BaseActivity {
         RelativeLayout info = (RelativeLayout) navView.inflateHeaderView(R.layout.info_header);
         head = (RoundedImageView) info.findViewById(R.id.im_head);
         tvUsername = (TextView) info.findViewById(R.id.tv_username);
-    }
 
+    }
     public void addListener() {
         //侧边栏监听器
         navView.setCheckedItem(R.id.item_address);
