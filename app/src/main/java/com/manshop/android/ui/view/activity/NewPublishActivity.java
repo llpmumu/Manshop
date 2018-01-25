@@ -8,26 +8,19 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.IdRes;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.GridView;
-import android.widget.LinearLayout;
-import android.widget.PopupWindow;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.jph.takephoto.app.TakePhoto;
-import com.jph.takephoto.app.TakePhotoActivity;
 import com.jph.takephoto.app.TakePhotoImpl;
-import com.jph.takephoto.compress.CompressConfig;
-import com.jph.takephoto.model.CropOptions;
 import com.jph.takephoto.model.InvokeParam;
 import com.jph.takephoto.model.TContextWrap;
 import com.jph.takephoto.model.TResult;
@@ -39,7 +32,6 @@ import com.manshop.android.R;
 import com.manshop.android.adapter.GridViewAddImgesAdpter;
 import com.manshop.android.ui.base.BaseActivity;
 
-import net.bither.util.NativeUtil;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -133,7 +125,7 @@ public class NewPublishActivity extends BaseActivity implements TakePhoto.TakeRe
         });
     }
 
-    private void showDialog() {
+    public void showDialog() {
         List<String> stringList = new ArrayList<>();
         stringList.add("拍照");
         stringList.add("从相册选择");
@@ -146,9 +138,8 @@ public class NewPublishActivity extends BaseActivity implements TakePhoto.TakeRe
                     Uri uri = getImageCropUri();
                     takePhoto.onPickFromCapture(uri);
                     optionBottomDialog.dismiss();
-                }
-                else if(position == 1){
-                    takePhoto.onPickMultiple(6);
+                } else if (position == 1) {
+                    takePhoto.onPickFromGallery();
                     optionBottomDialog.dismiss();
                 }
             }
@@ -185,7 +176,6 @@ public class NewPublishActivity extends BaseActivity implements TakePhoto.TakeRe
 
     /**
      * 获取TakePhoto实例
-     *
      */
     public TakePhoto getTakePhoto() {
         if (takePhoto == null) {
@@ -213,16 +203,15 @@ public class NewPublishActivity extends BaseActivity implements TakePhoto.TakeRe
 
     //获得照片的输出保存Uri
     private Uri getImageCropUri() {
-        File file=new File(Environment.getExternalStorageDirectory(), "/goods/"+System.currentTimeMillis() + ".jpg");
-        if (!file.getParentFile().exists())file.getParentFile().mkdirs();
+        File file = new File(Environment.getExternalStorageDirectory(), "/goods/" + System.currentTimeMillis() + ".jpg");
+        if (!file.getParentFile().exists()) file.getParentFile().mkdirs();
         return Uri.fromFile(file);
     }
 
     public void photoPath(String path) {
-        Map<String,Object> map=new HashMap<>();
-        map.put("path",path);
+        Map<String, Object> map = new HashMap<>();
+        map.put("path", path);
         datas.add(map);
-        gridViewAddImgesAdpter.notifyDataSetChanged();
+        gridViewAddImgesAdpter.notifyDataSetChanged(datas);
     }
-
 }

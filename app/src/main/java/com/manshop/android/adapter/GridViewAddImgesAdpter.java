@@ -1,5 +1,6 @@
 package com.manshop.android.adapter;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,9 +25,10 @@ public class GridViewAddImgesAdpter extends BaseAdapter {
     private List<Map<String, Object>> datas;
     private Context context;
     private LayoutInflater inflater;
+    private int itemWidth = 0;
     /**
      * 可以动态设置最多上传几张，之后就不显示+号了，用户也无法上传了
-     * 默认9张
+     * 默认3张
      */
     private int maxImages = 6;
 
@@ -34,6 +36,10 @@ public class GridViewAddImgesAdpter extends BaseAdapter {
         this.datas = datas;
         this.context = context;
         inflater = LayoutInflater.from(context);
+    }
+
+    public void setItemHeight(int itemWidth) {
+        this.itemWidth = itemWidth;
     }
 
     /**
@@ -85,6 +91,7 @@ public class GridViewAddImgesAdpter extends BaseAdapter {
         this.notifyDataSetChanged();
     }
 
+    @SuppressLint("InflateParams")
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
         ViewHolder viewHolder = null;
@@ -110,7 +117,7 @@ public class GridViewAddImgesAdpter extends BaseAdapter {
                         file.delete();
                     }
                     datas.remove(position);
-                    notifyDataSetChanged();
+                    notifyDataSetChanged(datas);
                 }
             });
         } else {
@@ -123,6 +130,7 @@ public class GridViewAddImgesAdpter extends BaseAdapter {
             viewHolder.ivimage.setScaleType(ImageView.ScaleType.FIT_XY);
             viewHolder.btdel.setVisibility(View.GONE);
         }
+        convertView.setMinimumHeight(itemWidth);
         return convertView;
     }
 
