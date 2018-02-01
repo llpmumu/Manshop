@@ -1,14 +1,10 @@
 package com.manshop.android.ui.view.activity;
 
 import android.content.Intent;
-import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Environment;
-import android.os.Handler;
-import android.os.Message;
 import android.support.annotation.IdRes;
 import android.os.Bundle;
-import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
@@ -18,6 +14,7 @@ import android.widget.GridView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.jph.takephoto.app.TakePhoto;
 import com.jph.takephoto.app.TakePhotoImpl;
@@ -28,32 +25,49 @@ import com.jph.takephoto.permission.InvokeListener;
 import com.jph.takephoto.permission.PermissionManager;
 import com.jph.takephoto.permission.TakePhotoInvocationHandler;
 import com.longsh.optionframelibrary.OptionBottomDialog;
+import com.manshop.android.MyApplication;
 import com.manshop.android.R;
 import com.manshop.android.adapter.GridViewAddImgesAdpter;
+import com.manshop.android.okHttp.CallBack;
+import com.manshop.android.okHttp.OkHttp;
 import com.manshop.android.ui.base.BaseActivity;
+import com.manshop.android.util.Constant;
 
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import okhttp3.Response;
+
+import static android.R.attr.password;
+
 public class NewPublishActivity extends BaseActivity implements TakePhoto.TakeResultListener, InvokeListener {
+    //标题 具体内容
+    private EditText etTitle;
+    private EditText etDetail;
+
+    //选择出售、或者出租
     private RadioGroup pubRg;
     private RadioButton saleRb;
     private RadioButton rentRb;
 
+    //价格 租金
     private TextView tip1;
-    private EditText et1;
+    private EditText etPrice;
     private TextView tip2;
-    private EditText et2;
+    private EditText etRent;
     private TextView tip3;
 
+    //图片上传网格布局
     private GridView gw;
     private List<Map<String, Object>> datas;
     private GridViewAddImgesAdpter gridViewAddImgesAdpter;
 
+    //打开相机、相册
     private static final String TAG = "photo";
     private TakePhoto takePhoto;
     private InvokeParam invokeParam;
@@ -84,16 +98,18 @@ public class NewPublishActivity extends BaseActivity implements TakePhoto.TakeRe
 
     public void init() {
         showToolbar();
+        etTitle = (EditText) findViewById(R.id.et_sale_name);
+        etDetail= (EditText) findViewById(R.id.etContent);
 
         pubRg = (RadioGroup) findViewById(R.id.publish_RadioGroup);
         saleRb = (RadioButton) findViewById(R.id.rb_sale);
         rentRb = (RadioButton) findViewById(R.id.rb_rent);
 
         tip1 = (TextView) findViewById(R.id.tv_tip1);
-
+        etPrice = (EditText) findViewById(R.id.et_sale_price);
         tip2 = (TextView) findViewById(R.id.tv_tip2);
         tip3 = (TextView) findViewById(R.id.tv_tip3);
-        et2 = (EditText) findViewById(R.id.et_rent_price);
+        etRent = (EditText) findViewById(R.id.et_rent_price);
 
         pubRg.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
@@ -101,12 +117,12 @@ public class NewPublishActivity extends BaseActivity implements TakePhoto.TakeRe
                 if (checkedId == saleRb.getId()) {
                     tip1.setText("价格");
                     tip2.setVisibility(View.GONE);
-                    et2.setVisibility(View.GONE);
+                    etPrice.setVisibility(View.GONE);
                     tip3.setVisibility(View.GONE);
                 } else if (checkedId == rentRb.getId()) {
                     tip1.setText("租金");
                     tip2.setVisibility(View.VISIBLE);
-                    et2.setVisibility(View.VISIBLE);
+                    etRent.setVisibility(View.VISIBLE);
                     tip3.setVisibility(View.VISIBLE);
                 }
             }
@@ -202,7 +218,7 @@ public class NewPublishActivity extends BaseActivity implements TakePhoto.TakeRe
     }
 
     //获得照片的输出保存Uri
-    private Uri getImageCropUri() {
+    public Uri getImageCropUri() {
         File file = new File(Environment.getExternalStorageDirectory(), "/goods/" + System.currentTimeMillis() + ".jpg");
         if (!file.getParentFile().exists()) file.getParentFile().mkdirs();
         return Uri.fromFile(file);
@@ -213,5 +229,32 @@ public class NewPublishActivity extends BaseActivity implements TakePhoto.TakeRe
         map.put("path", path);
         datas.add(map);
         gridViewAddImgesAdpter.notifyDataSetChanged(datas);
+    }
+
+    private OkHttp okhttp = OkHttp.getOkhttpHelper();
+    public void publish(View view){
+        String title = etTitle.getText().toString();
+        String detail = etDetail.getText().toString();
+        String price = etPrice.getText().toString();
+        String rent = etRent.getText().toString();
+        final Map<String, Object> param = new HashMap<>();
+        param.put("uid", MyApplication.getInstance().getUserId());
+        param.put("title",title);
+        param.put("detail",detail);
+        param.put("price",price);
+        param.put("rental",rent);
+        param.put("picture","https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=1121475478,2545730346&fm=27&gp=0.jpg;https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=3813653354,3201329653&fm=27&gp=0.jpg");
+        okhttp.doPost(Constant.baseURL + "goods/newGood", new CallBack(NewPublishActivity.this) {
+
+            @Override
+            public void onError(Response response, Exception e) throws IOException {
+                Toast.makeText(getApplicationContext(), "添加商品失败", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void callBackSuccess(Response response, Object o) throws IOException {
+                startActivity(new Intent(NewPublishActivity.this, PublishActivity.class));
+            }
+        }, param);
     }
 }

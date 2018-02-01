@@ -166,7 +166,8 @@
                 android:layout_marginTop="10dp"
                 android:background="@drawable/btn_shape"
                 android:padding="0dp"
-                android:text="确认发布" />
+                android:text="确认发布"
+                android:onClick="publish"/>
         </LinearLayout>
     </ScrollView>
 </LinearLayout>

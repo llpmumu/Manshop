@@ -24,7 +24,11 @@
         <activity
             android:name=".ui.view.activity.MainActivity"
             android:label="@string/app_name">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity android:name=".ui.view.activity.LoginActivity" />
         <activity android:name=".ui.view.activity.RegisterActivity" />
@@ -38,11 +42,7 @@
         <activity
             android:name=".ui.view.activity.NewPublishActivity"
             android:windowSoftInputMode="stateHidden" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity android:name=".ui.view.activity.MyNewOrderActivity" />
         <activity android:name=".ui.view.activity.DeliveryActivity" />
