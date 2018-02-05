@@ -3,21 +3,24 @@ package com.manshop.android.model;
 import java.util.List;
 
 /**
- * Created by HP on 2017/12/27.
+ * Created by Lin on 2017/12/27.
  */
 
 public class Goods {
-    private String photo;
+    private Integer id;
+    private Integer uid;
     private String username;
-    private String price;
-    private String details;
+    private String photo;
     private String title;
+    private String details;
+    private String price;
+    private String rental;
+    private Integer type;
+    private Integer state;
+    private String picture;
     private List<String> pics;
 
-    public Goods(String title, String price, List<String> pics) {
-        this.price = price;
-        this.title = title;
-        this.pics = pics;
+    public Goods() {
     }
 
     public Goods(String photo, String username, String price, String details, List<String> pics) {
@@ -26,6 +29,54 @@ public class Goods {
         this.price = price;
         this.details = details;
         this.pics = pics;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public Integer getUid() {
+        return uid;
+    }
+
+    public void setUid(Integer uid) {
+        this.uid = uid;
+    }
+
+    public String getRental() {
+        return rental;
+    }
+
+    public void setRental(String rental) {
+        this.rental = rental;
+    }
+
+    public Integer getType() {
+        return type;
+    }
+
+    public void setType(Integer type) {
+        this.type = type;
+    }
+
+    public Integer getState() {
+        return state;
+    }
+
+    public void setState(Integer state) {
+        this.state = state;
+    }
+
+    public String getPicture() {
+        return picture;
+    }
+
+    public void setPicture(String picture) {
+        this.picture = picture;
     }
 
     public String getTitle() {

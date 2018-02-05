@@ -253,6 +253,7 @@ public class NewPublishActivity extends BaseActivity implements TakePhoto.TakeRe
 
             @Override
             public void callBackSuccess(Response response, Object o) throws IOException {
+                Toast.makeText(getApplicationContext(),"发布成功",Toast.LENGTH_LONG).show();
                 startActivity(new Intent(NewPublishActivity.this, PublishActivity.class));
             }
         }, param);

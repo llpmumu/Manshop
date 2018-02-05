@@ -4,31 +4,48 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
+import com.manshop.android.MyApplication;
 import com.manshop.android.R;
 import com.manshop.android.adapter.PublishAdapter;
 import com.manshop.android.model.Goods;
+import com.manshop.android.okHttp.CallBack;
+import com.manshop.android.okHttp.OkHttp;
 import com.manshop.android.ui.base.BaseActivity;
+import com.manshop.android.util.Constant;
 
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
+import okhttp3.Response;
 
 public class PublishActivity extends BaseActivity {
-    private List<Goods> mGood;
+    private List<Goods> mGood = new ArrayList<>();
+    private PublishAdapter adapter;
+    private RecyclerView recyclerview;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_publish);
         showToolbar();
         initData();
-        RecyclerView recyclerview = (RecyclerView) findViewById(R.id.recycle_publish);
+        recyclerview = (RecyclerView) findViewById(R.id.recycle_publish);
         LinearLayoutManager manager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         recyclerview.setLayoutManager(manager);
-        recyclerview.setNestedScrollingEnabled(false);
-        PublishAdapter adapter = new PublishAdapter(this, mGood);
-        recyclerview.setAdapter(adapter);
+//        adapter = new PublishAdapter(PublishActivity.this, mGood);
+//        recyclerview.setNestedScrollingEnabled(false);
+//        recyclerview.setAdapter(adapter);
     }
 
     @Override
@@ -51,7 +68,7 @@ public class PublishActivity extends BaseActivity {
                 finish();
                 break;
             case R.id.item_add:
-                Intent intent = new Intent(PublishActivity.this,NewPublishActivity.class);
+                Intent intent = new Intent(PublishActivity.this, NewPublishActivity.class);
                 startActivity(intent);
                 break;
             default:
@@ -59,16 +76,51 @@ public class PublishActivity extends BaseActivity {
         return true;
     }
 
-    public void initData(){
-        mGood = new ArrayList<>();
-        List<String> mPic = new ArrayList<>();
-        mPic.add("http://img1.imgtn.bdimg.com/it/u=3927833226,1156268831&fm=27&gp=0.jpg");
-        mPic.add("https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=3373321088,605628612&fm=27&gp=0.jpg");
-        mPic.add("https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=3373321088,605628612&fm=27&gp=0.jpg");
-        mPic.add("https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=3373321088,605628612&fm=27&gp=0.jpg");
-        mGood.add(new Goods("123","12",mPic));
-        mGood.add(new Goods("123","12",mPic));
-        mGood.add(new Goods("123","12",mPic));
-        mGood.add(new Goods("123","12",mPic));
+    private OkHttp okhttp = OkHttp.getOkhttpHelper();
+
+    public void initData() {
+        final List<String> mPic = new ArrayList<>();
+//        mPic.add("https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=3373321088,605628612&fm=27&gp=0.jpg");
+//        mPic.add("https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=3373321088,605628612&fm=27&gp=0.jpg");
+//        mPic.add("https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=3373321088,605628612&fm=27&gp=0.jpg");
+//        mPic.add("https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=3373321088,605628612&fm=27&gp=0.jpg");
+//        mPic.add("https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=3373321088,605628612&fm=27&gp=0.jpg");
+//        mPic.add("https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=3373321088,605628612&fm=27&gp=0.jpg");
+//        mGood.add(new Goods("123", "456", mPic));
+//        mGood.add(new Goods("456", "789", mPic));
+//        mGood.add(new Goods("456", "789", mPic));
+//        mGood.add(new Goods("456", "789", mPic));
+//        mGood.add(new Goods("456", "789", mPic));
+        final Map<String, Object> param = new HashMap<>();
+        param.put("uid", MyApplication.getInstance().getUserId());
+        okhttp.doPost(Constant.baseURL + "goods/getGood", new CallBack(PublishActivity.this) {
+
+            @Override
+            public void onError(Response response, Exception e) throws IOException {
+                Toast.makeText(getApplicationContext(), "获取数据失败", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void callBackSuccess(Response response, Object o) throws IOException {
+                Log.d("good", "success");
+                JSONObject json = JSON.parseObject((String) o);
+                Object jsonArray = json.get("data");
+                System.out.println(jsonArray);
+                List<Goods> listGood = JSON.parseArray(jsonArray + "", Goods.class);
+                Log.d("good", " " + mGood.size());
+                for (Goods good : listGood) {
+                    Log.d("good", " " + good.toString());
+                    String picture = good.getPicture();
+                    String[] txtpicture = picture.split(";");
+                    Collections.addAll(mPic, txtpicture);
+                    good.setPics(mPic);
+                    mGood.add(good);
+                    Log.d("address", " 2222221    " + mGood.size());
+                }
+                adapter = new PublishAdapter(PublishActivity.this, mGood);
+                recyclerview.setNestedScrollingEnabled(false);
+                recyclerview.setAdapter(adapter);
+            }
+        }, param);
     }
 }
