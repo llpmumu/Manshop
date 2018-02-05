@@ -80,20 +80,9 @@ public class PublishActivity extends BaseActivity {
 
     public void initData() {
         final List<String> mPic = new ArrayList<>();
-//        mPic.add("https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=3373321088,605628612&fm=27&gp=0.jpg");
-//        mPic.add("https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=3373321088,605628612&fm=27&gp=0.jpg");
-//        mPic.add("https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=3373321088,605628612&fm=27&gp=0.jpg");
-//        mPic.add("https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=3373321088,605628612&fm=27&gp=0.jpg");
-//        mPic.add("https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=3373321088,605628612&fm=27&gp=0.jpg");
-//        mPic.add("https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=3373321088,605628612&fm=27&gp=0.jpg");
-//        mGood.add(new Goods("123", "456", mPic));
-//        mGood.add(new Goods("456", "789", mPic));
-//        mGood.add(new Goods("456", "789", mPic));
-//        mGood.add(new Goods("456", "789", mPic));
-//        mGood.add(new Goods("456", "789", mPic));
         final Map<String, Object> param = new HashMap<>();
         param.put("uid", MyApplication.getInstance().getUserId());
-        okhttp.doPost(Constant.baseURL + "goods/getGood", new CallBack(PublishActivity.this) {
+        okhttp.doPost(Constant.baseURL + "goods/getMyGood", new CallBack(PublishActivity.this) {
 
             @Override
             public void onError(Response response, Exception e) throws IOException {

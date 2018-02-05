@@ -5,6 +5,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -53,10 +54,11 @@ public class GoodsRecycleAdapter extends RecyclerView.Adapter<GoodsRecycleAdapte
          */
         holder.itemView.setTag(position);
         Goods good = mList.get(position);
-        Glide.with(context).load(good.getPhoto()).into(holder.photo);
-        holder.username.setText(good.getUsername());
+        Glide.with(context).load(good.getUser().getHead()).into(holder.photo);
+        holder.username.setText(good.getUser().getUsername());
         holder.price.setText(good.getPrice());
-        holder.detail.setText(good.getDetails());
+        holder.detail.setText(good.getDetail());
+        Log.d("good",good.getDetail());
         LinearLayoutManager manager = new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false);
         holder.recyclerView.setLayoutManager(manager);
         ImageAdapter adapter = new ImageAdapter(context,good.getPics());

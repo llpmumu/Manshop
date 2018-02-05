@@ -9,10 +9,9 @@ import java.util.List;
 public class Goods {
     private Integer id;
     private Integer uid;
-    private String username;
-    private String photo;
+    private User user;
     private String title;
-    private String details;
+    private String detail;
     private String price;
     private String rental;
     private Integer type;
@@ -21,14 +20,6 @@ public class Goods {
     private List<String> pics;
 
     public Goods() {
-    }
-
-    public Goods(String photo, String username, String price, String details, List<String> pics) {
-        this.photo = photo;
-        this.username = username;
-        this.price = price;
-        this.details = details;
-        this.pics = pics;
     }
 
     public Integer getId() {
@@ -45,6 +36,38 @@ public class Goods {
 
     public void setUid(Integer uid) {
         this.uid = uid;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getDetail() {
+        return detail;
+    }
+
+    public void setDetail(String detail) {
+        this.detail = detail;
+    }
+
+    public String getPrice() {
+        return price;
+    }
+
+    public void setPrice(String price) {
+        this.price = price;
     }
 
     public String getRental() {
@@ -79,61 +102,11 @@ public class Goods {
         this.picture = picture;
     }
 
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public String getPhoto() {
-        return photo;
-    }
-
-    public void setPhoto(String photo) {
-        this.photo = photo;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public String getPrice() {
-        return price;
-    }
-
-    public void setPrice(String price) {
-        this.price = price;
-    }
-
-    public String getDetails() {
-        return details;
-    }
-
-    public void setDetails(String details) {
-        this.details = details;
-    }
-
     public List<String> getPics() {
         return pics;
     }
 
     public void setPics(List<String> pics) {
         this.pics = pics;
-    }
-
-    @Override
-    public String toString() {
-        return "Goods{" +
-                "photo='" + photo + '\'' +
-                ", username='" + username + '\'' +
-                ", price='" + price + '\'' +
-                ", details='" + details + '\'' +
-                '}';
     }
 }

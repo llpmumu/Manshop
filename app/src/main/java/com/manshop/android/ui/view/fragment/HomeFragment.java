@@ -9,28 +9,43 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
+import com.manshop.android.MyApplication;
 import com.manshop.android.R;
 import com.manshop.android.adapter.GoodsRecycleAdapter;
 import com.manshop.android.model.Goods;
+import com.manshop.android.okHttp.CallBack;
+import com.manshop.android.okHttp.OkHttp;
 import com.manshop.android.ui.view.activity.ComicActivity;
+import com.manshop.android.util.Constant;
 import com.manshop.android.util.GlideImageLoader;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
 import com.youth.banner.Transformer;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
+import okhttp3.Response;
 
 public class HomeFragment extends Fragment {
     //商品列表
     private RecyclerView recyclerview;
-    private List<Goods> mGood;
+    private GoodsRecycleAdapter adapter;
+    private List<Goods> mGood = new ArrayList<>();
     //轮播图
     private List<Integer> images = new ArrayList<>();
     private String[] titles = {
@@ -53,7 +68,12 @@ public class HomeFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
-//        轮播图
+        init(view);
+        return view;
+    }
+
+    private void init(View view) {
+        //        轮播图
         Banner banner = (Banner) view.findViewById(R.id.banner);
         images.add(R.drawable.img_lunbo1);
         images.add(R.drawable.img_lunbo2);
@@ -84,10 +104,9 @@ public class HomeFragment extends Fragment {
         recyclerview = (RecyclerView) view.findViewById(R.id.recycle);
         LinearLayoutManager manager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
         recyclerview.setLayoutManager(manager);
-        recyclerview.setNestedScrollingEnabled(false);
-        GoodsRecycleAdapter adapter = new GoodsRecycleAdapter(getActivity(), mGood);
-        recyclerview.setAdapter(adapter);
-
+//        recyclerview.setNestedScrollingEnabled(false);
+//        adapter = new GoodsRecycleAdapter(getActivity(), mGood);
+//        recyclerview.setAdapter(adapter);
 
         TextView tvShow = (TextView) view.findViewById(R.id.tv_show);
         tvShow.setOnClickListener(new View.OnClickListener() {
@@ -96,35 +115,64 @@ public class HomeFragment extends Fragment {
                 startActivity(new Intent(getActivity(), ComicActivity.class));
             }
         });
-        return view;
     }
 
+    private OkHttp okhttp = OkHttp.getOkhttpHelper();
 
     private void initData() {
-        mGood = new ArrayList<>();
-        List<String> mPic = new ArrayList<>();
-        mPic.add("https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=3373321088,605628612&fm=27&gp=0.jpg");
-        mPic.add("https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=3373321088,605628612&fm=27&gp=0.jpg");
-        mPic.add("https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=3373321088,605628612&fm=27&gp=0.jpg");
-        mPic.add("https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=3373321088,605628612&fm=27&gp=0.jpg");
-        mPic.add("https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=3373321088,605628612&fm=27&gp=0.jpg");
-        mPic.add("https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=3373321088,605628612&fm=27&gp=0.jpg");
-        mGood.add(
-                new Goods("https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=2450994032,3525797548&fm=27&gp=0.jpg",
-                        "123", "456", "\n\n789", mPic));
-        mGood.add(
-                new Goods("https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=2450994032,3525797548&fm=27&gp=0.jpg",
-                        "123", "456", "789", mPic));
-        mGood.add(
-                new Goods("https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=2450994032,3525797548&fm=27&gp=0.jpg",
-                        "123", "456", "789", mPic));
-        mGood.add(
-                new Goods("https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=2450994032,3525797548&fm=27&gp=0.jpg",
-                        "123", "456", "789", mPic));
-        mGood.add(
-                new Goods("https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=2450994032,3525797548&fm=27&gp=0.jpg",
-                        "123", "456", "789", mPic));
+        final List<String> mPic = new ArrayList<>();
+//        mPic.add("https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=3373321088,605628612&fm=27&gp=0.jpg");
+//        mPic.add("https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=3373321088,605628612&fm=27&gp=0.jpg");
+//        mPic.add("https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=3373321088,605628612&fm=27&gp=0.jpg");
+//        mPic.add("https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=3373321088,605628612&fm=27&gp=0.jpg");
+//        mPic.add("https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=3373321088,605628612&fm=27&gp=0.jpg");
+//        mPic.add("https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=3373321088,605628612&fm=27&gp=0.jpg");
+//        mGood.add(
+//                new Goods("https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=2450994032,3525797548&fm=27&gp=0.jpg",
+//                        "123", "456", "\n\n789", mPic));
+//        mGood.add(
+//                new Goods("https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=2450994032,3525797548&fm=27&gp=0.jpg",
+//                        "123", "456", "789", mPic));
+//        mGood.add(
+//                new Goods("https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=2450994032,3525797548&fm=27&gp=0.jpg",
+//                        "123", "456", "789", mPic));
+//        mGood.add(
+//                new Goods("https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=2450994032,3525797548&fm=27&gp=0.jpg",
+//                        "123", "456", "789", mPic));
+//        mGood.add(
+//                new Goods("https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=2450994032,3525797548&fm=27&gp=0.jpg",
+//                        "123", "456", "789", mPic));
 
+        final Map<String, Object> param = new HashMap<>();
+        param.put("uid", MyApplication.getInstance().getUserId());
+        okhttp.doPost(Constant.baseURL + "goods/getGood", new CallBack(getActivity()) {
 
+            @Override
+            public void onError(Response response, Exception e) throws IOException {
+                Toast.makeText(getActivity(), "获取数据失败", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void callBackSuccess(Response response, Object o) throws IOException {
+                Log.d("good", "success");
+                JSONObject json = JSON.parseObject((String) o);
+                Object jsonArray = json.get("data");
+                System.out.println(jsonArray);
+                List<Goods> listGood = JSON.parseArray(jsonArray + "", Goods.class);
+                Log.d("good", " " + mGood.size());
+                for (Goods good : listGood) {
+                    Log.d("good", " " + good.toString());
+                    String picture = good.getPicture();
+                    String[] txtpicture = picture.split(";");
+                    Collections.addAll(mPic, txtpicture);
+                    good.setPics(mPic);
+                    mGood.add(good);
+                    Log.d("address", " 2222221    " + mGood.size());
+                }
+                recyclerview.setNestedScrollingEnabled(false);
+                adapter = new GoodsRecycleAdapter(getActivity(), mGood);
+                recyclerview.setAdapter(adapter);
+            }
+        },param);
     }
 }
