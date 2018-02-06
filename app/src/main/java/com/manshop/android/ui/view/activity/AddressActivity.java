@@ -7,6 +7,7 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.BaseAdapter;
 import android.widget.Toast;
 
@@ -99,12 +100,33 @@ public class AddressActivity extends BaseActivity {
                     Log.d("address"," 2222221    "+mAddress.size());
                 }
                 adapter = new AddressAdapter(AddressActivity.this, mAddress);
+                adapter.setOnItemClickListener(new AddressAdapter.OnItemClickListener() {
+                    @Override
+                    public void onClick(View v, int position) {
+
+                    }
+                });
                 recyclerView.setAdapter(adapter);
-                addConsigneeAddressAdapterListener() ;
             }
         },param);
     }
 
-    public void addConsigneeAddressAdapterListener() {
+    //编辑地址
+
+    //删除地址
+    public void deleteAdr(int id) {
+        Map<String, Object> param = new HashMap<>();
+        param.put("id", id);
+        okHttp.doPost(Constant.baseURL + "address/delAddress", new CallBack(AddressActivity.this) {
+            @Override
+            public void onError(Response response, Exception e) throws IOException {
+                Toast.makeText(AddressActivity.this, "删除成功", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void callBackSuccess(Response response, Object o) throws IOException {
+                Toast.makeText(AddressActivity.this, "删除成功", Toast.LENGTH_SHORT).show();
+            }
+        }, param);
     }
 }
