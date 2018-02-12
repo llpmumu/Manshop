@@ -50,6 +50,8 @@ public class EditAddressActivity extends BaseActivity {
     private List<String> province;
     private List<List<String>> city;
     private List<List<List<String>>> county;
+    private Boolean isEdit = false;
+    private Intent intent = getIntent();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,6 +59,8 @@ public class EditAddressActivity extends BaseActivity {
         setContentView(R.layout.activity_edit_address);
         showToolbar();
         init();
+//        Bundle bundle = this.getIntent().getExtras();
+        edit();
     }
 
     @Override
@@ -79,7 +83,10 @@ public class EditAddressActivity extends BaseActivity {
                 finish();
                 break;
             case R.id.item_saveaddress:
-                saveAddress();
+                if (isEdit)
+                    updateAddress();
+                else
+                    saveAddress();
                 break;
             default:
         }
@@ -87,9 +94,9 @@ public class EditAddressActivity extends BaseActivity {
     }
 
     public void init() {
-        tvConsigneeAdr = (TextView) findViewById(R.id.consignee_address);
         etConsigneeName = (EditText) findViewById(R.id.consignee_name);
         etConsigneePhone = (EditText) findViewById(R.id.consignee_phone);
+        tvConsigneeAdr = (TextView) findViewById(R.id.consignee_address);
         etConsigneeDetailAdr = (EditText) findViewById(R.id.consignee_detail_address);
         tvConsigneeAdr.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -108,6 +115,18 @@ public class EditAddressActivity extends BaseActivity {
         });
     }
 
+    //编辑地址跳转数据传入
+    public void edit() {
+//        Bundle bundle = this.getIntent().getExtras();
+//        Intent intent = getIntent();
+        intent = getIntent();
+        etConsigneeName.setText(intent.getStringExtra("consigneeName"));
+        etConsigneePhone.setText(intent.getStringExtra("consigneePhone"));
+        tvConsigneeAdr.setText(intent.getStringExtra("selectAdr"));
+        etConsigneeDetailAdr.setText(intent.getStringExtra("addAdr"));
+        isEdit = true;
+    }
+
     private OkHttp okhttp = OkHttp.getOkhttpHelper();
 
     public void saveAddress() {
@@ -119,13 +138,41 @@ public class EditAddressActivity extends BaseActivity {
         param.put("uid", MyApplication.getInstance().getUserId());
         param.put("consignee", name);
         param.put("addphone", phone);
-        param.put("address", address + detailAdr);
+        param.put("address", address + " " + detailAdr);
         param.put("isDefault", "false");
         okhttp.doPost(Constant.baseURL + "address/newAddress", new CallBack(EditAddressActivity.this) {
-
             @Override
             public void onError(Response response, Exception e) throws IOException {
                 Toast.makeText(getApplicationContext(), "新建地址失败", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void callBackSuccess(Response response, Object o) throws IOException {
+                Log.d("address", "new success");
+                finish();
+                Intent intent = new Intent(EditAddressActivity.this, AddressActivity.class);
+                startActivity(intent);
+            }
+        }, param);
+    }
+
+    public void updateAddress() {
+        String name = etConsigneeName.getText().toString();
+        String phone = etConsigneePhone.getText().toString();
+        String address = tvConsigneeAdr.getText().toString();
+        String detailAdr = etConsigneeDetailAdr.getText().toString();
+        final Map<String, Object> param = new HashMap<>();
+        param.put("id",intent.getIntExtra("id",0));
+        Log.d("address","    55555555        "+ intent.getIntExtra("id",0));
+        param.put("uid", MyApplication.getInstance().getUserId());
+        param.put("consignee", name);
+        param.put("addphone", phone);
+        param.put("address", address + " " + detailAdr);
+        param.put("isDefault", "false");
+        okhttp.doPost(Constant.baseURL + "address/updateAddress", new CallBack(EditAddressActivity.this) {
+            @Override
+            public void onError(Response response, Exception e) throws IOException {
+                Toast.makeText(getApplicationContext(), "修改地址失败", Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -142,9 +189,7 @@ public class EditAddressActivity extends BaseActivity {
         province = new ArrayList<String>();
         city = new ArrayList<List<String>>();
         county = new ArrayList<List<List<String>>>();
-
         for (int i = 0; i < privinceModels.size(); i++) {
-
             province.add(privinceModels.get(i).getName());
             List<String> cityNames = new ArrayList<String>();
             List<List<String>> District = new ArrayList<List<String>>();
