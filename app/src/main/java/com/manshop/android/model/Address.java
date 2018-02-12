@@ -10,18 +10,16 @@ public class Address {
     private String consignee;
     private String address;
     private String addphone;
-    private boolean isDefault;
 
     public Address() {
         super();
     }
-    public Address(Integer id, Integer uid, String consignee, String address, String addphone, boolean isDefault) {
+    public Address(Integer id, Integer uid, String consignee, String address, String addphone) {
         this.id = id;
         this.uid = uid;
         this.consignee = consignee;
         this.address = address;
         this.addphone = addphone;
-        this.isDefault = isDefault;
     }
 
     public Integer getId() {
@@ -64,14 +62,6 @@ public class Address {
         this.addphone = addphone;
     }
 
-    public boolean isDefault() {
-        return isDefault;
-    }
-
-    public void setDefault(boolean aDefault) {
-        isDefault = aDefault;
-    }
-
     @Override
     public String toString() {
         return "Address{" +
@@ -80,7 +70,6 @@ public class Address {
                 ", consignee='" + consignee + '\'' +
                 ", address='" + address + '\'' +
                 ", addphone='" + addphone + '\'' +
-                ", isDefault=" + isDefault +
                 '}';
     }
 }

@@ -50,8 +50,9 @@ public class EditAddressActivity extends BaseActivity {
     private List<String> province;
     private List<List<String>> city;
     private List<List<List<String>>> county;
-    private Boolean isEdit = false;
-    private Intent intent = getIntent();
+    private Boolean isEdit;
+    private Intent intent;
+    private OkHttp okhttp = OkHttp.getOkhttpHelper();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,7 +60,6 @@ public class EditAddressActivity extends BaseActivity {
         setContentView(R.layout.activity_edit_address);
         showToolbar();
         init();
-//        Bundle bundle = this.getIntent().getExtras();
         edit();
     }
 
@@ -117,18 +117,15 @@ public class EditAddressActivity extends BaseActivity {
 
     //编辑地址跳转数据传入
     public void edit() {
-//        Bundle bundle = this.getIntent().getExtras();
-//        Intent intent = getIntent();
         intent = getIntent();
+        isEdit = intent.getBooleanExtra("isEdite" , false) ;
         etConsigneeName.setText(intent.getStringExtra("consigneeName"));
         etConsigneePhone.setText(intent.getStringExtra("consigneePhone"));
         tvConsigneeAdr.setText(intent.getStringExtra("selectAdr"));
         etConsigneeDetailAdr.setText(intent.getStringExtra("addAdr"));
-        isEdit = true;
     }
 
-    private OkHttp okhttp = OkHttp.getOkhttpHelper();
-
+    //新建地址
     public void saveAddress() {
         String name = etConsigneeName.getText().toString();
         String phone = etConsigneePhone.getText().toString();
@@ -139,40 +136,31 @@ public class EditAddressActivity extends BaseActivity {
         param.put("consignee", name);
         param.put("addphone", phone);
         param.put("address", address + " " + detailAdr);
-        param.put("isDefault", "false");
-        okhttp.doPost(Constant.baseURL + "address/newAddress", new CallBack(EditAddressActivity.this) {
-            @Override
-            public void onError(Response response, Exception e) throws IOException {
-                Toast.makeText(getApplicationContext(), "新建地址失败", Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void callBackSuccess(Response response, Object o) throws IOException {
-                Log.d("address", "new success");
-                finish();
-                Intent intent = new Intent(EditAddressActivity.this, AddressActivity.class);
-                startActivity(intent);
-            }
-        }, param);
+        requestAdrData(Constant.baseURL + "address/newAddress", param);
     }
 
+    //更新地址
     public void updateAddress() {
         String name = etConsigneeName.getText().toString();
         String phone = etConsigneePhone.getText().toString();
         String address = tvConsigneeAdr.getText().toString();
         String detailAdr = etConsigneeDetailAdr.getText().toString();
         final Map<String, Object> param = new HashMap<>();
-        param.put("id",intent.getIntExtra("id",0));
-        Log.d("address","    55555555        "+ intent.getIntExtra("id",0));
+        param.put("id", intent.getIntExtra("id", 0));
+        Log.d("address", "    55555555        " + intent.getIntExtra("id", 0));
         param.put("uid", MyApplication.getInstance().getUserId());
         param.put("consignee", name);
         param.put("addphone", phone);
         param.put("address", address + " " + detailAdr);
-        param.put("isDefault", "false");
-        okhttp.doPost(Constant.baseURL + "address/updateAddress", new CallBack(EditAddressActivity.this) {
+        requestAdrData(Constant.baseURL + "address/updateAddress", param);
+    }
+
+    //提交数据
+    public void requestAdrData(String uri, Map<String, Object> params) {
+        okhttp.doPost(uri, new CallBack(EditAddressActivity.this) {
             @Override
             public void onError(Response response, Exception e) throws IOException {
-                Toast.makeText(getApplicationContext(), "修改地址失败", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "失败", Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -182,7 +170,7 @@ public class EditAddressActivity extends BaseActivity {
                 Intent intent = new Intent(EditAddressActivity.this, AddressActivity.class);
                 startActivity(intent);
             }
-        }, param);
+        }, params);
     }
 
     public void getAdrMsg(List<Privince> privinceModels) {

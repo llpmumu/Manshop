@@ -40,17 +40,7 @@ import okhttp3.Response;
 public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.ViewHolder> {
     private Context context;
     private List<Address> mList;
-    //    private OnItemClickListener mListener;
     private OkHttp okHttp = OkHttp.getOkhttpHelper();
-
-//    public void setOnItemClickListener(OnItemClickListener listener) {
-//        this.mListener = listener;
-//    }
-
-    //接口实现监听
-//    public interface OnItemClickListener {
-//        void onClick(View v, int position);
-//    }
 
     public AddressAdapter(Context context, List<Address> mList) {
         this.context = context;
@@ -68,7 +58,7 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.ViewHold
                 final int position = holder.getAdapterPosition();
                 final Address address = mList.get(position);
                 final OptionMaterialDialog mMaterialDialog = new OptionMaterialDialog(context);
-                mMaterialDialog.setMessage("确定删除改地址？")
+                mMaterialDialog.setMessage("确定删除该地址？")
                         .setPositiveButton("确定", new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
@@ -94,22 +84,13 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.ViewHold
                 final int position = holder.getAdapterPosition();
                 final Address address = mList.get(position);
                 Intent intent = new Intent(context, EditAddressActivity.class);
-//                Bundle bundle = new Bundle();
-//                bundle.putInt("id", address.getId());
-//                bundle.putString("consigneeName", address.getConsignee());
-//                bundle.putString("consigneePhone", address.getAddphone());
-//                String[] adrs = address.getAddress().split(" ");
-//                bundle.putString("selectAdr", adrs[0]);
-//                bundle.putString("addAdr", adrs[1]);
-//                bundle.putBoolean("isDefault", address.isDefault());
-//                intent.putExtras(bundle);
                 intent.putExtra("id", address.getId());
                 intent.putExtra("consigneeName", address.getConsignee());
                 intent.putExtra("consigneePhone", address.getAddphone());
                 String[] adrs = address.getAddress().split(" ");
                 intent.putExtra("selectAdr", adrs[0]);
                 intent.putExtra("addAdr", adrs[1]);
-                intent.putExtra("isDefault", address.isDefault());
+                intent.putExtra("isEdite", true);
                 context.startActivity(intent);
             }
         });
@@ -123,11 +104,9 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.ViewHold
          */
         holder.itemView.setTag(position);
         Address address = mList.get(position);
-        holder.isCheck.setChecked(address.isDefault());
         holder.name.setText(address.getConsignee());
         holder.telnum.setText(showPhone(address.getAddphone()));
         holder.address.setText(address.getAddress());
-        holder.checktext.setText(address.isDefault() ? "默认地址" : "设为默认");
     }
 
 
@@ -140,8 +119,6 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.ViewHold
         TextView name;
         TextView telnum;
         TextView address;
-        RadioButton isCheck;
-        TextView checktext;
         TextView edit;
         TextView delete;
 
@@ -150,8 +127,6 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.ViewHold
             name = (TextView) itemView.findViewById(R.id.address_consignee);
             telnum = (TextView) itemView.findViewById(R.id.address_phone);
             address = (TextView) itemView.findViewById(R.id.address);
-            isCheck = (RadioButton) itemView.findViewById(R.id.radio_selected);
-            checktext = (TextView) itemView.findViewById(R.id.radio_selectedText);
             edit = (TextView) itemView.findViewById(R.id.edite_address);
             delete = (TextView) itemView.findViewById(R.id.delete_address);
         }

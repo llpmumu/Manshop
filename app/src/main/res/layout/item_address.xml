@@ -51,22 +51,6 @@
         android:paddingBottom="10dp"
         android:paddingTop="5dp">
 
-        <RadioButton
-            android:id="@+id/radio_selected"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:clickable="true" />
-
-        <TextView
-            android:id="@+id/radio_selectedText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_toRightOf="@+id/radio_selected"
-            android:paddingLeft="10dp"
-            android:text="设为默认"
-            android:textSize="14sp" />
-
         <TextView
             android:id="@+id/delete_address"
             android:layout_width="wrap_content"
