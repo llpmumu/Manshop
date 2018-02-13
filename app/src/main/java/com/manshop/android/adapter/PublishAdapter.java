@@ -29,7 +29,6 @@ public class PublishAdapter extends RecyclerView.Adapter<PublishAdapter.ViewHold
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-
         View view = View.inflate(context, R.layout.item_publish, null);
         ViewHolder holder = new ViewHolder(view);
         return holder;
@@ -42,8 +41,6 @@ public class PublishAdapter extends RecyclerView.Adapter<PublishAdapter.ViewHold
          */
         holder.itemView.setTag(position);
         Goods good = mList.get(position);
-//        Uri uri = Uri.parse(mList.get(position));
-//        holder.goodPic.setImageURI(Uri.parse(good.getPics().get(0)));
         Glide.with(context).load(good.getPics().get(0)).into(holder.goodPic);
         holder.goodName.setText(good.getTitle());
         holder.goodPrice.setText(good.getPrice());
@@ -58,7 +55,6 @@ public class PublishAdapter extends RecyclerView.Adapter<PublishAdapter.ViewHold
         ImageView goodPic;
         TextView goodName;
         TextView goodPrice;
-
 
         public ViewHolder(View itemView) {
             super(itemView);
