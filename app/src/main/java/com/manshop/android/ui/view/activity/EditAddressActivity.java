@@ -78,18 +78,22 @@ public class EditAddressActivity extends BaseActivity {
     //标题栏按钮功能实现
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        Map<String, Object> param = new HashMap<>();
         switch (item.getItemId()) {
             case android.R.id.home:
                 finish();
                 break;
             case R.id.item_saveaddress:
-                if (isEdit)
-                    updateAddress();
+                if (isEdit) {
+                    param.put("id", intent.getIntExtra("id", 0));
+                    requestAdrData(Constant.baseURL + "address/updateAddress", param);
+                }
                 else
-                    saveAddress();
+                    requestAdrData(Constant.baseURL + "address/newAddress", param);
                 break;
             default:
         }
+//        submitAddress(param);
         return true;
     }
 
@@ -125,38 +129,16 @@ public class EditAddressActivity extends BaseActivity {
         etConsigneeDetailAdr.setText(intent.getStringExtra("addAdr"));
     }
 
-    //新建地址
-    public void saveAddress() {
-        String name = etConsigneeName.getText().toString();
-        String phone = etConsigneePhone.getText().toString();
-        String address = tvConsigneeAdr.getText().toString();
-        String detailAdr = etConsigneeDetailAdr.getText().toString();
-        final Map<String, Object> param = new HashMap<>();
-        param.put("uid", MyApplication.getInstance().getUserId());
-        param.put("consignee", name);
-        param.put("addphone", phone);
-        param.put("address", address + " " + detailAdr);
-        requestAdrData(Constant.baseURL + "address/newAddress", param);
-    }
-
-    //更新地址
-    public void updateAddress() {
-        String name = etConsigneeName.getText().toString();
-        String phone = etConsigneePhone.getText().toString();
-        String address = tvConsigneeAdr.getText().toString();
-        String detailAdr = etConsigneeDetailAdr.getText().toString();
-        final Map<String, Object> param = new HashMap<>();
-        param.put("id", intent.getIntExtra("id", 0));
-        Log.d("address", "    55555555        " + intent.getIntExtra("id", 0));
-        param.put("uid", MyApplication.getInstance().getUserId());
-        param.put("consignee", name);
-        param.put("addphone", phone);
-        param.put("address", address + " " + detailAdr);
-        requestAdrData(Constant.baseURL + "address/updateAddress", param);
-    }
-
     //提交数据
     public void requestAdrData(String uri, Map<String, Object> params) {
+        String name = etConsigneeName.getText().toString();
+        String phone = etConsigneePhone.getText().toString();
+        String address = tvConsigneeAdr.getText().toString();
+        String detailAdr = etConsigneeDetailAdr.getText().toString();
+        params.put("uid", MyApplication.getInstance().getUserId());
+        params.put("consignee", name);
+        params.put("addphone", phone);
+        params.put("address", address + " " + detailAdr);
         okhttp.doPost(uri, new CallBack(EditAddressActivity.this) {
             @Override
             public void onError(Response response, Exception e) throws IOException {

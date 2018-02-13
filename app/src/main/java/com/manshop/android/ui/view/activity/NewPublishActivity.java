@@ -62,6 +62,9 @@ public class NewPublishActivity extends BaseActivity implements TakePhoto.TakeRe
     private EditText etRent;
     private TextView tip3;
 
+    private Boolean isEdit;
+    private Intent intent;
+
     //图片上传网格布局
     private GridView gw;
     private List<Map<String, Object>> datas;
@@ -140,7 +143,52 @@ public class NewPublishActivity extends BaseActivity implements TakePhoto.TakeRe
             }
         });
     }
+    //编辑地址跳转数据传入
+    public void edit() {
+        intent = getIntent();
+        isEdit = intent.getBooleanExtra("isEdite" , false) ;
+        etTitle.setText(intent.getStringExtra("title"));
+        etDetail.setText(intent.getStringExtra("detail"));
+        etPrice.setText(intent.getStringExtra("price"));
+        etRent.setText(intent.getStringExtra("rental"));
+    }
 
+    private OkHttp okhttp = OkHttp.getOkhttpHelper();
+    public void publish(View view){
+        String title = etTitle.getText().toString();
+        String detail = etDetail.getText().toString();
+        String price = etPrice.getText().toString();
+        String rent = etRent.getText().toString();
+        final Map<String, Object> param = new HashMap<>();
+        param.put("uid", MyApplication.getInstance().getUserId());
+        param.put("title",title);
+        param.put("detail",detail);
+        param.put("price",price);
+        param.put("rental",rent);
+        param.put("picture","https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=1121475478,2545730346&fm=27&gp=0.jpg;https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=3813653354,3201329653&fm=27&gp=0.jpg");
+
+
+    }
+
+    //提交数据
+    public void requestGoodData(String uri, Map<String, Object> params) {
+        okhttp.doPost(uri, new CallBack(NewPublishActivity.this) {
+            @Override
+            public void onError(Response response, Exception e) throws IOException {
+                Toast.makeText(getApplicationContext(), "失败", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void callBackSuccess(Response response, Object o) throws IOException {
+                Log.d("address", "new success");
+                finish();
+                Intent intent = new Intent(NewPublishActivity.this, AddressActivity.class);
+                startActivity(intent);
+            }
+        }, params);
+    }
+
+    //下面为拍照功能
     public void showDialog() {
         List<String> stringList = new ArrayList<>();
         stringList.add("拍照");
@@ -229,33 +277,5 @@ public class NewPublishActivity extends BaseActivity implements TakePhoto.TakeRe
         map.put("path", path);
         datas.add(map);
         gridViewAddImgesAdpter.notifyDataSetChanged(datas);
-    }
-
-    private OkHttp okhttp = OkHttp.getOkhttpHelper();
-    public void publish(View view){
-        String title = etTitle.getText().toString();
-        String detail = etDetail.getText().toString();
-        String price = etPrice.getText().toString();
-        String rent = etRent.getText().toString();
-        final Map<String, Object> param = new HashMap<>();
-        param.put("uid", MyApplication.getInstance().getUserId());
-        param.put("title",title);
-        param.put("detail",detail);
-        param.put("price",price);
-        param.put("rental",rent);
-        param.put("picture","https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=1121475478,2545730346&fm=27&gp=0.jpg;https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=3813653354,3201329653&fm=27&gp=0.jpg");
-        okhttp.doPost(Constant.baseURL + "goods/newGood", new CallBack(NewPublishActivity.this) {
-
-            @Override
-            public void onError(Response response, Exception e) throws IOException {
-                Toast.makeText(getApplicationContext(), "添加商品失败", Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void callBackSuccess(Response response, Object o) throws IOException {
-                Toast.makeText(getApplicationContext(),"发布成功",Toast.LENGTH_LONG).show();
-                startActivity(new Intent(NewPublishActivity.this, PublishActivity.class));
-            }
-        }, param);
     }
 }
