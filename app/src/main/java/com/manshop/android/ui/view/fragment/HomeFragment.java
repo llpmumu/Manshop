@@ -48,13 +48,6 @@ public class HomeFragment extends Fragment {
     private List<Goods> mGood = new ArrayList<>();
     //轮播图
     private List<Integer> images = new ArrayList<>();
-    private String[] titles = {
-            "title1",
-            "title2",
-            "title3",
-            "title4",
-            "title5",
-    };
 
     //    private ScrollView mScrollView;
     public static HomeFragment newInstance(String index) {
@@ -73,7 +66,7 @@ public class HomeFragment extends Fragment {
     }
 
     private void init(View view) {
-        //        轮播图
+        // 轮播图
         Banner banner = (Banner) view.findViewById(R.id.banner);
         images.add(R.drawable.img_lunbo1);
         images.add(R.drawable.img_lunbo2);
@@ -81,15 +74,13 @@ public class HomeFragment extends Fragment {
         images.add(R.drawable.img_lunbo4);
         images.add(R.drawable.img_lunbo5);
         //设置banner样式
-        banner.setBannerStyle(BannerConfig.CIRCLE_INDICATOR_TITLE);
+        banner.setBannerStyle(BannerConfig.CIRCLE_INDICATOR);
         //设置图片加载器
         banner.setImageLoader(new GlideImageLoader());
         //设置图片集合
         banner.setImages(images);
         //设置banner动画效果
         banner.setBannerAnimation(Transformer.DepthPage);
-        //设置标题集合（当banner样式有显示title时）
-        banner.setBannerTitles(Arrays.asList(titles));
         //设置自动轮播，默认为true
         banner.isAutoPlay(true);
         //设置轮播时间
@@ -104,9 +95,6 @@ public class HomeFragment extends Fragment {
         recyclerview = (RecyclerView) view.findViewById(R.id.recycle);
         LinearLayoutManager manager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
         recyclerview.setLayoutManager(manager);
-//        recyclerview.setNestedScrollingEnabled(false);
-//        adapter = new GoodsRecycleAdapter(getActivity(), mGood);
-//        recyclerview.setAdapter(adapter);
 
         TextView tvShow = (TextView) view.findViewById(R.id.tv_show);
         tvShow.setOnClickListener(new View.OnClickListener() {
@@ -121,28 +109,6 @@ public class HomeFragment extends Fragment {
 
     private void initData() {
         final List<String> mPic = new ArrayList<>();
-//        mPic.add("https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=3373321088,605628612&fm=27&gp=0.jpg");
-//        mPic.add("https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=3373321088,605628612&fm=27&gp=0.jpg");
-//        mPic.add("https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=3373321088,605628612&fm=27&gp=0.jpg");
-//        mPic.add("https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=3373321088,605628612&fm=27&gp=0.jpg");
-//        mPic.add("https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=3373321088,605628612&fm=27&gp=0.jpg");
-//        mPic.add("https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=3373321088,605628612&fm=27&gp=0.jpg");
-//        mGood.add(
-//                new Goods("https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=2450994032,3525797548&fm=27&gp=0.jpg",
-//                        "123", "456", "\n\n789", mPic));
-//        mGood.add(
-//                new Goods("https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=2450994032,3525797548&fm=27&gp=0.jpg",
-//                        "123", "456", "789", mPic));
-//        mGood.add(
-//                new Goods("https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=2450994032,3525797548&fm=27&gp=0.jpg",
-//                        "123", "456", "789", mPic));
-//        mGood.add(
-//                new Goods("https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=2450994032,3525797548&fm=27&gp=0.jpg",
-//                        "123", "456", "789", mPic));
-//        mGood.add(
-//                new Goods("https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=2450994032,3525797548&fm=27&gp=0.jpg",
-//                        "123", "456", "789", mPic));
-
         final Map<String, Object> param = new HashMap<>();
         param.put("uid", MyApplication.getInstance().getUserId());
         okhttp.doPost(Constant.baseURL + "goods/getGood", new CallBack(getActivity()) {

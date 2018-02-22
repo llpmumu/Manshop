@@ -1,6 +1,7 @@
 package com.manshop.android.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.support.v7.widget.LinearLayoutManager;
@@ -10,11 +11,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.makeramen.roundedimageview.RoundedImageView;
 import com.manshop.android.R;
 import com.manshop.android.model.Goods;
+import com.manshop.android.ui.view.activity.GoodDetailActivity;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -28,7 +31,7 @@ import okhttp3.Response;
  * Created by HP on 2017/12/27.
  */
 
-public class GoodsRecycleAdapter extends RecyclerView.Adapter<GoodsRecycleAdapter.ViewHolder> implements View.OnClickListener, View.OnLongClickListener {
+public class GoodsRecycleAdapter extends RecyclerView.Adapter<GoodsRecycleAdapter.ViewHolder> {
     Context context;
     List<Goods> mList;
 
@@ -41,14 +44,12 @@ public class GoodsRecycleAdapter extends RecyclerView.Adapter<GoodsRecycleAdapte
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
         View view = View.inflate(context, R.layout.item_goods, null);
-        view.setOnClickListener(this);
-        view.setOnLongClickListener(this);
         ViewHolder holder = new ViewHolder(view);
         return holder;
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
+    public void onBindViewHolder(ViewHolder holder, final int position) {
         /**
          * 给itemView设置tag
          */
@@ -63,6 +64,26 @@ public class GoodsRecycleAdapter extends RecyclerView.Adapter<GoodsRecycleAdapte
         holder.recyclerView.setLayoutManager(manager);
         ImageAdapter adapter = new ImageAdapter(context,good.getPics());
         holder.recyclerView.setAdapter(adapter);
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final Goods good = mList.get(position);
+                Intent intent = new Intent(context, GoodDetailActivity.class);
+                intent.putExtra("gid", good.getId());
+                intent.putExtra("uid",good.getUser().getId());
+                intent.putExtra("photo", good.getUser().getHead());
+                intent.putExtra("username", good.getUser().getUsername());
+                intent.putExtra("title", good.getTitle());
+                intent.putExtra("detail", good.getDetail());
+                intent.putExtra("picture", good.getPicture());
+                intent.putExtra("price",good.getPrice());
+                intent.putExtra("rental",good.getRental());
+                intent.putExtra("type", good.getType());
+                intent.putExtra("state", good.getState());
+                context.startActivity(intent);
+            }
+        });
     }
 
     @Override
@@ -73,22 +94,6 @@ public class GoodsRecycleAdapter extends RecyclerView.Adapter<GoodsRecycleAdapte
     @Override
     public int getItemCount() {
         return mList.size();
-    }
-
-    /**
-     * item点击事件
-     *
-     * @param v
-     */
-    @Override
-    public void onClick(View v) {
-
-    }
-
-
-    @Override
-    public boolean onLongClick(View v) {
-        return true;
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {

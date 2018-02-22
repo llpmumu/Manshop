@@ -103,7 +103,7 @@ public class PublishActivity extends BaseActivity {
                     String[] txtpicture = picture.split(";");
                     Collections.addAll(mPic, txtpicture);
                     good.setPics(mPic);
-                    if(good.getState() == 0)
+//                    if(good.getState() == 0)
                         mGood.add(good);
                     Log.d("address", " 2222221    " + mGood.size());
                 }

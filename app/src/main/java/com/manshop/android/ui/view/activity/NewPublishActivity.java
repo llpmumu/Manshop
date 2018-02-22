@@ -80,6 +80,7 @@ public class NewPublishActivity extends BaseActivity implements TakePhoto.TakeRe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_publish);
         init();
+        edit();
     }
 
     @Override
@@ -143,7 +144,7 @@ public class NewPublishActivity extends BaseActivity implements TakePhoto.TakeRe
             }
         });
     }
-    //编辑地址跳转数据传入
+    //编辑商品跳转数据传入
     public void edit() {
         intent = getIntent();
         isEdit = intent.getBooleanExtra("isEdite" , false) ;
@@ -155,23 +156,27 @@ public class NewPublishActivity extends BaseActivity implements TakePhoto.TakeRe
 
     private OkHttp okhttp = OkHttp.getOkhttpHelper();
     public void publish(View view){
-        String title = etTitle.getText().toString();
-        String detail = etDetail.getText().toString();
-        String price = etPrice.getText().toString();
-        String rent = etRent.getText().toString();
-        final Map<String, Object> param = new HashMap<>();
-        param.put("uid", MyApplication.getInstance().getUserId());
-        param.put("title",title);
-        param.put("detail",detail);
-        param.put("price",price);
-        param.put("rental",rent);
-        param.put("picture","https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=1121475478,2545730346&fm=27&gp=0.jpg;https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=3813653354,3201329653&fm=27&gp=0.jpg");
-
-
+        Map<String, Object> param = new HashMap<>();
+        if (isEdit) {
+            param.put("id", intent.getIntExtra("id", 0));
+            requestGoodData(Constant.baseURL + "goods/updateGood", param);
+        }
+        else
+            requestGoodData(Constant.baseURL + "goods/newGood", param);
     }
 
     //提交数据
     public void requestGoodData(String uri, Map<String, Object> params) {
+        String title = etTitle.getText().toString();
+        String detail = etDetail.getText().toString();
+        String price = etPrice.getText().toString();
+        String rent = etRent.getText().toString();
+        params.put("uid", MyApplication.getInstance().getUserId());
+        params.put("title",title);
+        params.put("detail",detail);
+        params.put("price",price);
+        params.put("rental",rent);
+        params.put("picture","https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=1121475478,2545730346&fm=27&gp=0.jpg;https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=3813653354,3201329653&fm=27&gp=0.jpg");
         okhttp.doPost(uri, new CallBack(NewPublishActivity.this) {
             @Override
             public void onError(Response response, Exception e) throws IOException {
@@ -180,9 +185,9 @@ public class NewPublishActivity extends BaseActivity implements TakePhoto.TakeRe
 
             @Override
             public void callBackSuccess(Response response, Object o) throws IOException {
-                Log.d("address", "new success");
+                Log.d("good", "new success");
                 finish();
-                Intent intent = new Intent(NewPublishActivity.this, AddressActivity.class);
+                Intent intent = new Intent(NewPublishActivity.this, PublishActivity.class);
                 startActivity(intent);
             }
         }, params);
