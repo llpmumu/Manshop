@@ -43,9 +43,6 @@ public class PublishActivity extends BaseActivity {
         recyclerview = (RecyclerView) findViewById(R.id.recycle_publish);
         LinearLayoutManager manager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         recyclerview.setLayoutManager(manager);
-//        adapter = new PublishAdapter(PublishActivity.this, mGood);
-//        recyclerview.setNestedScrollingEnabled(false);
-//        recyclerview.setAdapter(adapter);
     }
 
     @Override

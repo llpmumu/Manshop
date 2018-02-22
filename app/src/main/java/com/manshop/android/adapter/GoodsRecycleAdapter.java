@@ -21,6 +21,8 @@ import com.manshop.android.ui.view.activity.GoodDetailActivity;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import okhttp3.OkHttpClient;
@@ -62,7 +64,12 @@ public class GoodsRecycleAdapter extends RecyclerView.Adapter<GoodsRecycleAdapte
         Log.d("good",good.getDetail());
         LinearLayoutManager manager = new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false);
         holder.recyclerView.setLayoutManager(manager);
-        ImageAdapter adapter = new ImageAdapter(context,good.getPics());
+
+        List<String> mPic = new ArrayList<>();
+        String picture = good.getPicture();
+        String[] txtpicture = picture.split(";");
+        Collections.addAll(mPic, txtpicture);
+        ImageAdapter adapter = new ImageAdapter(context,mPic);
         holder.recyclerView.setAdapter(adapter);
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {

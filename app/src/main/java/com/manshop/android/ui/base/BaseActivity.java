@@ -16,6 +16,13 @@ import com.manshop.android.R;
 
 public class BaseActivity extends AppCompatActivity {
 
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+//        setContentView(R.layout.activity_good_detail);
+        showToolbar();
+    }
+
     public void showToolbar(){
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
