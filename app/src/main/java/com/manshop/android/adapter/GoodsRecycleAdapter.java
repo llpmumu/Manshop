@@ -121,29 +121,29 @@ public class GoodsRecycleAdapter extends RecyclerView.Adapter<GoodsRecycleAdapte
         }
     }
 
-    private Bitmap getBitmap(String url) throws IOException {
-        //创建一个Request
-        final Request request = new Request.Builder()
-                .url(url)
-                .build();
-        //new call
-        final Bitmap[] bitmap = new Bitmap[1];
-        new Thread() {
-            @Override
-            public void run() {
-                OkHttpClient client = new OkHttpClient();
-                Response execute = null;
-                try {
-                    execute = client.newCall(request).execute();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-                //获取流
-                InputStream in = execute.body().byteStream();
-                //转化为bitmap
-                bitmap[0] = BitmapFactory.decodeStream(in);
-            }
-        }.start();
-        return bitmap[0];
-    }
+//    private Bitmap getBitmap(String url) throws IOException {
+//        //创建一个Request
+//        final Request request = new Request.Builder()
+//                .url(url)
+//                .build();
+//        //new call
+//        final Bitmap[] bitmap = new Bitmap[1];
+//        new Thread() {
+//            @Override
+//            public void run() {
+//                OkHttpClient client = new OkHttpClient();
+//                Response execute = null;
+//                try {
+//                    execute = client.newCall(request).execute();
+//                } catch (IOException e) {
+//                    e.printStackTrace();
+//                }
+//                //获取流
+//                InputStream in = execute.body().byteStream();
+//                //转化为bitmap
+//                bitmap[0] = BitmapFactory.decodeStream(in);
+//            }
+//        }.start();
+//        return bitmap[0];
+//    }
 }

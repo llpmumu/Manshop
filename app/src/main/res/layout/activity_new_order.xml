@@ -30,9 +30,9 @@
     </LinearLayout>
 
     <!--<View-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="3dp"-->
-        <!--android:background="@color/splitline" />-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="3dp"-->
+    <!--android:background="@color/splitline" />-->
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -229,44 +229,46 @@
     <!--</LinearLayout>-->
 
 
-    <!--<RelativeLayout-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="match_parent">-->
-
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_alignParentBottom="true"
-        android:background="@color/white">
+        android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:text="实付:"
-            android:layout_marginLeft="10dp"/>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_alignParentBottom="true"
+            android:background="@color/white">
 
-        <TextView
-            android:id="@+id/warePrice"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_toRightOf="@+id/text"
-            android:text="￥1753.00" />
+            <TextView
+                android:id="@+id/text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="10dp"
+                android:text="实付:" />
 
-        <Button
-            android:id="@+id/btn_submit"
-            android:layout_width="80dp"
-            android:layout_height="40dp"
-            android:layout_alignParentRight="true"
-            android:background="@color/red"
-            android:text="提交订单"
-            android:textColor="@color/white"
-            android:layout_marginRight="15dp"/>
+            <TextView
+                android:id="@+id/warePrice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@+id/text"
+                android:text="￥1753.00"
+                android:textColor="@color/red"/>
+
+            <Button
+                android:id="@+id/btn_submit"
+                android:layout_width="80dp"
+                android:layout_height="40dp"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="15dp"
+                android:background="@color/red"
+                android:text="提交订单"
+                android:textColor="@color/white"
+                android:onClick="submitOrder"/>
+
+        </RelativeLayout>
 
     </RelativeLayout>
-
-    <!--</RelativeLayout>-->
 
 </LinearLayout>

@@ -110,6 +110,4 @@ public class PublishActivity extends BaseActivity {
             }
         }, param);
     }
-
-
 }

@@ -2,7 +2,6 @@ package com.manshop.android.adapter;
 
 import android.content.Context;
 import android.content.Intent;
-import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,7 +12,6 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.manshop.android.R;
 import com.manshop.android.model.Goods;
-import com.manshop.android.ui.view.activity.EditAddressActivity;
 import com.manshop.android.ui.view.activity.NewPublishActivity;
 
 import java.util.List;
