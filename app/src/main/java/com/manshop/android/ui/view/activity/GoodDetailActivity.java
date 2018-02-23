@@ -9,6 +9,8 @@ import android.text.TextPaint;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -78,5 +80,11 @@ public class GoodDetailActivity extends BaseActivity {
         rePic.setAdapter(adapter);
         rePic.setFocusableInTouchMode(false);
         rePic.requestFocus();
+    }
+
+    public void buy(View v){
+        Intent intentToOrder = new Intent(GoodDetailActivity.this,MyNewOrderActivity.class);
+        intentToOrder.putExtra("gid", intent.getIntExtra("gid",0));
+        startActivity(intentToOrder);
     }
 }

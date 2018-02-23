@@ -23,9 +23,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 android:background="?attr/colorPrimary"
-                app:titleTextColor="@color/textColor"
+                app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
                 app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-                app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
+                app:titleTextColor="@color/textColor">
 
                 <TextView
                     android:id="@+id/toolbar_title"
@@ -114,7 +114,7 @@
                         android:id="@+id/recycle_pic"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:descendantFocusability="blocksDescendants"/>
+                        android:descendantFocusability="blocksDescendants" />
 
                 </LinearLayout>
             </LinearLayout>
@@ -125,16 +125,17 @@
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_alignParentBottom="true"
-        android:background="#ffffff"
+        android:background="@color/white"
         android:orientation="horizontal">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="40dp"
-            android:text="收藏"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="5dp"
             android:drawableLeft="@drawable/ic_star"
             android:gravity="center"
-            android:layout_marginLeft="20dp"/>
+            android:text="收藏" />
 
         <Button
             android:id="@+id/btn_chat"
@@ -148,7 +149,7 @@
             android:background="@color/red"
             android:gravity="center"
             android:text="联系"
-            android:textColor="@color/white"/>
+            android:textColor="@color/white" />
 
         <Button
             android:id="@+id/btn_buy"
@@ -162,8 +163,9 @@
             android:layout_toLeftOf="@id/btn_chat"
             android:background="@color/red"
             android:gravity="center"
+            android:onClick="buy"
             android:text="立即购买"
-            android:textColor="@color/white"/>
+            android:textColor="@color/white" />
 
     </RelativeLayout>
 </RelativeLayout>

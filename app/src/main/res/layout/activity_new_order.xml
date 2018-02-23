@@ -14,6 +14,8 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="?attr/colorPrimary"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+            app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
             app:titleTextColor="@color/textColor">
 
             <TextView
@@ -27,17 +29,17 @@
         </android.support.v7.widget.Toolbar>
     </LinearLayout>
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="3dp"
-        android:background="@color/splitline" />
+    <!--<View-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="3dp"-->
+        <!--android:background="@color/splitline" />-->
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/white"
         android:paddingBottom="10dp"
-        android:paddingLeft="5dp"
+        android:paddingLeft="15dp"
         android:paddingRight="5dp"
         android:paddingTop="10dp">
 
@@ -62,7 +64,7 @@
             android:textColor="@color/cardview_shadow_start_color" />
 
         <ImageButton
-            android:id="@+id/consigneeMsg"
+            android:id="@+id/btn_address_select"
             android:layout_width="40dp"
             android:layout_height="60dp"
             android:layout_alignParentEnd="true"
@@ -79,61 +81,13 @@
         android:layout_height="3dp"
         android:background="@color/splitline" />
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/white"
-            android:orientation="vertical"
-            android:paddingBottom="10dp"
-            android:paddingLeft="5dp"
-            android:paddingRight="5dp"
-            android:paddingTop="10dp">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingBottom="10dp"
-                android:text="订单列表"
-                android:textSize="16sp" />
-
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/wareMsg"
-                android:layout_width="wrap_content"
-                android:layout_height="40dp"
-                android:orientation="horizontal" />
-
-        </LinearLayout>
-
-        <ImageButton
-            android:id="@+id/toOrderButton"
-            android:layout_width="40dp"
-            android:layout_height="60dp"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:background="@color/white"
-            android:paddingLeft="10dp"
-            android:paddingRight="30dp"
-            android:src="@drawable/ic_right" />
-
-    </RelativeLayout>
-
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="3dp"
-        android:background="@color/splitline" />
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/white"
         android:orientation="vertical"
         android:paddingBottom="10dp"
-        android:paddingLeft="5dp"
+        android:paddingLeft="15dp"
         android:paddingRight="5dp"
         android:paddingTop="10dp">
 
@@ -141,123 +95,178 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingBottom="10dp"
-            android:text="支付方式"
+            android:text="订单信息"
             android:textSize="16sp" />
 
         <RelativeLayout
-            android:id="@+id/Alipay"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <ImageView
-                android:id="@+id/alipayPhoto"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:src="@drawable/ic_alipay" />
-
-            <TextView
-                android:id="@+id/alipayText1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_toRightOf="@+id/alipayPhoto"
-                android:paddingLeft="10dp"
-                android:text="支付宝" />
-
-
-            <RadioButton
-                android:id="@+id/checkbox_alipay"
-                android:layout_width="wrap_content"
-                android:layout_height="30dp"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:clickable="false"
-                android:gravity="center" />
-
-        </RelativeLayout>
-
-        <View
             android:layout_width="wrap_content"
-            android:layout_height="1dp"
-            android:background="@color/splitline" />
-
-        <RelativeLayout
-            android:id="@+id/wechat"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:paddingLeft="5dp">
 
             <ImageView
-                android:id="@+id/wechatPhoto"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:src="@drawable/ic_wechat" />
+                android:id="@+id/good_picture"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:src="@drawable/img_loading" />
 
             <TextView
-                android:id="@+id/wechatText1"
+                android:id="@+id/good_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_toRightOf="@+id/wechatPhoto"
-                android:paddingLeft="10dp"
-                android:text="微信支付" />
+                android:layout_alignTop="@id/good_picture"
+                android:layout_toRightOf="@id/good_picture"
+                android:paddingLeft="15dp"
+                android:paddingTop="15dp"
+                android:text="111111111111111111111111111" />
 
-            <RadioButton
-                android:id="@+id/checkbox_wechat"
+            <TextView
+                android:id="@id/good_price"
                 android:layout_width="wrap_content"
-                android:layout_height="30dp"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:clickable="false"
-                android:gravity="center" />
-
+                android:layout_height="wrap_content"
+                android:layout_below="@id/good_title"
+                android:layout_toRightOf="@id/good_picture"
+                android:paddingLeft="15dp"
+                android:paddingTop="15dp"
+                android:text="111111111111111111111￥"
+                android:textColor="@color/red" />
         </RelativeLayout>
 
     </LinearLayout>
 
+    <!--<View-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="3dp"-->
+    <!--android:background="@color/splitline" />-->
+
+    <!--<LinearLayout-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:background="@color/white"-->
+    <!--android:orientation="vertical"-->
+    <!--android:paddingBottom="10dp"-->
+    <!--android:paddingLeft="15dp"-->
+    <!--android:paddingRight="5dp"-->
+    <!--android:paddingTop="10dp">-->
+
+    <!--<TextView-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:paddingBottom="10dp"-->
+    <!--android:text="支付方式"-->
+    <!--android:textSize="16sp" />-->
+
+    <!--<RelativeLayout-->
+    <!--android:id="@+id/Alipay"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content">-->
+
+    <!--<ImageView-->
+    <!--android:id="@+id/alipayPhoto"-->
+    <!--android:layout_width="40dp"-->
+    <!--android:layout_height="40dp"-->
+    <!--android:src="@drawable/ic_alipay" />-->
+
+    <!--<TextView-->
+    <!--android:id="@+id/alipayText1"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_centerVertical="true"-->
+    <!--android:layout_toRightOf="@+id/alipayPhoto"-->
+    <!--android:paddingLeft="10dp"-->
+    <!--android:text="支付宝" />-->
+
+
+    <!--<RadioButton-->
+    <!--android:id="@+id/checkbox_alipay"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="30dp"-->
+    <!--android:layout_alignParentRight="true"-->
+    <!--android:layout_centerVertical="true"-->
+    <!--android:clickable="false"-->
+    <!--android:gravity="center" -->
+    <!--android:paddingRight="10dp"/>-->
+
+    <!--</RelativeLayout>-->
+
+    <!--<View-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="1dp"-->
+    <!--android:background="@color/splitline" />-->
+
+    <!--<RelativeLayout-->
+    <!--android:id="@+id/wechat"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:paddingTop="5dp">-->
+
+    <!--<ImageView-->
+    <!--android:id="@+id/wechatPhoto"-->
+    <!--android:layout_width="40dp"-->
+    <!--android:layout_height="40dp"-->
+    <!--android:src="@drawable/ic_wechat" />-->
+
+    <!--<TextView-->
+    <!--android:id="@+id/wechatText1"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_centerVertical="true"-->
+    <!--android:layout_toRightOf="@+id/wechatPhoto"-->
+    <!--android:paddingLeft="10dp"-->
+    <!--android:text="微信支付" />-->
+
+    <!--<RadioButton-->
+    <!--android:id="@+id/checkbox_wechat"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="30dp"-->
+    <!--android:layout_alignParentRight="true"-->
+    <!--android:layout_centerVertical="true"-->
+    <!--android:clickable="false"-->
+    <!--android:gravity="center" -->
+    <!--android:paddingRight="10dp"/>-->
+
+    <!--</RelativeLayout>-->
+
+    <!--</LinearLayout>-->
+
+
+    <!--<RelativeLayout-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent">-->
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="50dp"
+        android:layout_alignParentBottom="true"
+        android:background="@color/white">
 
-        <RelativeLayout
-            android:layout_width="match_parent"
+        <TextView
+            android:id="@+id/text"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:background="@color/cardview_shadow_start_color"
-            android:paddingBottom="10dp"
-            android:paddingLeft="5dp"
-            android:paddingRight="5dp"
-            android:paddingTop="10dp">
+            android:layout_centerVertical="true"
+            android:text="实付:"
+            android:layout_marginLeft="10dp"/>
 
-            <TextView
-                android:id="@+id/text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:text="实付:"
-                android:textColor="@color/white" />
+        <TextView
+            android:id="@+id/warePrice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@+id/text"
+            android:text="￥1753.00" />
 
-            <TextView
-                android:id="@+id/warePrice"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_toRightOf="@+id/text"
-                android:paddingLeft="20dp"
-                android:text="￥1753.00"
-                android:textColor="@color/white" />
-
-            <Button
-                android:id="@+id/btn_submit"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:background="@color/red"
-                android:text="提交订单"
-                android:textColor="@color/white" />
-
-        </RelativeLayout>
+        <Button
+            android:id="@+id/btn_submit"
+            android:layout_width="80dp"
+            android:layout_height="40dp"
+            android:layout_alignParentRight="true"
+            android:background="@color/red"
+            android:text="提交订单"
+            android:textColor="@color/white"
+            android:layout_marginRight="15dp"/>
 
     </RelativeLayout>
+
+    <!--</RelativeLayout>-->
 
 </LinearLayout>
