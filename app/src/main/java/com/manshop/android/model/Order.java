@@ -1,6 +1,8 @@
 package com.manshop.android.model;
 
-import java.sql.Time;
+
+import java.sql.Timestamp;
+
 
 /**
  * Created by Lin on 2018/2/23.
@@ -19,7 +21,7 @@ public class Order {
     private Integer state;
     private String leavetime;
     private Integer type;
-    private Time ordertime;
+    private Timestamp ordertime;
 
     public Order() {
     }
@@ -120,11 +122,11 @@ public class Order {
         this.type = type;
     }
 
-    public Time getOrdertime() {
+    public Timestamp getOrdertime() {
         return ordertime;
     }
 
-    public void setOrdertime(Time ordertime) {
+    public void setOrdertime(Timestamp ordertime) {
         this.ordertime = ordertime;
     }
 

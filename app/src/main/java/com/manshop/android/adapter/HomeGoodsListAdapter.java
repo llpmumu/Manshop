@@ -2,16 +2,12 @@ package com.manshop.android.adapter;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.makeramen.roundedimageview.RoundedImageView;
@@ -19,25 +15,19 @@ import com.manshop.android.R;
 import com.manshop.android.model.Goods;
 import com.manshop.android.ui.view.activity.GoodDetailActivity;
 
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.Response;
 
 /**
  * Created by HP on 2017/12/27.
  */
 
-public class GoodsRecycleAdapter extends RecyclerView.Adapter<GoodsRecycleAdapter.ViewHolder> {
+public class HomeGoodsListAdapter extends RecyclerView.Adapter<HomeGoodsListAdapter.ViewHolder> {
     Context context;
     List<Goods> mList;
 
-    public GoodsRecycleAdapter(Context context, List<Goods> mList) {
+    public HomeGoodsListAdapter(Context context, List<Goods> mList) {
         this.context = context;
         this.mList = mList;
     }
@@ -69,7 +59,7 @@ public class GoodsRecycleAdapter extends RecyclerView.Adapter<GoodsRecycleAdapte
         String picture = good.getPicture();
         String[] txtpicture = picture.split(";");
         Collections.addAll(mPic, txtpicture);
-        ImageAdapter adapter = new ImageAdapter(context,mPic);
+        HomeGoodsPicAdapter adapter = new HomeGoodsPicAdapter(context,mPic);
         holder.recyclerView.setAdapter(adapter);
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {

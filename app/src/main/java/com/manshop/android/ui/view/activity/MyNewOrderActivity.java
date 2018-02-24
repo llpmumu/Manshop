@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -23,23 +22,30 @@ import com.manshop.android.ui.base.BaseActivity;
 import com.manshop.android.util.Constant;
 
 import java.io.IOException;
-import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.Map;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 import okhttp3.Response;
 
 public class MyNewOrderActivity extends BaseActivity {
     //地址信息
-    private TextView tvUserMsg;
-    private TextView tvAddress;
-    private ImageButton btnAdrSelect;
+    @Bind(R.id.userMsg)
+    TextView tvUserMsg;
+    @Bind(R.id.address)
+    TextView tvAddress;
 
     //订单信息
-    private ImageView ivGpic;
-    private TextView tvGtitle;
-    private TextView tvGprice;
-    private TextView tvAllPrice;
+    @Bind(R.id.good_picture)
+    ImageView ivGpic;
+    @Bind(R.id.good_title)
+    TextView tvGtitle;
+    @Bind(R.id.good_price)
+    TextView tvGprice;
+    @Bind(R.id.warePrice)
+    TextView tvAllPrice;
 
     private Goods good;
     private Intent intent;
@@ -49,6 +55,7 @@ public class MyNewOrderActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_order);
+        ButterKnife.bind(MyNewOrderActivity.this);
         showToolbar();
         init();
     }
@@ -65,23 +72,13 @@ public class MyNewOrderActivity extends BaseActivity {
 
     public void init() {
         intent = getIntent();
-        tvUserMsg = (TextView) findViewById(R.id.userMsg);
-        tvAddress = (TextView) findViewById(R.id.address);
-        btnAdrSelect = (ImageButton) findViewById(R.id.btn_address_select);
-        btnAdrSelect.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(MyNewOrderActivity.this, AddressActivity.class));
-            }
-        });
-
-        ivGpic = (ImageView) findViewById(R.id.good_picture);
-        tvGtitle= (TextView) findViewById(R.id.good_title);
-        tvGprice= (TextView) findViewById(R.id.good_price);
-        tvAllPrice= (TextView) findViewById(R.id.warePrice);
-
         addAddress();
         getGoodInfo();
+    }
+
+    @OnClick(R.id.btn_address_select)
+    public void selectAdr() {
+        startActivity(new Intent(MyNewOrderActivity.this, ListAddressActivity.class));
     }
 
     //填写收货地址
@@ -99,6 +96,7 @@ public class MyNewOrderActivity extends BaseActivity {
             public void callBackSuccess(Response response, Object o) throws IOException {
                 JSONObject json = JSON.parseObject((String) o);
                 Address address = json.getObject("data", Address.class);
+                Log.d("order", "55" + tvUserMsg);
                 tvUserMsg.setText(address.getConsignee() + "(" + address.getAddphone() + ")");
                 tvAddress.setText(address.getAddress());
             }
@@ -124,24 +122,22 @@ public class MyNewOrderActivity extends BaseActivity {
                 String[] txtpicture = picture.split(";");
                 Glide.with(MyNewOrderActivity.this).load(txtpicture[0]).into(ivGpic);
                 tvGtitle.setText(good.getTitle());
-                tvGprice.setText(good.getPrice()+"￥");
-                tvAllPrice.setText(good.getPrice()+"￥");
+                tvGprice.setText(good.getPrice() + "￥");
+                tvAllPrice.setText(good.getPrice() + "￥");
             }
         }, params);
     }
 
     //提交订单
-    public void submitOrder(View view){
+    public void submitOrder(View view) {
         final Map<String, Object> params = new HashMap<>();
-        params.put("id",null);
-        params.put("gid",intent.getIntExtra("gid", 0));
-        params.put("suid",good.getUser().getId());
-        params.put("buid",MyApplication.getInstance().getUserId());
-        params.put("state",1);
-        java.sql.Date time= new java.sql.Date(System.currentTimeMillis());
-        SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        Log.d("good","time----"+ sdf.format(time));
-        params.put("ordertime",time);
+        params.put("id", null);
+        params.put("gid", intent.getIntExtra("gid", 0));
+        params.put("suid", good.getUser().getId());
+        params.put("buid", MyApplication.getInstance().getUserId());
+        params.put("state", 1);
+        java.sql.Date date = new java.sql.Date(System.currentTimeMillis());
+        params.put("ordertime", date);
         okhttp.doPost(Constant.baseURL + "order/newOrder", new CallBack(MyNewOrderActivity.this) {
 
             @Override
@@ -151,7 +147,12 @@ public class MyNewOrderActivity extends BaseActivity {
 
             @Override
             public void callBackSuccess(Response response, Object o) throws IOException {
+                JSONObject json = JSON.parseObject((String) o);
+                String oid = json.getObject("data",String.class);
 
+                Intent intentToDetail = new Intent(MyNewOrderActivity.this, OrderDetailActivity.class);
+                intentToDetail.putExtra("oid",oid);
+                startActivity(intentToDetail);
             }
         }, params);
     }

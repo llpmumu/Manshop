@@ -80,7 +80,7 @@ public class MainActivity extends BaseActivity {
             public boolean onNavigationItemSelected(MenuItem item) {
                 switch (item.getItemId()) {
                     case R.id.item_address:
-                        intent = new Intent(MainActivity.this, AddressActivity.class);
+                        intent = new Intent(MainActivity.this, ListAddressActivity.class);
                         startActivity(intent);
                         break;
                     case R.id.item_setting:

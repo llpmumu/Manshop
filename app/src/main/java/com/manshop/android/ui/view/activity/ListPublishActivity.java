@@ -29,7 +29,7 @@ import java.util.Map;
 
 import okhttp3.Response;
 
-public class PublishActivity extends BaseActivity {
+public class ListPublishActivity extends BaseActivity {
     private List<Goods> mGood = new ArrayList<>();
     private PublishAdapter adapter;
     private RecyclerView recyclerview;
@@ -65,7 +65,7 @@ public class PublishActivity extends BaseActivity {
                 finish();
                 break;
             case R.id.item_add:
-                Intent intent = new Intent(PublishActivity.this, NewPublishActivity.class);
+                Intent intent = new Intent(ListPublishActivity.this, NewPublishActivity.class);
                 startActivity(intent);
                 break;
             default:
@@ -79,7 +79,7 @@ public class PublishActivity extends BaseActivity {
         final List<String> mPic = new ArrayList<>();
         final Map<String, Object> param = new HashMap<>();
         param.put("uid", MyApplication.getInstance().getUserId());
-        okhttp.doPost(Constant.baseURL + "goods/getMyGood", new CallBack(PublishActivity.this) {
+        okhttp.doPost(Constant.baseURL + "goods/getMyGood", new CallBack(ListPublishActivity.this) {
 
             @Override
             public void onError(Response response, Exception e) throws IOException {
@@ -104,7 +104,7 @@ public class PublishActivity extends BaseActivity {
                         mGood.add(good);
                     Log.d("address", " 2222221    " + mGood.size());
                 }
-                adapter = new PublishAdapter(PublishActivity.this, mGood);
+                adapter = new PublishAdapter(ListPublishActivity.this, mGood);
                 recyclerview.setNestedScrollingEnabled(false);
                 recyclerview.setAdapter(adapter);
             }

@@ -27,7 +27,7 @@ import java.util.Map;
 
 import okhttp3.Response;
 
-public class AddressActivity extends BaseActivity {
+public class ListAddressActivity extends BaseActivity {
     private List<Address> mAddress=new ArrayList<>();
     private RecyclerView recyclerView;
     private AddressAdapter adapter;
@@ -64,10 +64,10 @@ public class AddressActivity extends BaseActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
-                startActivity(new Intent(AddressActivity.this, MainActivity.class));
+                startActivity(new Intent(ListAddressActivity.this, MainActivity.class));
                 break;
             case R.id.item_newaddress:
-                startActivity(new Intent(AddressActivity.this, EditAddressActivity.class));
+                startActivity(new Intent(ListAddressActivity.this, EditAddressActivity.class));
                 break;
             default:
         }
@@ -78,7 +78,7 @@ public class AddressActivity extends BaseActivity {
     private void initAddress() {
         Map<String, Object> param = new HashMap<>();
         param.put("uid", MyApplication.getInstance().getUserId());
-        okHttp.doPost(Constant.baseURL + "address/getAddress", new CallBack(AddressActivity.this) {
+        okHttp.doPost(Constant.baseURL + "address/getAddress", new CallBack(ListAddressActivity.this) {
             @Override
             public void onError(Response response, Exception e) throws IOException {
 //                Toast.makeText(getApplicationContext(), "获取地址失败", Toast.LENGTH_SHORT).show();
@@ -96,7 +96,7 @@ public class AddressActivity extends BaseActivity {
                     mAddress.add(address);
                     Log.d("address"," 2222221    "+mAddress.size());
                 }
-                adapter = new AddressAdapter(AddressActivity.this, mAddress);
+                adapter = new AddressAdapter(ListAddressActivity.this, mAddress);
                 recyclerView.setAdapter(adapter);
             }
         },param);

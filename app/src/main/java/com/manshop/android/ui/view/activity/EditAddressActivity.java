@@ -1,10 +1,8 @@
 package com.manshop.android.ui.view.activity;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.content.res.AssetManager;
 import android.graphics.Color;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -14,12 +12,9 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONObject;
 import com.bigkoo.pickerview.OptionsPickerView;
 import com.manshop.android.MyApplication;
 import com.manshop.android.R;
-import com.manshop.android.model.Address;
 import com.manshop.android.model.city.Privince;
 import com.manshop.android.model.city.XmlParserHandler;
 import com.manshop.android.okHttp.CallBack;
@@ -149,7 +144,7 @@ public class EditAddressActivity extends BaseActivity {
             public void callBackSuccess(Response response, Object o) throws IOException {
                 Log.d("address", "new success");
                 finish();
-                Intent intent = new Intent(EditAddressActivity.this, AddressActivity.class);
+                Intent intent = new Intent(EditAddressActivity.this, ListAddressActivity.class);
                 startActivity(intent);
             }
         }, params);

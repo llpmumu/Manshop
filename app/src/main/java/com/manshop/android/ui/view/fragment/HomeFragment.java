@@ -20,7 +20,7 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.manshop.android.MyApplication;
 import com.manshop.android.R;
-import com.manshop.android.adapter.GoodsRecycleAdapter;
+import com.manshop.android.adapter.HomeGoodsListAdapter;
 import com.manshop.android.model.Goods;
 import com.manshop.android.okHttp.CallBack;
 import com.manshop.android.okHttp.OkHttp;
@@ -33,7 +33,6 @@ import com.youth.banner.Transformer;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -44,7 +43,7 @@ import okhttp3.Response;
 public class HomeFragment extends Fragment {
     //商品列表
     private RecyclerView recyclerview;
-    private GoodsRecycleAdapter adapter;
+    private HomeGoodsListAdapter adapter;
     private List<Goods> mGood = new ArrayList<>();
     //轮播图
     private List<Integer> images = new ArrayList<>();
@@ -136,7 +135,7 @@ public class HomeFragment extends Fragment {
                     Log.d("address", " 2222221    " + mGood.size());
                 }
                 recyclerview.setNestedScrollingEnabled(false);
-                adapter = new GoodsRecycleAdapter(getActivity(), mGood);
+                adapter = new HomeGoodsListAdapter(getActivity(), mGood);
                 recyclerview.setAdapter(adapter);
             }
         },param);

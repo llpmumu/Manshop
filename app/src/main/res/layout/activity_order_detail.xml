@@ -44,6 +44,7 @@
 
 
         <TextView
+            android:id="@+id/tv_logistics_info"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/tip"
@@ -71,14 +72,14 @@
 
         <com.facebook.drawee.view.SimpleDraweeView
             android:id="@+id/adv_pic"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
             android:layout_below="@+id/tip2"
             android:layout_margin="5dp"
             fresco:placeholderImage="@drawable/img_loading" />
 
-
         <TextView
+            android:id="@+id/dtl_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignBottom="@+id/adv_pic"
@@ -110,6 +111,7 @@
                 android:textSize="10sp" />
 
             <TextView
+                android:id="@+id/seller_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
@@ -129,6 +131,7 @@
                 android:textSize="10sp" />
 
             <TextView
+                android:id="@+id/order_id"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
@@ -148,6 +151,7 @@
                 android:textSize="10sp" />
 
             <TextView
+                android:id="@+id/order_time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"

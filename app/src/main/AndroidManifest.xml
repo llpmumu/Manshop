@@ -33,20 +33,19 @@
         <activity android:name=".ui.view.activity.LoginActivity" />
         <activity android:name=".ui.view.activity.RegisterActivity" />
         <activity android:name=".ui.view.activity.SearchActivity" />
-        <activity android:name=".ui.view.activity.PublishActivity" />
-        <activity android:name=".ui.view.activity.AddressActivity" />
+        <activity android:name=".ui.view.activity.ListPublishActivity" />
+        <activity android:name=".ui.view.activity.ListAddressActivity" />
         <activity android:name=".ui.view.activity.GoodDetailActivity" />
         <activity android:name=".ui.view.activity.ComicActivity" />
         <activity android:name=".ui.view.activity.EditAddressActivity" />
         <activity android:name=".ui.view.activity.DialogueActivity" />
         <activity
             android:name=".ui.view.activity.NewPublishActivity"
-            android:windowSoftInputMode="stateHidden" >
-
-        </activity>
+            android:windowSoftInputMode="stateHidden"></activity>
         <activity android:name=".ui.view.activity.MyNewOrderActivity" />
         <activity android:name=".ui.view.activity.DeliveryActivity" />
         <activity android:name=".ui.view.activity.OrderDetailActivity" />
+        <activity android:name=".ui.view.activity.ListOrderActivity"></activity>
     </application>
 
 </manifest>

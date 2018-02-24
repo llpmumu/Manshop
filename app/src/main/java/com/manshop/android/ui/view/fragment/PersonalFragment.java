@@ -1,13 +1,10 @@
 package com.manshop.android.ui.view.fragment;
 
 
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.os.Looper;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,7 +17,7 @@ import com.bumptech.glide.Glide;
 import com.makeramen.roundedimageview.RoundedImageView;
 import com.manshop.android.R;
 import com.manshop.android.ui.view.activity.LoginActivity;
-import com.manshop.android.ui.view.activity.PublishActivity;
+import com.manshop.android.ui.view.activity.ListPublishActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -91,8 +88,11 @@ public class PersonalFragment extends Fragment {
                 mPerList.get(position);
                 switch (position) {
                     case 0:
-                        Intent intent = new Intent(getActivity(),PublishActivity.class);
+                        Intent intent = new Intent(getActivity(),ListPublishActivity.class);
                         startActivity(intent);
+                        break;
+                    case 1:
+                        startActivity(new Intent(getContext(),ListPublishActivity.class));
                         break;
                     default:
                 }

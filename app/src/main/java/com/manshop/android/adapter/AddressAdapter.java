@@ -1,32 +1,22 @@
 package com.manshop.android.adapter;
 
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.longsh.optionframelibrary.OptionMaterialDialog;
-import com.makeramen.roundedimageview.RoundedImageView;
-import com.manshop.android.MyApplication;
 import com.manshop.android.R;
 import com.manshop.android.model.Address;
 import com.manshop.android.okHttp.CallBack;
 import com.manshop.android.okHttp.OkHttp;
-import com.manshop.android.ui.base.BaseActivity;
-import com.manshop.android.ui.view.activity.AddressActivity;
 import com.manshop.android.ui.view.activity.EditAddressActivity;
 import com.manshop.android.util.Constant;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;

@@ -43,8 +43,6 @@ import java.util.Map;
 
 import okhttp3.Response;
 
-import static android.R.attr.password;
-
 public class NewPublishActivity extends BaseActivity implements TakePhoto.TakeResultListener, InvokeListener {
     //标题 具体内容
     private EditText etTitle;
@@ -187,7 +185,7 @@ public class NewPublishActivity extends BaseActivity implements TakePhoto.TakeRe
             public void callBackSuccess(Response response, Object o) throws IOException {
                 Log.d("good", "new success");
                 finish();
-                Intent intent = new Intent(NewPublishActivity.this, PublishActivity.class);
+                Intent intent = new Intent(NewPublishActivity.this, ListPublishActivity.class);
                 startActivity(intent);
             }
         }, params);

@@ -146,7 +146,7 @@
             android:layout_centerVertical="true"
             android:layout_marginEnd="102dp"
             android:layout_marginRight="102dp"
-            android:background="@color/red"
+            android:background="@color/btnBuy"
             android:gravity="center"
             android:text="联系"
             android:textColor="@color/white" />
@@ -161,7 +161,7 @@
             android:layout_marginRight="5dp"
             android:layout_marginTop="5dp"
             android:layout_toLeftOf="@id/btn_chat"
-            android:background="@color/red"
+            android:background="@color/btnBuy"
             android:gravity="center"
             android:onClick="buy"
             android:text="立即购买"

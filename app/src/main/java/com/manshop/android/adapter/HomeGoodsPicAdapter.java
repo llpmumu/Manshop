@@ -3,7 +3,6 @@ package com.manshop.android.adapter;
 import android.content.Context;
 import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -16,11 +15,11 @@ import java.util.List;
  * Created by Lin on 2017/12/27.
  */
 
-public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ViewHolder> {
+public class HomeGoodsPicAdapter extends RecyclerView.Adapter<HomeGoodsPicAdapter.ViewHolder> {
     Context context;
     List<String> mList;
 
-    public ImageAdapter(Context context, List<String> mList) {
+    public HomeGoodsPicAdapter(Context context, List<String> mList) {
         this.context = context;
         this.mList = mList;
     }

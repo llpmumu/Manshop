@@ -262,7 +262,7 @@
                 android:layout_height="40dp"
                 android:layout_alignParentRight="true"
                 android:layout_marginRight="15dp"
-                android:background="@color/red"
+                android:background="@color/btnBuy"
                 android:text="提交订单"
                 android:textColor="@color/white"
                 android:onClick="submitOrder"/>
