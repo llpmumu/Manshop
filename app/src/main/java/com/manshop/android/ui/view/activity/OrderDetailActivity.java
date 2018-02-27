@@ -67,7 +67,11 @@ public class OrderDetailActivity extends BaseActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
-                startActivity(new Intent(OrderDetailActivity.this,MainActivity.class));
+                String tip = intent.getStringExtra("type");
+                if (tip.equals("buy"))
+                    startActivity(new Intent(OrderDetailActivity.this, MainActivity.class));
+                else if (tip.equals("old"))
+                    finish();
                 break;
             default:
         }

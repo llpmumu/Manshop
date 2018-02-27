@@ -19,6 +19,7 @@ import com.manshop.android.okHttp.CallBack;
 import com.manshop.android.okHttp.OkHttp;
 import com.manshop.android.ui.base.BaseActivity;
 import com.manshop.android.util.Constant;
+import com.manshop.android.util.StringUtil;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -96,13 +97,9 @@ public class ListPublishActivity extends BaseActivity {
                 Log.d("good", " " + mGood.size());
                 for (Goods good : listGood) {
                     Log.d("good", " " + good.toString());
-                    String picture = good.getPicture();
-                    String[] txtpicture = picture.split(";");
-                    Collections.addAll(mPic, txtpicture);
-                    good.setPics(mPic);
-//                    if(good.getState() == 0)
-                        mGood.add(good);
-                    Log.d("address", " 2222221    " + mGood.size());
+                    good.setPics(StringUtil.getInstance().spiltPic(good.getPicture()));
+                    mGood.add(good);
+                    Log.d("good", " goodtime    " + good.getGoodtime());
                 }
                 adapter = new PublishAdapter(ListPublishActivity.this, mGood);
                 recyclerview.setNestedScrollingEnabled(false);

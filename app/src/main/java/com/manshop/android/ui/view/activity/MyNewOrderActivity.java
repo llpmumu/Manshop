@@ -152,6 +152,7 @@ public class MyNewOrderActivity extends BaseActivity {
 
                 Intent intentToDetail = new Intent(MyNewOrderActivity.this, OrderDetailActivity.class);
                 intentToDetail.putExtra("oid",oid);
+                intentToDetail.putExtra("type","buy");
                 startActivity(intentToDetail);
             }
         }, params);

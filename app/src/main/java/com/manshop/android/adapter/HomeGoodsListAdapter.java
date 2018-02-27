@@ -14,6 +14,7 @@ import com.makeramen.roundedimageview.RoundedImageView;
 import com.manshop.android.R;
 import com.manshop.android.model.Goods;
 import com.manshop.android.ui.view.activity.GoodDetailActivity;
+import com.manshop.android.util.StringUtil;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -48,6 +49,7 @@ public class HomeGoodsListAdapter extends RecyclerView.Adapter<HomeGoodsListAdap
         holder.itemView.setTag(position);
         Goods good = mList.get(position);
         Glide.with(context).load(good.getUser().getHead()).into(holder.photo);
+
         holder.username.setText(good.getUser().getUsername());
         holder.price.setText(good.getPrice());
         holder.detail.setText(good.getDetail());
@@ -55,11 +57,7 @@ public class HomeGoodsListAdapter extends RecyclerView.Adapter<HomeGoodsListAdap
         LinearLayoutManager manager = new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false);
         holder.recyclerView.setLayoutManager(manager);
 
-        List<String> mPic = new ArrayList<>();
-        String picture = good.getPicture();
-        String[] txtpicture = picture.split(";");
-        Collections.addAll(mPic, txtpicture);
-        HomeGoodsPicAdapter adapter = new HomeGoodsPicAdapter(context,mPic);
+        HomeGoodsPicAdapter adapter = new HomeGoodsPicAdapter(context, StringUtil.getInstance().spiltPic(good.getPicture()));
         holder.recyclerView.setAdapter(adapter);
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {

@@ -14,21 +14,19 @@
         <ImageView
             android:id="@+id/item_order_pic"
             android:layout_width="90dp"
-            android:layout_height="100dp"
-            android:src="@drawable/img_loading" />
+            android:layout_height="100dp" />
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_margin="20dp"
-            android:orientation="vertical">
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_gravity="center"
+            android:paddingLeft="15dp">
 
             <TextView
                 android:id="@+id/item_order_name"
                 android:layout_width="wrap_content"
-                android:layout_height="0dp"
-                android:layout_marginBottom="5dp"
-                android:layout_weight="1"
+                android:layout_height="wrap_content"
                 android:gravity="center"
                 android:text="111"
                 android:textSize="23sp"
@@ -37,13 +35,20 @@
             <TextView
                 android:id="@+id/item_order_price"
                 android:layout_width="wrap_content"
-                android:layout_height="0dp"
-                android:layout_weight="1"
+                android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="15"
+                android:text="15￥"
+                android:layout_below="@id/item_order_name"
                 android:textColor="@color/red"
-                android:textSize="20sp" />
-        </LinearLayout>
+                android:textSize="18sp" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/item_order_price"
+                android:text="交易完成"
+                android:gravity="center"/>
+
+        </RelativeLayout>
     </LinearLayout>
 
     <View

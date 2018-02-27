@@ -16,6 +16,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.makeramen.roundedimageview.RoundedImageView;
 import com.manshop.android.R;
+import com.manshop.android.ui.view.activity.ListOrderActivity;
 import com.manshop.android.ui.view.activity.LoginActivity;
 import com.manshop.android.ui.view.activity.ListPublishActivity;
 
@@ -88,11 +89,13 @@ public class PersonalFragment extends Fragment {
                 mPerList.get(position);
                 switch (position) {
                     case 0:
+                        //发布的
                         Intent intent = new Intent(getActivity(),ListPublishActivity.class);
                         startActivity(intent);
                         break;
                     case 1:
-                        startActivity(new Intent(getContext(),ListPublishActivity.class));
+                        //买到的
+                        startActivity(new Intent(getContext(),ListOrderActivity.class));
                         break;
                     default:
                 }

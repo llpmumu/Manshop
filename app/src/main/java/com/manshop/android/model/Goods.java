@@ -1,5 +1,6 @@
 package com.manshop.android.model;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 /**
@@ -18,6 +19,7 @@ public class Goods {
     private Integer state;
     private String picture;
     private List<String> pics;
+    private Timestamp goodtime;
 
     public Goods() {
     }
@@ -108,5 +110,13 @@ public class Goods {
 
     public void setPics(List<String> pics) {
         this.pics = pics;
+    }
+
+    public Timestamp getGoodtime() {
+        return goodtime;
+    }
+
+    public void setGoodtime(Timestamp goodtime) {
+        this.goodtime = goodtime;
     }
 }

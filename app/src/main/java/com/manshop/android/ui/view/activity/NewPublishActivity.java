@@ -91,8 +91,10 @@ public class NewPublishActivity extends BaseActivity implements TakePhoto.TakeRe
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
+                Intent show = new Intent(NewPublishActivity.this, MainActivity.class);
+                show.putExtra("goto", 2);
+                startActivity(show);
                 finish();
-                break;
             default:
         }
         return true;
@@ -101,7 +103,7 @@ public class NewPublishActivity extends BaseActivity implements TakePhoto.TakeRe
     public void init() {
         showToolbar();
         etTitle = (EditText) findViewById(R.id.et_sale_name);
-        etDetail= (EditText) findViewById(R.id.etContent);
+        etDetail = (EditText) findViewById(R.id.etContent);
 
         pubRg = (RadioGroup) findViewById(R.id.publish_RadioGroup);
         saleRb = (RadioButton) findViewById(R.id.rb_sale);
@@ -142,10 +144,11 @@ public class NewPublishActivity extends BaseActivity implements TakePhoto.TakeRe
             }
         });
     }
+
     //编辑商品跳转数据传入
     public void edit() {
         intent = getIntent();
-        isEdit = intent.getBooleanExtra("isEdite" , false) ;
+        isEdit = intent.getBooleanExtra("isEdite", false);
         etTitle.setText(intent.getStringExtra("title"));
         etDetail.setText(intent.getStringExtra("detail"));
         etPrice.setText(intent.getStringExtra("price"));
@@ -153,13 +156,13 @@ public class NewPublishActivity extends BaseActivity implements TakePhoto.TakeRe
     }
 
     private OkHttp okhttp = OkHttp.getOkhttpHelper();
-    public void publish(View view){
+
+    public void publish(View view) {
         Map<String, Object> param = new HashMap<>();
         if (isEdit) {
             param.put("id", intent.getIntExtra("id", 0));
             requestGoodData(Constant.baseURL + "goods/updateGood", param);
-        }
-        else
+        } else
             requestGoodData(Constant.baseURL + "goods/newGood", param);
     }
 
@@ -170,11 +173,13 @@ public class NewPublishActivity extends BaseActivity implements TakePhoto.TakeRe
         String price = etPrice.getText().toString();
         String rent = etRent.getText().toString();
         params.put("uid", MyApplication.getInstance().getUserId());
-        params.put("title",title);
-        params.put("detail",detail);
-        params.put("price",price);
-        params.put("rental",rent);
-        params.put("picture","https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=1121475478,2545730346&fm=27&gp=0.jpg;https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=3813653354,3201329653&fm=27&gp=0.jpg");
+        params.put("title", title);
+        params.put("detail", detail);
+        params.put("price", price);
+        params.put("rental", rent);
+        params.put("picture", "https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=1121475478,2545730346&fm=27&gp=0.jpg;https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=3813653354,3201329653&fm=27&gp=0.jpg");
+        java.sql.Date date = new java.sql.Date(System.currentTimeMillis());
+        params.put("goodtime", date);
         okhttp.doPost(uri, new CallBack(NewPublishActivity.this) {
             @Override
             public void onError(Response response, Exception e) throws IOException {
