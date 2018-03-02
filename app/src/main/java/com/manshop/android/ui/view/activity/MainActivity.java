@@ -5,6 +5,9 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
@@ -13,6 +16,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -46,7 +50,6 @@ public class MainActivity extends BaseActivity {
     private BottomNavigationView bottomNavigationView;
     private Intent intent;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -72,6 +75,7 @@ public class MainActivity extends BaseActivity {
         tvUsername = (TextView) info.findViewById(R.id.tv_username);
 
     }
+
     public void addListener() {
         //侧边栏监听器
         navView.setCheckedItem(R.id.item_address);
@@ -174,15 +178,14 @@ public class MainActivity extends BaseActivity {
     public void showUser() {
         SharedPreferences share = getSharedPreferences("User", MODE_PRIVATE);
         Log.d("user", "login");
-        if (share.getInt("id",-1) != -1) {
+        if (share.getInt("id", -1) != -1) {
             Glide.with(MainActivity.this).load(share.getString("head", "")).into(head);
             tvUsername.setText(share.getString("username", ""));
             Log.d("user", share.getString("head", ""));
             Log.d("user", share.getString("username", ""));
-        }
-        else{
+        } else {
             Glide.with(this).load(R.drawable.ic_unlogin).into(head);
-            tvUsername.setText("点击头像立即登录");
+            tvUsername.setText("用户尚未登录");
         }
     }
 

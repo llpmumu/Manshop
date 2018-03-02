@@ -91,9 +91,6 @@ public class NewPublishActivity extends BaseActivity implements TakePhoto.TakeRe
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
-                Intent show = new Intent(NewPublishActivity.this, MainActivity.class);
-                show.putExtra("goto", 2);
-                startActivity(show);
                 finish();
             default:
         }

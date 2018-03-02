@@ -51,7 +51,7 @@ public class HomeGoodsListAdapter extends RecyclerView.Adapter<HomeGoodsListAdap
         Glide.with(context).load(good.getUser().getHead()).into(holder.photo);
 
         holder.username.setText(good.getUser().getUsername());
-        holder.price.setText(good.getPrice());
+        holder.price.setText(good.getPrice()+"￥");
         holder.detail.setText(good.getDetail());
         Log.d("good",good.getDetail());
         LinearLayoutManager manager = new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false);

@@ -63,6 +63,9 @@ public class ListPublishActivity extends BaseActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
+//                Intent show = new Intent(ListPublishActivity.this, MainActivity.class);
+//                show.putExtra("goto", 2);
+//                startActivity(show);
                 finish();
                 break;
             case R.id.item_add:
