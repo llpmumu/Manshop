@@ -13,7 +13,7 @@ import com.manshop.android.R;
 import butterknife.ButterKnife;
 
 /**
- * Created by Administrator on 2017/11/5.
+ * Created by Lin on 2017/11/5.
  */
 
 public class BaseActivity extends AppCompatActivity {

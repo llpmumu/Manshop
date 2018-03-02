@@ -1,7 +1,7 @@
 package com.manshop.android.model;
 
 /**
- * Created by Administrator on 2017/10/19.
+ * Created by Lin on 2017/10/19.
  */
 
 public class Dialogue {

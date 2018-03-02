@@ -13,7 +13,7 @@ import com.manshop.android.model.Dialogue;
 import java.util.List;
 
 /**
- * Created by Administrator on 2017/10/19.
+ * Created by Lin on 2017/10/19.
  */
 
 public class DialogueAdapter extends RecyclerView.Adapter<DialogueAdapter.ViewHolder> {
