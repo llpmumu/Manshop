@@ -87,4 +87,10 @@ public class GoodDetailActivity extends BaseActivity {
         intentToOrder.putExtra("gid", intent.getIntExtra("gid",0));
         startActivity(intentToOrder);
     }
+
+    public void contact(View view){
+        Intent intentToOrder = new Intent(GoodDetailActivity.this,MyNewOrderActivity.class);
+//        intentToOrder.putExtra("gid", intent.getIntExtra("gid",0));
+        startActivity(intentToOrder);
+    }
 }
