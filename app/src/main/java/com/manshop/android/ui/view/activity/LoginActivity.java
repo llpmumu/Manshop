@@ -20,8 +20,6 @@ import com.manshop.android.ui.base.BaseActivity;
 import com.manshop.android.okHttp.OkHttp;
 import com.manshop.android.util.Constant;
 import com.manshop.android.util.SharePreferenceUtil;
-import com.netease.nimlib.sdk.RequestCallback;
-import com.netease.nimlib.sdk.auth.LoginInfo;
 
 import java.io.IOException;
 import java.util.HashMap;
