@@ -1,5 +1,6 @@
 package com.manshop.android.ui.view.activity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -19,6 +20,8 @@ import com.manshop.android.ui.base.BaseActivity;
 import com.manshop.android.okHttp.OkHttp;
 import com.manshop.android.util.Constant;
 import com.manshop.android.util.SharePreferenceUtil;
+import com.netease.nimlib.sdk.RequestCallback;
+import com.netease.nimlib.sdk.auth.LoginInfo;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -72,6 +75,7 @@ public class LoginActivity extends BaseActivity {
     public void login(View v) {
         String phone = etPhone.getText().toString();
         String password = etPassword.getText().toString();
+
         if (phone.equals("")) {
             Toast.makeText(getApplicationContext(), "手机号不能为空", Toast.LENGTH_SHORT).show();
             return;
@@ -109,4 +113,6 @@ public class LoginActivity extends BaseActivity {
             }
         }, param);
     }
+
+
 }
