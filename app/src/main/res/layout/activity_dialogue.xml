@@ -16,7 +16,9 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="?attr/colorPrimary"
-            app:titleTextColor="@color/textColor">
+            app:titleTextColor="@color/textColor"
+            app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
 
             <TextView
                 android:id="@+id/toolbar_title"
@@ -51,6 +53,7 @@
             android:id="@+id/send"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="发送" />
+            android:text="发送"
+            android:onClick="send"/>
     </LinearLayout>
 </LinearLayout>

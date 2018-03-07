@@ -89,8 +89,8 @@ public class GoodDetailActivity extends BaseActivity {
     }
 
     public void contact(View view){
-        Intent intentToOrder = new Intent(GoodDetailActivity.this,MyNewOrderActivity.class);
-//        intentToOrder.putExtra("gid", intent.getIntExtra("gid",0));
-        startActivity(intentToOrder);
+        Intent intentToMsg = new Intent(GoodDetailActivity.this,DialogueActivity.class);
+        intentToMsg.putExtra("sid", intent.getIntExtra("uid",0));
+        startActivity(intentToMsg);
     }
 }

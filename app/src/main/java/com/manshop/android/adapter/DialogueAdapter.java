@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.manshop.android.MyApplication;
 import com.manshop.android.R;
 import com.manshop.android.model.Dialogue;
 
@@ -47,17 +48,18 @@ public class DialogueAdapter extends RecyclerView.Adapter<DialogueAdapter.ViewHo
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        Dialogue msg=mDiaList.get(position);
-        if(msg.getType()== Dialogue.TYPE_RECEIVED){
-            holder.leftLayout.setVisibility(View.VISIBLE);
-            holder.rightLayout.setVisibility(View.GONE);
-            holder.leftDia.setText(msg.getContent());
-        }else if (msg.getType()== Dialogue.TYPE_SENT){
+        Dialogue dialogue = mDiaList.get(position);
+        if (dialogue.getSender() == MyApplication.getInstance().getUserId()) {
             holder.rightLayout.setVisibility(View.VISIBLE);
             holder.leftLayout.setVisibility(View.GONE);
-            holder.rightDia.setText(msg.getContent());
+            holder.rightDia.setText(dialogue.getMsg());
+        } else {
+            holder.leftLayout.setVisibility(View.VISIBLE);
+            holder.rightLayout.setVisibility(View.GONE);
+            holder.leftDia.setText(dialogue.getMsg());
         }
     }
+
     @Override
     public int getItemCount() {
         return mDiaList.size();

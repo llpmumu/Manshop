@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import com.manshop.android.R;
 import com.manshop.android.adapter.MessageAdapter;
 import com.manshop.android.model.Message;
+import com.manshop.android.okHttp.OkHttp;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,6 +21,8 @@ import java.util.List;
  */
 
 public class MessageFragment extends Fragment {
+    private OkHttp okHttp = OkHttp.getOkhttpHelper();
+
     public static MessageFragment newInstance(String index) {
         MessageFragment f = new MessageFragment();
         Bundle args = new Bundle();
