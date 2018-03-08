@@ -73,7 +73,7 @@ public class DialogueActivity extends BaseActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    public void init(){
+    public void init() {
         intent = getIntent();
 
         inputText = (EditText) findViewById(R.id.input_text);
@@ -83,11 +83,11 @@ public class DialogueActivity extends BaseActivity {
 
     }
 
-    public void initMsg(){
+    public void initMsg() {
         final Map<String, Object> params = new HashMap<>();
-        params.put("sender", intent.getIntExtra("sid",0));
-        params.put("receiver", MyApplication.getInstance().getUserId());
-        okHttp.doPost(Constant.baseURL + "message/newMsg", new CallBack(DialogueActivity.this) {
+        params.put("sender", MyApplication.getInstance().getUserId());
+        params.put("receiver", intent.getIntExtra("sid", 0));
+        okHttp.doPost(Constant.baseURL + "message/getSendMsg", new CallBack(DialogueActivity.this) {
 
             @Override
             public void onError(Response response, Exception e) throws IOException {
@@ -108,24 +108,15 @@ public class DialogueActivity extends BaseActivity {
                 }
                 adapter = new DialogueAdapter(msgList);
                 msgRecyclerView.setAdapter(adapter);
-//                String content = inputText.getText().toString();
-//                if (!"".equals(content)) {
-////                    Dialogue msg = new Dialogue(content, Dialogue.TYPE_SENT);
-////                    msgList.add(msg);
-//                    adapter.notifyItemInserted(msgList.size() - 1); // 当有新消息时，刷新ListView中的显示
-//                    msgRecyclerView.scrollToPosition(msgList.size() - 1); // 将ListView定位到最后一行
-//                    inputText.setText(""); // 清空输入框中的内容
-//                }
-
             }
         }, params);
     }
 
-    public void send(View view){
+    public void send(View view) {
         final Map<String, Object> params = new HashMap<>();
-        params.put("sender", intent.getIntExtra("sid",0));
-        params.put("receiver", MyApplication.getInstance().getUserId());
-        params.put("msg",inputText.getText().toString());
+        params.put("sender", MyApplication.getInstance().getUserId());
+        params.put("receiver", intent.getIntExtra("sid", 0));
+        params.put("msg", inputText.getText().toString());
         java.sql.Date date = new java.sql.Date(System.currentTimeMillis());
         params.put("msgtime", date);
         okHttp.doPost(Constant.baseURL + "message/newMsg", new CallBack(DialogueActivity.this) {
