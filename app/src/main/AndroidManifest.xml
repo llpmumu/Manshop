@@ -47,7 +47,7 @@
         <activity android:name=".ui.view.activity.ListAddressActivity" />
         <activity android:name=".ui.view.activity.GoodDetailActivity" />
         <activity android:name=".ui.view.activity.ComicActivity" />
-        <activity android:name=".ui.view.activity.EditAddressActivity" />
+        <activity android:name=".ui.view.activity.NewAddressActivity" />
         <activity android:name=".ui.view.activity.DialogueActivity" />
         <activity
             android:name=".ui.view.activity.NewPublishActivity"

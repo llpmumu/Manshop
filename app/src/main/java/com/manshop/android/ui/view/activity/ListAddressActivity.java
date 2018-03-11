@@ -67,7 +67,7 @@ public class ListAddressActivity extends BaseActivity {
                 startActivity(new Intent(ListAddressActivity.this, MainActivity.class));
                 break;
             case R.id.item_newaddress:
-                startActivity(new Intent(ListAddressActivity.this, EditAddressActivity.class));
+                startActivity(new Intent(ListAddressActivity.this, NewAddressActivity.class));
                 break;
             default:
         }

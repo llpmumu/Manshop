@@ -37,7 +37,7 @@ import javax.xml.parsers.SAXParserFactory;
 
 import okhttp3.Response;
 
-public class EditAddressActivity extends BaseActivity {
+public class NewAddressActivity extends BaseActivity {
     private EditText etConsigneeName;
     private EditText etConsigneePhone;
     private TextView tvConsigneeAdr;
@@ -134,7 +134,7 @@ public class EditAddressActivity extends BaseActivity {
         params.put("consignee", name);
         params.put("addphone", phone);
         params.put("address", address + " " + detailAdr);
-        okhttp.doPost(uri, new CallBack(EditAddressActivity.this) {
+        okhttp.doPost(uri, new CallBack(NewAddressActivity.this) {
             @Override
             public void onError(Response response, Exception e) throws IOException {
                 Toast.makeText(getApplicationContext(), "失败", Toast.LENGTH_SHORT).show();
@@ -144,7 +144,7 @@ public class EditAddressActivity extends BaseActivity {
             public void callBackSuccess(Response response, Object o) throws IOException {
                 Log.d("address", "new success");
                 finish();
-                Intent intent = new Intent(EditAddressActivity.this, ListAddressActivity.class);
+                Intent intent = new Intent(NewAddressActivity.this, ListAddressActivity.class);
                 startActivity(intent);
             }
         }, params);

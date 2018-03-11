@@ -30,29 +30,18 @@ public class StringUtil {
         return stringUtil;
     }
 
-    //    分割图片字符
+    //    字符串装换成Bitmap
     public static List<Bitmap> spiltPic(String txt) {
         List<Bitmap> mString = new ArrayList<>();
         String[] txtpicture = txt.split(";");
         Bitmap bitmap = null;
-        Log.i("syso", "len" + txtpicture.length);
+//        Log.i("syso", "len" + txtpicture.length);
         for (int i = 0; i < txtpicture.length; i++) {
-
-//                InputStream fileInputStream = new InputStream(txtpicture[i]);
-//                Bitmap bitmap = BitmapFactory.decodeStream(fileInputStream);
-//                mString.add(bitmap);
-//                fileInputStream.close();
+            Log.i("syso", "vvv " + txtpicture[i]);
             byte[] bitmapArray = Base64.decode(txtpicture[i], Base64.DEFAULT);
             bitmap = BitmapFactory.decodeByteArray(bitmapArray, 0, bitmapArray.length);
-            Log.i("syso",bitmap.toString());
-//            FileOutputStream fos = new FileOutputStream(file);
-//            bitmap.compress(Bitmap.CompressFormat.PNG, 85, fos);
-//            fos.flush();
-//            fos.close();
-
+            Log.i("syso", bitmap.toString());
             mString.add(bitmap);
-            // bitmap.compress(Bitmap.CompressFormat.PNG, 100, out);
-
         }
         return mString;
     }

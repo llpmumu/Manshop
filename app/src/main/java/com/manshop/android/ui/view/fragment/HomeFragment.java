@@ -127,7 +127,7 @@ public class HomeFragment extends Fragment {
                 List<Goods> listGood = JSON.parseArray(jsonArray + "", Goods.class);
                 Log.d("good", " " + mGood.size());
                 for (Goods good : listGood) {
-                    Log.i("syso","aaa  "+good.getPicture());
+//                    Log.i("syso","aaa  "+good.getPicture());
                     good.setPics(StringUtil.getInstance().spiltPic(good.getPicture()));
                     mGood.add(good);
                     Log.d("address", " 2222221    " + mGood.size());

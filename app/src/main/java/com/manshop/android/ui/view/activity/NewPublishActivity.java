@@ -35,6 +35,7 @@ import com.manshop.android.adapter.GridViewAddImgesAdpter;
 import com.manshop.android.okHttp.CallBack;
 import com.manshop.android.okHttp.OkHttp;
 import com.manshop.android.ui.base.BaseActivity;
+import com.manshop.android.util.BitmapUtil;
 import com.manshop.android.util.Constant;
 
 
@@ -142,8 +143,8 @@ public class NewPublishActivity extends BaseActivity implements TakePhoto.TakeRe
         });
 
         takePhoto = getTakePhoto();
-        compressConfig=new CompressConfig.Builder().setMaxSize(50*1024).setMaxPixel(500).create();
-        takePhoto.onEnableCompress(compressConfig,true);
+//        compressConfig=new CompressConfig.Builder().setMaxSize(50*1024).setMaxPixel(500).create();
+//        takePhoto.onEnableCompress(compressConfig,true);
         gw = (GridView) findViewById(R.id.picture_gridview);
         datas = new ArrayList<>();
         gridViewAddImgesAdpter = new GridViewAddImgesAdpter(datas, this);
@@ -191,13 +192,17 @@ public class NewPublishActivity extends BaseActivity implements TakePhoto.TakeRe
         params.put("price", price);
         params.put("rental", rent);
         String string = "";
-        ByteArrayOutputStream bStream = new ByteArrayOutputStream();
+        ByteArrayOutputStream bStream;
         for (int i = 0; i < listBitmap.size(); i++) {
             Bitmap bitmap = listBitmap.get(i);
-            bitmap.compress(Bitmap.CompressFormat.PNG, 50, bStream);
+//            Log.i("syso", "aaaa" + " " + bitmap);
+            bStream = new ByteArrayOutputStream();
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 30, bStream);
             byte[] bytes = bStream.toByteArray();
-            string = Base64.encodeToString(bytes, Base64.DEFAULT) + ";"+ string;
+            string = Base64.encodeToString(bytes, Base64.DEFAULT) + ";" + string;
+            Log.i("syso", "aaaa" + " " + Base64.encodeToString(bytes, Base64.DEFAULT));
         }
+//        Log.i("syso", "cccc " + string);
         params.put("picture", string);
         java.sql.Date date = new java.sql.Date(System.currentTimeMillis());
         params.put("goodtime", date);
@@ -230,7 +235,6 @@ public class NewPublishActivity extends BaseActivity implements TakePhoto.TakeRe
                 if (position == 0) {
                     Uri uri = getImageCropUri();
                     takePhoto.onPickFromCapture(uri);
-//                    listBitmap.add(convertUri(uri));
                     optionBottomDialog.dismiss();
                 } else if (position == 1) {
                     takePhoto.onPickFromGallery();
@@ -238,6 +242,69 @@ public class NewPublishActivity extends BaseActivity implements TakePhoto.TakeRe
                 }
             }
         });
+    }
+
+    /**
+     * 获取TakePhoto实例
+     */
+    public TakePhoto getTakePhoto() {
+        if (takePhoto == null) {
+            takePhoto = (TakePhoto) TakePhotoInvocationHandler.of(this).bind(new TakePhotoImpl(this, this));
+        }
+        return takePhoto;
+    }
+
+    BitmapUtil bitmapUtil = new BitmapUtil();
+
+    @Override
+    public void takeSuccess(TResult result) {
+        Log.i(TAG, "takeSuccess：" + result.getImage().getCompressPath());
+        String iconPath = result.getImage().getOriginalPath();
+        try {
+            Bitmap bitmap = bitmapUtil.getBitmapFormUri(NewPublishActivity.this, Uri.parse("file://" + iconPath));
+            Log.i("syso", "bbbb" + " " + bitmap.toString());
+            listBitmap.add(bitmap);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        photoPath(iconPath);
+    }
+
+    @Override
+    public void takeFail(TResult result, String msg) {
+        Log.i(TAG, "takeFail:" + msg);
+    }
+
+    @Override
+    public void takeCancel() {
+        Log.i(TAG, getResources().getString(R.string.msg_operation_canceled));
+    }
+
+    //获得照片的输出保存Uri
+    public Uri getImageCropUri() {
+        File file = new File(Environment.getExternalStorageDirectory(), "/goods/" + System.currentTimeMillis() + ".jpg");
+        if (!file.getParentFile().exists()) file.getParentFile().mkdirs();
+        return Uri.fromFile(file);
+    }
+
+    private Bitmap convertUri(Uri uri) {
+        InputStream is = null;
+        try {
+            is = getContentResolver().openInputStream(uri);
+            Bitmap bitmap = BitmapFactory.decodeStream(is);
+            is.close();
+            return bitmap;
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public void photoPath(String path) {
+        Map<String, Object> map = new HashMap<>();
+        map.put("path", path);
+        datas.add(map);
+        gridViewAddImgesAdpter.notifyDataSetChanged(datas);
     }
 
     @Override
@@ -266,68 +333,6 @@ public class NewPublishActivity extends BaseActivity implements TakePhoto.TakeRe
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         PermissionManager.TPermissionType type = PermissionManager.onRequestPermissionsResult(requestCode, permissions, grantResults);
         PermissionManager.handlePermissionsResult(this, type, invokeParam, this);
-    }
-
-    /**
-     * 获取TakePhoto实例
-     */
-    public TakePhoto getTakePhoto() {
-        if (takePhoto == null) {
-            takePhoto = (TakePhoto) TakePhotoInvocationHandler.of(this).bind(new TakePhotoImpl(this, this));
-        }
-        return takePhoto;
-    }
-
-    @Override
-    public void takeSuccess(TResult result) {
-        Log.i(TAG, "takeSuccess：" + result.getImage().getCompressPath());
-        String iconPath = result.getImage().getOriginalPath();
-        listBitmap.add(convertUri(Uri.parse("file://"+iconPath)));
-        photoPath(iconPath);
-    }
-
-    @Override
-    public void takeFail(TResult result, String msg) {
-        Log.i(TAG, "takeFail:" + msg);
-    }
-
-    @Override
-    public void takeCancel() {
-        Log.i(TAG, getResources().getString(R.string.msg_operation_canceled));
-    }
-
-    //获得照片的输出保存Uri
-    public Uri getImageCropUri() {
-        File file = new File(Environment.getExternalStorageDirectory(), "/goods/" + System.currentTimeMillis() + ".png");
-        if (!file.getParentFile().exists()) file.getParentFile().mkdirs();
-        return Uri.fromFile(file);
-//        File tmpDir = new File(Environment.getExternalStorageDirectory() + "/goods");
-//        if (!tmpDir.exists()) {
-//            tmpDir.mkdir();
-//        }
-//        File img = new File(tmpDir.getAbsolutePath() + "/" + System.currentTimeMillis() + ".png");
-//        return Uri.fromFile(img);
-    }
-
-
-    private Bitmap convertUri(Uri uri) {
-        InputStream is = null;
-        try {
-            is = getContentResolver().openInputStream(uri);
-            Bitmap bitmap = BitmapFactory.decodeStream(is);
-            is.close();
-            return bitmap;
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
-
-    public void photoPath(String path) {
-        Map<String, Object> map = new HashMap<>();
-        map.put("path", path);
-        datas.add(map);
-        gridViewAddImgesAdpter.notifyDataSetChanged(datas);
     }
 
 }

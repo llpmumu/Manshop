@@ -13,7 +13,7 @@ import com.manshop.android.R;
 import com.manshop.android.model.Address;
 import com.manshop.android.okHttp.CallBack;
 import com.manshop.android.okHttp.OkHttp;
-import com.manshop.android.ui.view.activity.EditAddressActivity;
+import com.manshop.android.ui.view.activity.NewAddressActivity;
 import com.manshop.android.util.Constant;
 
 import java.io.IOException;
@@ -73,7 +73,7 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.ViewHold
             public void onClick(View v) {
                 final int position = holder.getAdapterPosition();
                 final Address address = mList.get(position);
-                Intent intent = new Intent(context, EditAddressActivity.class);
+                Intent intent = new Intent(context, NewAddressActivity.class);
                 intent.putExtra("id", address.getId());
                 intent.putExtra("consigneeName", address.getConsignee());
                 intent.putExtra("consigneePhone", address.getAddphone());
