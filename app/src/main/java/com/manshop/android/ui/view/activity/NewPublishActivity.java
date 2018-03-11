@@ -1,10 +1,13 @@
 package com.manshop.android.ui.view.activity;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Environment;
 import android.support.annotation.IdRes;
 import android.os.Bundle;
+import android.util.Base64;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
@@ -18,6 +21,7 @@ import android.widget.Toast;
 
 import com.jph.takephoto.app.TakePhoto;
 import com.jph.takephoto.app.TakePhotoImpl;
+import com.jph.takephoto.compress.CompressConfig;
 import com.jph.takephoto.model.InvokeParam;
 import com.jph.takephoto.model.TContextWrap;
 import com.jph.takephoto.model.TResult;
@@ -34,8 +38,14 @@ import com.manshop.android.ui.base.BaseActivity;
 import com.manshop.android.util.Constant;
 
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -67,11 +77,13 @@ public class NewPublishActivity extends BaseActivity implements TakePhoto.TakeRe
     private GridView gw;
     private List<Map<String, Object>> datas;
     private GridViewAddImgesAdpter gridViewAddImgesAdpter;
+    public List<Bitmap> listBitmap = new ArrayList<>();
 
     //打开相机、相册
     private static final String TAG = "photo";
     private TakePhoto takePhoto;
     private InvokeParam invokeParam;
+    CompressConfig compressConfig;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -130,6 +142,8 @@ public class NewPublishActivity extends BaseActivity implements TakePhoto.TakeRe
         });
 
         takePhoto = getTakePhoto();
+        compressConfig=new CompressConfig.Builder().setMaxSize(50*1024).setMaxPixel(500).create();
+        takePhoto.onEnableCompress(compressConfig,true);
         gw = (GridView) findViewById(R.id.picture_gridview);
         datas = new ArrayList<>();
         gridViewAddImgesAdpter = new GridViewAddImgesAdpter(datas, this);
@@ -155,6 +169,8 @@ public class NewPublishActivity extends BaseActivity implements TakePhoto.TakeRe
     private OkHttp okhttp = OkHttp.getOkhttpHelper();
 
     public void publish(View view) {
+
+
         Map<String, Object> param = new HashMap<>();
         if (isEdit) {
             param.put("id", intent.getIntExtra("id", 0));
@@ -174,7 +190,15 @@ public class NewPublishActivity extends BaseActivity implements TakePhoto.TakeRe
         params.put("detail", detail);
         params.put("price", price);
         params.put("rental", rent);
-        params.put("picture", "https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=1121475478,2545730346&fm=27&gp=0.jpg;https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=3813653354,3201329653&fm=27&gp=0.jpg");
+        String string = "";
+        ByteArrayOutputStream bStream = new ByteArrayOutputStream();
+        for (int i = 0; i < listBitmap.size(); i++) {
+            Bitmap bitmap = listBitmap.get(i);
+            bitmap.compress(Bitmap.CompressFormat.PNG, 50, bStream);
+            byte[] bytes = bStream.toByteArray();
+            string = Base64.encodeToString(bytes, Base64.DEFAULT) + ";"+ string;
+        }
+        params.put("picture", string);
         java.sql.Date date = new java.sql.Date(System.currentTimeMillis());
         params.put("goodtime", date);
         okhttp.doPost(uri, new CallBack(NewPublishActivity.this) {
@@ -206,6 +230,7 @@ public class NewPublishActivity extends BaseActivity implements TakePhoto.TakeRe
                 if (position == 0) {
                     Uri uri = getImageCropUri();
                     takePhoto.onPickFromCapture(uri);
+//                    listBitmap.add(convertUri(uri));
                     optionBottomDialog.dismiss();
                 } else if (position == 1) {
                     takePhoto.onPickFromGallery();
@@ -257,6 +282,7 @@ public class NewPublishActivity extends BaseActivity implements TakePhoto.TakeRe
     public void takeSuccess(TResult result) {
         Log.i(TAG, "takeSuccess：" + result.getImage().getCompressPath());
         String iconPath = result.getImage().getOriginalPath();
+        listBitmap.add(convertUri(Uri.parse("file://"+iconPath)));
         photoPath(iconPath);
     }
 
@@ -272,9 +298,29 @@ public class NewPublishActivity extends BaseActivity implements TakePhoto.TakeRe
 
     //获得照片的输出保存Uri
     public Uri getImageCropUri() {
-        File file = new File(Environment.getExternalStorageDirectory(), "/goods/" + System.currentTimeMillis() + ".jpg");
+        File file = new File(Environment.getExternalStorageDirectory(), "/goods/" + System.currentTimeMillis() + ".png");
         if (!file.getParentFile().exists()) file.getParentFile().mkdirs();
         return Uri.fromFile(file);
+//        File tmpDir = new File(Environment.getExternalStorageDirectory() + "/goods");
+//        if (!tmpDir.exists()) {
+//            tmpDir.mkdir();
+//        }
+//        File img = new File(tmpDir.getAbsolutePath() + "/" + System.currentTimeMillis() + ".png");
+//        return Uri.fromFile(img);
+    }
+
+
+    private Bitmap convertUri(Uri uri) {
+        InputStream is = null;
+        try {
+            is = getContentResolver().openInputStream(uri);
+            Bitmap bitmap = BitmapFactory.decodeStream(is);
+            is.close();
+            return bitmap;
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     public void photoPath(String path) {
@@ -283,4 +329,5 @@ public class NewPublishActivity extends BaseActivity implements TakePhoto.TakeRe
         datas.add(map);
         gridViewAddImgesAdpter.notifyDataSetChanged(datas);
     }
+
 }

@@ -1,5 +1,7 @@
 package com.manshop.android.model;
 
+import android.graphics.Bitmap;
+
 import java.sql.Timestamp;
 import java.util.List;
 
@@ -18,7 +20,7 @@ public class Goods {
     private Integer type;
     private Integer state;
     private String picture;
-    private List<String> pics;
+    private List<Bitmap> pics;
     private Timestamp goodtime;
 
     public Goods() {
@@ -104,11 +106,11 @@ public class Goods {
         this.picture = picture;
     }
 
-    public List<String> getPics() {
+    public List<Bitmap> getPics() {
         return pics;
     }
 
-    public void setPics(List<String> pics) {
+    public void setPics(List<Bitmap> pics) {
         this.pics = pics;
     }
 

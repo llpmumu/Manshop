@@ -1,6 +1,7 @@
 package com.manshop.android.adapter;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -21,9 +22,9 @@ import java.util.List;
 
 public class GoodDetailPicAdapter extends RecyclerView.Adapter<GoodDetailPicAdapter.ViewHolder> {
     private Context context;
-    private List<String> mList;
+    private List<Bitmap> mList;
 
-    public GoodDetailPicAdapter(Context context, List<String> mList) {
+    public GoodDetailPicAdapter(Context context, List<Bitmap> mList) {
         this.context = context;
         this.mList = mList;
     }
@@ -40,9 +41,10 @@ public class GoodDetailPicAdapter extends RecyclerView.Adapter<GoodDetailPicAdap
     public void onBindViewHolder(ViewHolder holder, final int position) {
         holder.itemView.setTag(position);
 //        Uri picuri = Uri.parse(mList.get(position));
-        String picuri = mList.get(position);
+//        String picuri = mList.get(position);
 //        holder.picture.setImageURI(picuri);
-        Glide.with(context).load(picuri).into(holder.picture);
+//        Glide.with(context).load(picuri).into(holder.picture);
+        holder.picture.setImageBitmap(mList.get(position));
 //        Log.d("good", "111111111" + mList.get(position));
 //        String ppp = mList.get(position);
 //        holder.pic.setText(ppp);

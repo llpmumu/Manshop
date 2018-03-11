@@ -1,6 +1,7 @@
 package com.manshop.android.ui.view.activity;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
@@ -20,6 +21,7 @@ import com.manshop.android.okHttp.CallBack;
 import com.manshop.android.okHttp.OkHttp;
 import com.manshop.android.ui.base.BaseActivity;
 import com.manshop.android.util.Constant;
+import com.manshop.android.util.StringUtil;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -118,9 +120,10 @@ public class MyNewOrderActivity extends BaseActivity {
             public void callBackSuccess(Response response, Object o) throws IOException {
                 JSONObject json = JSON.parseObject((String) o);
                 good = json.getObject("data", Goods.class);
-                String picture = good.getPicture();
-                String[] txtpicture = picture.split(";");
-                Glide.with(MyNewOrderActivity.this).load(txtpicture[0]).into(ivGpic);
+//                String picture = good.getPicture();
+//                String[] txtpicture = picture.split(";");
+//                Glide.with(MyNewOrderActivity.this).load(txtpicture[0]).into(ivGpic);
+                ivGpic.setImageBitmap(StringUtil.getInstance().spiltPic(good.getPicture()).get(0));
                 tvGtitle.setText(good.getTitle());
                 tvGprice.setText(good.getPrice() + "￥");
                 tvAllPrice.setText(good.getPrice() + "￥");

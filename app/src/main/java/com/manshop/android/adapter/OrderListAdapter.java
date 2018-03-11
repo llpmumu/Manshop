@@ -58,7 +58,7 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.View
             public void onClick(View v) {
                 Toast.makeText(context, "nnnnn", Toast.LENGTH_SHORT).show();
                 final Order order = mList.get(position);
-                Log.d("recyle",mList.get(position).getGood().getPics().get(0));
+//                Log.d("recyle",mList.get(position).getGood().getPics().get(0));
                 Intent intent = new Intent(context, OrderDetailActivity.class);
                 intent.putExtra("oid", order.getId());
                 intent.putExtra("type","old");

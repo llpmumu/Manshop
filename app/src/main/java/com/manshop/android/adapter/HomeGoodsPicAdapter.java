@@ -1,6 +1,7 @@
 package com.manshop.android.adapter;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -17,9 +18,9 @@ import java.util.List;
 
 public class HomeGoodsPicAdapter extends RecyclerView.Adapter<HomeGoodsPicAdapter.ViewHolder> {
     Context context;
-    List<String> mList;
+    List<Bitmap> mList;
 
-    public HomeGoodsPicAdapter(Context context, List<String> mList) {
+    public HomeGoodsPicAdapter(Context context, List<Bitmap> mList) {
         this.context = context;
         this.mList = mList;
     }
@@ -38,8 +39,8 @@ public class HomeGoodsPicAdapter extends RecyclerView.Adapter<HomeGoodsPicAdapte
          */
         holder.itemView.setTag(position);
 
-        Uri uri = Uri.parse(mList.get(position));
-        holder.draweeView.setImageURI(uri);
+//        Uri uri = Uri.parse(mList.get(position));
+        holder.draweeView.setImageBitmap(mList.get(position));
     }
 
     @Override

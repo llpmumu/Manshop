@@ -18,6 +18,7 @@ import com.makeramen.roundedimageview.RoundedImageView;
 import com.manshop.android.R;
 import com.manshop.android.adapter.GoodDetailPicAdapter;
 import com.manshop.android.ui.base.BaseActivity;
+import com.manshop.android.util.StringUtil;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -72,11 +73,12 @@ public class GoodDetailActivity extends BaseActivity {
         paint.setFakeBoldText(true);
 
         //物品图片
-        List<String> mPic = new ArrayList<>();
+//        List<String> mPic = new ArrayList<>();
         String picture = intent.getStringExtra("picture");
-        String[] txtpicture = picture.split(";");
-        Collections.addAll(mPic, txtpicture);
-        adapter = new GoodDetailPicAdapter(GoodDetailActivity.this, mPic);
+//        String[] txtpicture = picture.split(";");
+//        Collections.addAll(mPic, txtpicture);
+
+        adapter = new GoodDetailPicAdapter(GoodDetailActivity.this, StringUtil.getInstance().spiltPic(picture));
         rePic.setAdapter(adapter);
         rePic.setFocusableInTouchMode(false);
         rePic.requestFocus();

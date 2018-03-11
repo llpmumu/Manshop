@@ -27,6 +27,7 @@ import com.manshop.android.okHttp.OkHttp;
 import com.manshop.android.ui.view.activity.ComicActivity;
 import com.manshop.android.util.Constant;
 import com.manshop.android.util.GlideImageLoader;
+import com.manshop.android.util.StringUtil;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
 import com.youth.banner.Transformer;
@@ -126,11 +127,8 @@ public class HomeFragment extends Fragment {
                 List<Goods> listGood = JSON.parseArray(jsonArray + "", Goods.class);
                 Log.d("good", " " + mGood.size());
                 for (Goods good : listGood) {
-                    Log.d("good", " " + good.toString());
-                    String picture = good.getPicture();
-                    String[] txtpicture = picture.split(";");
-                    Collections.addAll(mPic, txtpicture);
-                    good.setPics(mPic);
+                    Log.i("syso","aaa  "+good.getPicture());
+                    good.setPics(StringUtil.getInstance().spiltPic(good.getPicture()));
                     mGood.add(good);
                     Log.d("address", " 2222221    " + mGood.size());
                 }

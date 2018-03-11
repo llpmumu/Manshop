@@ -72,6 +72,7 @@ public class HomeGoodsListAdapter extends RecyclerView.Adapter<HomeGoodsListAdap
                 intent.putExtra("title", good.getTitle());
                 intent.putExtra("detail", good.getDetail());
                 intent.putExtra("picture", good.getPicture());
+                Log.i("syso",good.getPicture());
                 intent.putExtra("price",good.getPrice());
                 intent.putExtra("rental",good.getRental());
                 intent.putExtra("type", good.getType());

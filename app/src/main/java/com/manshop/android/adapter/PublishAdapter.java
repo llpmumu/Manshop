@@ -43,7 +43,8 @@ public class PublishAdapter extends RecyclerView.Adapter<PublishAdapter.ViewHold
          */
         holder.itemView.setTag(position);
         Goods good = mList.get(position);
-        Glide.with(context).load(good.getPics().get(0)).into(holder.goodPic);
+//        Glide.with(context).load(good.getPics().get(0)).into(holder.goodPic);
+        holder.goodPic.setImageBitmap(good.getPics().get(0));
         holder.goodName.setText(good.getTitle());
         holder.goodPrice.setText(good.getPrice());
 
