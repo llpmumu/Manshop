@@ -12,28 +12,17 @@ import java.util.List;
 import static android.content.ContentValues.TAG;
 
 /**
- * Created by Lin on 2018/1/4.
+ * Created by Lin on 2018/3/13.
  */
 
-public class XmlParserHandler extends DefaultHandler {
-
-    private List<Privince> privinceModels ;
-    private List<City> cityModels ;
-    private List<District> districtModels ;
-    private Privince privinceModel ;
-    private District districtModel ;
-    private City cityModel ;
+public class XmlPrivince extends DefaultHandler {
+    private List<String> privince;
     private String preTag ;
-
-
-    public List<Privince> getPrivinceModels() {
-        return privinceModels;
-    }
 
     @Override
     public void startDocument() throws SAXException {
         super.startDocument();
-        privinceModels = new ArrayList<>() ;
+        privince = new ArrayList<>() ;
 
         Log.d(TAG, "startDocument: ------------------------------");
 
@@ -48,26 +37,13 @@ public class XmlParserHandler extends DefaultHandler {
         if ("province".equals(localName)){
 
             Log.d(TAG, "新建省: --------------------------------------------");
-            cityModels = new ArrayList<>() ;
-            privinceModel = new Privince() ;
-            privinceModel.setName(attributes.getValue("name") );
+            privince = new ArrayList<>() ;
+            privince.add(attributes.getValue("name") );
 
-        }else if ("city".equals(localName)){
-
-            districtModels = new ArrayList<>() ;
-            cityModel = new City() ;
-            cityModel.setName(attributes.getValue("name") );
-        }else if ("district".equals(localName)){
-
-            districtModel = new District() ;
-            districtModel.setName(attributes.getValue("name") );
-            districtModel.setZipcode(attributes.getValue("zipcode") );
         }
-
         preTag = localName ;
 
     }
-
 
     public void endDocument () {
         //文档解析结束
@@ -77,21 +53,13 @@ public class XmlParserHandler extends DefaultHandler {
 
     public void characters (char[] ch, int start, int length) {
         //保存节点内容
-
+//        super.characters(ch, start, length);
+        String value = new String(ch,start,length);
         if ("province".equals(preTag)){
-            privinceModels.add(privinceModel) ;
+            privince.add(value) ;
             Log.d(TAG, "添加省: --------------------------------------------");
 
-        }else if ("city".equals(preTag)){
-            cityModels.add(cityModel) ;
-            privinceModel.setCityModels(cityModels);
-            Log.d(TAG, "添加市: --------------------------------------------");
-        }else if ("district".equals(preTag)){
-            districtModels.add(districtModel) ;
-            cityModel.setDistrictModels(districtModels);
-            Log.d(TAG, "添加县: --------------------------------------------");
         }
-
         preTag = null ;
 
     }

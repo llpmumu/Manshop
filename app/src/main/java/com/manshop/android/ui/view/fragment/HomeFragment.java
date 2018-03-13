@@ -39,9 +39,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import butterknife.Bind;
 import okhttp3.Response;
 
 public class HomeFragment extends Fragment {
+//    主界面按钮
+    @Bind(R.id.tv_show)
+    TextView tvShow;
     //商品列表
     private RecyclerView recyclerview;
     private HomeGoodsListAdapter adapter;
@@ -137,5 +141,10 @@ public class HomeFragment extends Fragment {
                 recyclerview.setAdapter(adapter);
             }
         },param);
+    }
+
+    public void show(View view){
+        Intent intent = new Intent(getContext(),ComicActivity.class);
+        startActivity(intent);
     }
 }

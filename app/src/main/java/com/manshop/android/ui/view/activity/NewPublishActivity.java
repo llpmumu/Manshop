@@ -143,8 +143,6 @@ public class NewPublishActivity extends BaseActivity implements TakePhoto.TakeRe
         });
 
         takePhoto = getTakePhoto();
-//        compressConfig=new CompressConfig.Builder().setMaxSize(50*1024).setMaxPixel(500).create();
-//        takePhoto.onEnableCompress(compressConfig,true);
         gw = (GridView) findViewById(R.id.picture_gridview);
         datas = new ArrayList<>();
         gridViewAddImgesAdpter = new GridViewAddImgesAdpter(datas, this);
@@ -195,14 +193,11 @@ public class NewPublishActivity extends BaseActivity implements TakePhoto.TakeRe
         ByteArrayOutputStream bStream;
         for (int i = 0; i < listBitmap.size(); i++) {
             Bitmap bitmap = listBitmap.get(i);
-//            Log.i("syso", "aaaa" + " " + bitmap);
             bStream = new ByteArrayOutputStream();
             bitmap.compress(Bitmap.CompressFormat.JPEG, 30, bStream);
             byte[] bytes = bStream.toByteArray();
             string = Base64.encodeToString(bytes, Base64.DEFAULT) + ";" + string;
-            Log.i("syso", "aaaa" + " " + Base64.encodeToString(bytes, Base64.DEFAULT));
         }
-//        Log.i("syso", "cccc " + string);
         params.put("picture", string);
         java.sql.Date date = new java.sql.Date(System.currentTimeMillis());
         params.put("goodtime", date);
