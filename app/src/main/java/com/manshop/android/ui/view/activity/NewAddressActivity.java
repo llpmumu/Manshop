@@ -15,7 +15,7 @@ import android.widget.Toast;
 import com.bigkoo.pickerview.OptionsPickerView;
 import com.manshop.android.MyApplication;
 import com.manshop.android.R;
-import com.manshop.android.model.city.Privince;
+import com.manshop.android.model.city.Province;
 import com.manshop.android.model.city.XmlParserHandler;
 import com.manshop.android.okHttp.CallBack;
 import com.manshop.android.okHttp.OkHttp;
@@ -150,26 +150,26 @@ public class NewAddressActivity extends BaseActivity {
         }, params);
     }
 
-    public void getAdrMsg(List<Privince> privinceModels) {
+    public void getAdrMsg(List<Province> provinceModels) {
         province = new ArrayList<String>();
         city = new ArrayList<List<String>>();
         county = new ArrayList<List<List<String>>>();
-        for (int i = 0; i < privinceModels.size(); i++) {
-            province.add(privinceModels.get(i).getName());
+        for (int i = 0; i < provinceModels.size(); i++) {
+            province.add(provinceModels.get(i).getName());
             List<String> cityNames = new ArrayList<String>();
             List<List<String>> District = new ArrayList<List<String>>();
             List<List<String>> DistrictCode = new ArrayList<List<String>>();
-            for (int j = 0; j < privinceModels.get(i).getCityModels().size(); j++) {
+            for (int j = 0; j < provinceModels.get(i).getCityModels().size(); j++) {
 
-                cityNames.add(privinceModels.get(i).getCityModels().get(j).getName());
+                cityNames.add(provinceModels.get(i).getCityModels().get(j).getName());
 
                 List<String> DistrictNames = new ArrayList<String>();
                 List<String> DistrictNamesCode = new ArrayList<String>();
 
-                for (int k = 0; k < privinceModels.get(i).getCityModels().get(j).getDistrictModels().size(); k++) {
+                for (int k = 0; k < provinceModels.get(i).getCityModels().get(j).getDistrictModels().size(); k++) {
 
-                    DistrictNames.add(privinceModels.get(i).getCityModels().get(j).getDistrictModels().get(k).getName());
-                    DistrictNamesCode.add(privinceModels.get(i).getCityModels().get(j).getDistrictModels().get(k).getZipcode());
+                    DistrictNames.add(provinceModels.get(i).getCityModels().get(j).getDistrictModels().get(k).getName());
+                    DistrictNamesCode.add(provinceModels.get(i).getCityModels().get(j).getDistrictModels().get(k).getZipcode());
                 }
                 District.add(DistrictNames);
                 DistrictCode.add(DistrictNamesCode);
@@ -189,7 +189,7 @@ public class NewAddressActivity extends BaseActivity {
         InputStream is = am.open("province_data.xml");
 
         sp.parse(is, sfh);
-        getAdrMsg(sfh.getPrivinceModels());
+        getAdrMsg(sfh.getProvinceModels());
     }
 
     //地址选择器

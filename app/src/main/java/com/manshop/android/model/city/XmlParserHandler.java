@@ -17,23 +17,23 @@ import static android.content.ContentValues.TAG;
 
 public class XmlParserHandler extends DefaultHandler {
 
-    private List<Privince> privinceModels ;
+    private List<Province> provinceModels;
     private List<City> cityModels ;
     private List<District> districtModels ;
-    private Privince privinceModel ;
+    private Province provinceModel;
     private District districtModel ;
     private City cityModel ;
     private String preTag ;
 
 
-    public List<Privince> getPrivinceModels() {
-        return privinceModels;
+    public List<Province> getProvinceModels() {
+        return provinceModels;
     }
 
     @Override
     public void startDocument() throws SAXException {
         super.startDocument();
-        privinceModels = new ArrayList<>() ;
+        provinceModels = new ArrayList<>() ;
 
         Log.d(TAG, "startDocument: ------------------------------");
 
@@ -49,8 +49,8 @@ public class XmlParserHandler extends DefaultHandler {
 
             Log.d(TAG, "新建省: --------------------------------------------");
             cityModels = new ArrayList<>() ;
-            privinceModel = new Privince() ;
-            privinceModel.setName(attributes.getValue("name") );
+            provinceModel = new Province() ;
+            provinceModel.setName(attributes.getValue("name") );
 
         }else if ("city".equals(localName)){
 
@@ -79,12 +79,12 @@ public class XmlParserHandler extends DefaultHandler {
         //保存节点内容
 
         if ("province".equals(preTag)){
-            privinceModels.add(privinceModel) ;
+            provinceModels.add(provinceModel) ;
             Log.d(TAG, "添加省: --------------------------------------------");
 
         }else if ("city".equals(preTag)){
             cityModels.add(cityModel) ;
-            privinceModel.setCityModels(cityModels);
+            provinceModel.setCityModels(cityModels);
             Log.d(TAG, "添加市: --------------------------------------------");
         }else if ("district".equals(preTag)){
             districtModels.add(districtModel) ;

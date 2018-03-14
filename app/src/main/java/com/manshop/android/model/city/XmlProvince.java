@@ -15,14 +15,18 @@ import static android.content.ContentValues.TAG;
  * Created by Lin on 2018/3/13.
  */
 
-public class XmlPrivince extends DefaultHandler {
-    private List<String> privince;
+public class XmlProvince extends DefaultHandler {
+    private List<String> province;
     private String preTag ;
 
+
+    public List<String> getProvince() {
+        return province;
+    }
     @Override
     public void startDocument() throws SAXException {
         super.startDocument();
-        privince = new ArrayList<>() ;
+        province = new ArrayList<>() ;
 
         Log.d(TAG, "startDocument: ------------------------------");
 
@@ -37,8 +41,8 @@ public class XmlPrivince extends DefaultHandler {
         if ("province".equals(localName)){
 
             Log.d(TAG, "新建省: --------------------------------------------");
-            privince = new ArrayList<>() ;
-            privince.add(attributes.getValue("name") );
+            province = new ArrayList<>() ;
+            province.add(attributes.getValue("name") );
 
         }
         preTag = localName ;
@@ -56,7 +60,7 @@ public class XmlPrivince extends DefaultHandler {
 //        super.characters(ch, start, length);
         String value = new String(ch,start,length);
         if ("province".equals(preTag)){
-            privince.add(value) ;
+            province.add(value) ;
             Log.d(TAG, "添加省: --------------------------------------------");
 
         }

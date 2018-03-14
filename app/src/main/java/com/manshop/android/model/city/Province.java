@@ -6,7 +6,7 @@ import java.util.List;
  * Created by Lin on 2018/1/4.
  */
 
-public class Privince {
+public class Province {
     private String name ;
     private List<City> cityModels ;
 

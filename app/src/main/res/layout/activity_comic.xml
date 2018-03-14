@@ -42,7 +42,7 @@
         android:orientation="horizontal">
 
         <ListView
-            android:id="@+id/list_pri"
+            android:id="@+id/list_pro"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1.0"
