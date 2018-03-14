@@ -16,11 +16,17 @@ import com.manshop.android.okHttp.OkHttp;
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.Bind;
+
 /**
  * Created by Lin on 2017/10/31.
  */
 
 public class MessageFragment extends Fragment {
+    @Bind(R.id.msg_recycler)
+    RecyclerView recyclerview;
+    private List<Message> mMsg;
+
     private OkHttp okHttp = OkHttp.getOkhttpHelper();
 
     public static MessageFragment newInstance(String index) {
@@ -31,20 +37,22 @@ public class MessageFragment extends Fragment {
         return f;
     }
 
-    private List<Message> mMsg;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_message, container, false);
+        init();
         initData();
 
-        RecyclerView recyclerview = (RecyclerView) view.findViewById(R.id.msg_recycler);
+        return view;
+    }
+
+    public void init(){
         LinearLayoutManager manager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
         recyclerview.setLayoutManager(manager);
         recyclerview.setNestedScrollingEnabled(false);
         MessageAdapter adapter = new MessageAdapter(getActivity(), mMsg);
         recyclerview.setAdapter(adapter);
-        return view;
     }
 
     private void initData() {

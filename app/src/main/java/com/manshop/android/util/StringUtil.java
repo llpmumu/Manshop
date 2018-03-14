@@ -37,10 +37,10 @@ public class StringUtil {
         Bitmap bitmap = null;
 //        Log.i("syso", "len" + txtpicture.length);
         for (int i = 0; i < txtpicture.length; i++) {
-            Log.i("syso", "vvv " + txtpicture[i]);
+//            Log.i("syso", "vvv " + txtpicture[i]);
             byte[] bitmapArray = Base64.decode(txtpicture[i], Base64.DEFAULT);
             bitmap = BitmapFactory.decodeByteArray(bitmapArray, 0, bitmapArray.length);
-            Log.i("syso", bitmap.toString());
+//            Log.i("syso", bitmap.toString());
             mString.add(bitmap);
         }
         return mString;

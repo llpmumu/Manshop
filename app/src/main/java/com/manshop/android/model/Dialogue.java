@@ -33,6 +33,17 @@ public class Dialogue {
     private Integer type;
     private Timestamp msgtime;
 
+    public Dialogue(){
+
+    }
+
+    public Dialogue(String msg, Integer sender, Integer receiver, Integer type) {
+        this.msg = msg;
+        this.sender = sender;
+        this.receiver = receiver;
+        this.type = type;
+    }
+
     public Integer getId() {
         return id;
     }

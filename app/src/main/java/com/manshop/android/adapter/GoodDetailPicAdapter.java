@@ -44,7 +44,7 @@ public class GoodDetailPicAdapter extends RecyclerView.Adapter<GoodDetailPicAdap
 //        String picuri = mList.get(position);
 //        holder.picture.setImageURI(picuri);
 //        Glide.with(context).load(picuri).into(holder.picture);
-        Log.i("syso", position + ":" + mList.get(position).toString());
+//        Log.i("syso", position + ":" + mList.get(position).toString());
         holder.picture.setImageBitmap(mList.get(position));
 //        Log.d("good", "111111111" + mList.get(position));
 //        String ppp = mList.get(position);

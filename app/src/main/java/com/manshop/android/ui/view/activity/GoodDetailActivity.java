@@ -116,6 +116,7 @@ public class GoodDetailActivity extends BaseActivity {
 
     public void contact(View view) {
         Intent intentToMsg = new Intent(GoodDetailActivity.this, DialogueActivity.class);
+        Log.d("msg","000"+intent.getIntExtra("uid", 0));
         intentToMsg.putExtra("sid", intent.getIntExtra("uid", 0));
         startActivity(intentToMsg);
     }

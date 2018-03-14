@@ -257,7 +257,7 @@ public class NewPublishActivity extends BaseActivity implements TakePhoto.TakeRe
         String iconPath = result.getImage().getOriginalPath();
         try {
             Bitmap bitmap = bitmapUtil.getBitmapFormUri(NewPublishActivity.this, Uri.parse("file://" + iconPath));
-            Log.i("syso", "bbbb" + " " + bitmap.toString());
+//            Log.i("syso", "bbbb" + " " + bitmap.toString());
             listBitmap.add(bitmap);
         } catch (IOException e) {
             e.printStackTrace();
