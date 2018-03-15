@@ -17,14 +17,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.Bind;
+import butterknife.ButterKnife;
 
 /**
  * Created by Lin on 2017/10/31.
  */
 
 public class MessageFragment extends Fragment {
-    @Bind(R.id.msg_recycler)
-    RecyclerView recyclerview;
+//    @Bind(R.id.msg_recycler)
+//    RecyclerView msgRecycler;
     private List<Message> mMsg;
 
     private OkHttp okHttp = OkHttp.getOkhttpHelper();
@@ -41,18 +42,20 @@ public class MessageFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_message, container, false);
-        init();
+//        init(view);
         initData();
 
+        LinearLayoutManager manager = new LinearLayoutManager(view.getContext(), LinearLayoutManager.VERTICAL, false);
+        RecyclerView msgRecycler= (RecyclerView) view.findViewById(R.id.msg_recycler);
+        msgRecycler.setLayoutManager(manager);
+        msgRecycler.setNestedScrollingEnabled(false);
+        MessageAdapter adapter = new MessageAdapter(getActivity(), mMsg);
+        msgRecycler.setAdapter(adapter);
         return view;
     }
 
-    public void init(){
-        LinearLayoutManager manager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
-        recyclerview.setLayoutManager(manager);
-        recyclerview.setNestedScrollingEnabled(false);
-        MessageAdapter adapter = new MessageAdapter(getActivity(), mMsg);
-        recyclerview.setAdapter(adapter);
+    public void init(View view) {
+
     }
 
     private void initData() {
@@ -64,5 +67,11 @@ public class MessageFragment extends Fragment {
         mMsg.add(new Message("http://img5.imgtn.bdimg.com/it/u=1130386333,2651990884&fm=27&gp=0.jpg", "123", "123", "12:14:12"));
         mMsg.add(new Message("http://img0.imgtn.bdimg.com/it/u=3028691947,703373027&fm=27&gp=0.jpg", "123", "123", "12:14:12"));
         mMsg.add(new Message("http://img3.imgtn.bdimg.com/it/u=2059737542,1874731615&fm=27&gp=0.jpg", "123", "123", "12:14:12"));
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        ButterKnife.unbind(this);
     }
 }

@@ -19,7 +19,7 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
-    dexOptions{
+    dexOptions {
         jumboMode = true
     }
 }
@@ -42,7 +42,7 @@ dependencies {
     //    compile files('libs/mysql-connector-java-5.1.32-bin.jar')
 
     compile group: 'com.alibaba', name: 'fastjson', version: '1.2.44'
-    compile (name: 'NativeImgCompress', ext: 'aar')
+    compile(name: 'NativeImgCompress', ext: 'aar')
 
     compile 'com.android.support:appcompat-v7:25.2.0'
     compile 'com.android.support:design:25.2.0'
