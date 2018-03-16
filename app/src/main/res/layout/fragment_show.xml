@@ -2,11 +2,20 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context="com.manshop.android.ui.view.fragment.ShowFragment">
+
+    <TextView
+        android:id="@+id/pro_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="北京市"
+        android:background="@color/splitline"
+        />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recyc_show"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content" />
 
 </FrameLayout>

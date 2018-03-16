@@ -4,14 +4,18 @@ import android.content.res.AssetManager;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.manshop.android.R;
+import com.manshop.android.adapter.ProvinceAdapter;
+import com.manshop.android.adapter.ShowAdapter;
 import com.manshop.android.ui.base.BaseActivity;
 
 import org.w3c.dom.Document;
@@ -34,10 +38,17 @@ import butterknife.ButterKnife;
 public class ComicActivity extends BaseActivity {
     List<String> province;
 
+    @Bind(R.id.tv_titile)
+    TextView tvTitle;
     @Bind(R.id.list_pro)
     ListView listProvince;
+    @Bind(R.id.rv_show)
+    RecyclerView rvShow;
 
-    private Fragment showFragment;
+//    private Fragment showFragment;
+    private ProvinceAdapter provinceAdapter;
+    private ShowAdapter showAdapter;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,20 +82,20 @@ public class ComicActivity extends BaseActivity {
     public void init() {
         province = new ArrayList<>();
         province.add("全部");
-        final String[] provinceName = {""};
-        final int[] pos = new int[1];
+
+
+
+        provinceAdapter = new ProvinceAdapter(this, province);
+        listProvince.setAdapter(provinceAdapter);
         listProvince.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                provinceName[0] = String.valueOf(province.get(position));
+                provinceAdapter.setSelectItem(position);
+                provinceAdapter.notifyDataSetInvalidated();
+                tvTitle.setText(province.get(position));
+//                rvShow.setSelection(showTitle.get(position));
             }
         });
-
-        showFragment = new Fragment();
-        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.fragment_container, showFragment);
-        Bundle bundle = new Bundle();
-        bundle.putString("province", provinceName[0]);
     }
 
     //    获取市级信息
