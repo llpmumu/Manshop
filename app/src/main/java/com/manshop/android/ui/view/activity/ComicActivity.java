@@ -2,21 +2,27 @@ package com.manshop.android.ui.view.activity;
 
 import android.content.res.AssetManager;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
+import com.manshop.android.MyApplication;
 import com.manshop.android.R;
 import com.manshop.android.adapter.ProvinceAdapter;
 import com.manshop.android.adapter.ShowAdapter;
+import com.manshop.android.model.Dialogue;
+import com.manshop.android.model.Show;
+import com.manshop.android.okHttp.CallBack;
+import com.manshop.android.okHttp.OkHttp;
 import com.manshop.android.ui.base.BaseActivity;
+import com.manshop.android.util.Constant;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -26,7 +32,9 @@ import org.xml.sax.SAXException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -34,20 +42,24 @@ import javax.xml.parsers.ParserConfigurationException;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import okhttp3.Response;
 
 public class ComicActivity extends BaseActivity {
-    List<String> province;
 
     @Bind(R.id.tv_titile)
     TextView tvTitle;
     @Bind(R.id.list_pro)
-    ListView listProvince;
+    ListView lvProvince;
     @Bind(R.id.rv_show)
     RecyclerView rvShow;
 
-//    private Fragment showFragment;
+    private List<String> listProvince;
+    private List<Show> listShow;
+    //    private Fragment showFragment;
     private ProvinceAdapter provinceAdapter;
     private ShowAdapter showAdapter;
+
+    private OkHttp okHttp = OkHttp.getOkhttpHelper();
 
 
     @Override
@@ -80,19 +92,20 @@ public class ComicActivity extends BaseActivity {
     }
 
     public void init() {
-        province = new ArrayList<>();
-        province.add("全部");
+        listProvince = new ArrayList<>();
+        listShow = new ArrayList<>();
+        listProvince.add("全部");
+
+//        provinceAdapter = new ProvinceAdapter(this, listProvince);
+//        lvProvince.setAdapter(provinceAdapter);
 
 
-
-        provinceAdapter = new ProvinceAdapter(this, province);
-        listProvince.setAdapter(provinceAdapter);
-        listProvince.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        lvProvince.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 provinceAdapter.setSelectItem(position);
                 provinceAdapter.notifyDataSetInvalidated();
-                tvTitle.setText(province.get(position));
+                tvTitle.setText(listProvince.get(position));
 //                rvShow.setSelection(showTitle.get(position));
             }
         });
@@ -111,10 +124,36 @@ public class ComicActivity extends BaseActivity {
             Element element = (Element) node.item(i);
             // 获取属性省份
             String content = element.getAttribute("name");
-            province.add(content);
-            ArrayAdapter<String> fileList = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, province);
-            listProvince.setAdapter(fileList);
+            listProvince.add(content);
+            provinceAdapter = new ProvinceAdapter(this, listProvince);
+            lvProvince.setAdapter(provinceAdapter);
             Log.d("show", content);
         }
+    }
+
+    public void initMsg() {
+        listShow.clear();
+        final Map<String, Object> params = new HashMap<>();
+        params.put("sender", MyApplication.getInstance().getUserId());
+        okHttp.doPost(Constant.baseURL + "show/getAllShow", new CallBack(ComicActivity.this) {
+            @Override
+            public void onError(Response response, Exception e) throws IOException {
+                Toast.makeText(getApplicationContext(), "获取数据失败", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void callBackSuccess(Response response, Object o) throws IOException {
+                JSONObject json = JSON.parseObject((String) o);
+                Object jsonArray = json.get("data");
+                System.out.println(jsonArray);
+                List<Show> lsShow = JSON.parseArray(jsonArray + "", Show.class);
+                for (Show show : lsShow) {
+                    listShow.add(show);
+                }
+                rvShow.setNestedScrollingEnabled(false);
+                showAdapter = new ShowAdapter(ComicActivity.this, listShow);
+                rvShow.setAdapter(showAdapter);
+            }
+        }, params);
     }
 }
