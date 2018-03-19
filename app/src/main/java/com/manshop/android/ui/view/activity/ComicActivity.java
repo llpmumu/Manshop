@@ -1,7 +1,9 @@
 package com.manshop.android.ui.view.activity;
 
+import android.content.Context;
 import android.content.res.AssetManager;
 import android.os.Bundle;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.MenuItem;
@@ -31,6 +33,7 @@ import org.xml.sax.SAXException;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -45,7 +48,6 @@ import butterknife.ButterKnife;
 import okhttp3.Response;
 
 public class ComicActivity extends BaseActivity {
-
     @Bind(R.id.tv_titile)
     TextView tvTitle;
     @Bind(R.id.list_pro)
@@ -55,7 +57,6 @@ public class ComicActivity extends BaseActivity {
 
     private List<String> listProvince;
     private List<Show> listShow;
-    //    private Fragment showFragment;
     private ProvinceAdapter provinceAdapter;
     private ShowAdapter showAdapter;
 
@@ -99,14 +100,20 @@ public class ComicActivity extends BaseActivity {
 //        provinceAdapter = new ProvinceAdapter(this, listProvince);
 //        lvProvince.setAdapter(provinceAdapter);
 
-
         lvProvince.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 provinceAdapter.setSelectItem(position);
                 provinceAdapter.notifyDataSetInvalidated();
                 tvTitle.setText(listProvince.get(position));
-//                rvShow.setSelection(showTitle.get(position));
+                Map<String, Object> params = new HashMap<>();
+                params.put("province", listProvince.get(position));
+                if (position == 0) {
+                    requestShow("show/getAllShow", params);
+                } else {
+                    Log.d("show","   "+params.get("province"));
+                    requestShow("show/getAddressShow", params);
+                }
             }
         });
     }
@@ -127,18 +134,17 @@ public class ComicActivity extends BaseActivity {
             listProvince.add(content);
             provinceAdapter = new ProvinceAdapter(this, listProvince);
             lvProvince.setAdapter(provinceAdapter);
-            Log.d("show", content);
         }
     }
 
-    public void initMsg() {
+
+    public void requestShow(String url, Map<String, Object> params) {
         listShow.clear();
-        final Map<String, Object> params = new HashMap<>();
-        params.put("sender", MyApplication.getInstance().getUserId());
-        okHttp.doPost(Constant.baseURL + "show/getAllShow", new CallBack(ComicActivity.this) {
+        okHttp.doPost(Constant.baseURL + url, new CallBack(ComicActivity.this) {
             @Override
             public void onError(Response response, Exception e) throws IOException {
-                Toast.makeText(getApplicationContext(), "获取数据失败", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(getApplicationContext(), "该省目前没有漫展", Toast.LENGTH_SHORT).show();
+
             }
 
             @Override
@@ -150,8 +156,10 @@ public class ComicActivity extends BaseActivity {
                 for (Show show : lsShow) {
                     listShow.add(show);
                 }
-                rvShow.setNestedScrollingEnabled(false);
+                rvShow.setLayoutManager(new GridLayoutManager(ComicActivity.this,2));
+//                rvShow.setNestedScrollingEnabled(false);
                 showAdapter = new ShowAdapter(ComicActivity.this, listShow);
+                showAdapter.notifyDataSetChanged();
                 rvShow.setAdapter(showAdapter);
             }
         }, params);

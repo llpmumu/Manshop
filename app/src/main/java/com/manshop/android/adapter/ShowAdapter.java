@@ -35,7 +35,6 @@ public class ShowAdapter extends RecyclerView.Adapter<ShowAdapter.ViewHolder> {
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = View.inflate(context, R.layout.item_show, null);
         final ViewHolder holder = new ViewHolder(view);
-
         return holder;
     }
 

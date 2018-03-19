@@ -168,8 +168,6 @@ public class NewPublishActivity extends BaseActivity implements TakePhoto.TakeRe
     private OkHttp okhttp = OkHttp.getOkhttpHelper();
 
     public void publish(View view) {
-
-
         Map<String, Object> param = new HashMap<>();
         if (isEdit) {
             param.put("id", intent.getIntExtra("id", 0));

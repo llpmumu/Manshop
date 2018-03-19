@@ -56,10 +56,10 @@ public class ProvinceAdapter extends BaseAdapter {
             holder= (ViewHolder) convertView.getTag();
         if(position==selectItem){
             holder.tvProvince.setBackgroundColor(Color.WHITE);
-            holder.tvProvince.setTextColor(context.getResources().getColor(R.color.green));
+            holder.tvProvince.setTextColor(context.getResources().getColor(R.color.splitline));
         }
         else {
-//            holder.tvProvince.setBackgroundColor(context.getResources().getColor(R.color.black));
+            holder.tvProvince.setBackgroundColor(Color.TRANSPARENT);
             holder.tvProvince.setTextColor(context.getResources().getColor(R.color.black));
         }
         holder.tvProvince.setText(list.get(position));
