@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.res.AssetManager;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.MenuItem;
@@ -111,7 +112,7 @@ public class ComicActivity extends BaseActivity {
                 if (position == 0) {
                     requestShow("show/getAllShow", params);
                 } else {
-                    Log.d("show","   "+params.get("province"));
+                    Log.d("show", "   " + params.get("province"));
                     requestShow("show/getAddressShow", params);
                 }
             }
@@ -140,6 +141,7 @@ public class ComicActivity extends BaseActivity {
 
     public void requestShow(String url, Map<String, Object> params) {
         listShow.clear();
+        Log.d("show", "size" + listShow.size());
         okHttp.doPost(Constant.baseURL + url, new CallBack(ComicActivity.this) {
             @Override
             public void onError(Response response, Exception e) throws IOException {
@@ -156,7 +158,7 @@ public class ComicActivity extends BaseActivity {
                 for (Show show : lsShow) {
                     listShow.add(show);
                 }
-                rvShow.setLayoutManager(new GridLayoutManager(ComicActivity.this,2));
+                rvShow.setLayoutManager(new LinearLayoutManager(ComicActivity.this));
 //                rvShow.setNestedScrollingEnabled(false);
                 showAdapter = new ShowAdapter(ComicActivity.this, listShow);
                 showAdapter.notifyDataSetChanged();
