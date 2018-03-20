@@ -74,12 +74,11 @@ public class ListOrderActivity extends BaseActivity {
                 JSONObject json = JSON.parseObject((String) o);
                 Object jsonArray = json.get("data");
                 List<Order> listOrder = JSON.parseArray(jsonArray + "", Order.class);
-                Log.d("good", " " + mOrder.size());
                 for (Order order : listOrder) {
                     Goods good = order.getGood();
+                    Log.d("order", "222" + good.getPicture());
                     good.setPics(StringUtil.getInstance().spiltPic(good.getPicture()));
                     mOrder.add(order);
-                    Log.d("order", " 2222221    " + order.getOrdertime());
                 }
                 adapter = new OrderListAdapter(ListOrderActivity.this, mOrder);
                 LinearLayoutManager manager = new LinearLayoutManager(ListOrderActivity.this, LinearLayoutManager.VERTICAL, false);
