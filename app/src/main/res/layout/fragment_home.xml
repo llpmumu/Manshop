@@ -75,7 +75,7 @@
                     android:drawableTop="@drawable/ic_show"
                     android:gravity="center"
                     android:onClick="show"
-                    android:text="资讯" />
+                    android:text="漫展" />
             </LinearLayout>
 
             <android.support.v7.widget.RecyclerView

@@ -1,9 +1,7 @@
 package com.manshop.android.ui.view.activity;
 
-import android.content.Context;
 import android.content.res.AssetManager;
 import android.os.Bundle;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -12,15 +10,12 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
-import com.manshop.android.MyApplication;
 import com.manshop.android.R;
 import com.manshop.android.adapter.ProvinceAdapter;
 import com.manshop.android.adapter.ShowAdapter;
-import com.manshop.android.model.Dialogue;
 import com.manshop.android.model.Show;
 import com.manshop.android.okHttp.CallBack;
 import com.manshop.android.okHttp.OkHttp;
@@ -34,7 +29,6 @@ import org.xml.sax.SAXException;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -55,6 +49,8 @@ public class ComicActivity extends BaseActivity {
     ListView lvProvince;
     @Bind(R.id.rv_show)
     RecyclerView rvShow;
+    @Bind(R.id.tv_tip)
+    TextView tvTip;
 
     private List<String> listProvince;
     private List<Show> listShow;
@@ -67,7 +63,7 @@ public class ComicActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_comic);
+        setContentView(R.layout.activity_show);
         ButterKnife.bind(this);
         showToolbar();
         init();
@@ -80,7 +76,6 @@ public class ComicActivity extends BaseActivity {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
     }
 
     @Override
@@ -98,16 +93,15 @@ public class ComicActivity extends BaseActivity {
         listShow = new ArrayList<>();
         listProvince.add("全部");
 
-//        provinceAdapter = new ProvinceAdapter(this, listProvince);
-//        lvProvince.setAdapter(provinceAdapter);
-
+        final Map<String, Object> params = new HashMap<>();
+        params.put("province", listProvince.get(0));
+        requestShow("show/getAllShow", params);
         lvProvince.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 provinceAdapter.setSelectItem(position);
                 provinceAdapter.notifyDataSetInvalidated();
                 tvTitle.setText(listProvince.get(position));
-                Map<String, Object> params = new HashMap<>();
                 params.put("province", listProvince.get(position));
                 if (position == 0) {
                     requestShow("show/getAllShow", params);
@@ -145,12 +139,14 @@ public class ComicActivity extends BaseActivity {
         okHttp.doPost(Constant.baseURL + url, new CallBack(ComicActivity.this) {
             @Override
             public void onError(Response response, Exception e) throws IOException {
-//                Toast.makeText(getApplicationContext(), "该省目前没有漫展", Toast.LENGTH_SHORT).show();
-
+                rvShow.setVisibility(View.GONE);
+                tvTip.setVisibility(View.VISIBLE);
             }
 
             @Override
             public void callBackSuccess(Response response, Object o) throws IOException {
+                rvShow.setVisibility(View.VISIBLE);
+                tvTip.setVisibility(View.GONE);
                 JSONObject json = JSON.parseObject((String) o);
                 Object jsonArray = json.get("data");
                 System.out.println(jsonArray);
@@ -159,10 +155,9 @@ public class ComicActivity extends BaseActivity {
                     listShow.add(show);
                 }
                 rvShow.setLayoutManager(new LinearLayoutManager(ComicActivity.this));
-//                rvShow.setNestedScrollingEnabled(false);
                 showAdapter = new ShowAdapter(ComicActivity.this, listShow);
-                showAdapter.notifyDataSetChanged();
                 rvShow.setAdapter(showAdapter);
+                showAdapter.notifyDataSetChanged();
             }
         }, params);
     }
