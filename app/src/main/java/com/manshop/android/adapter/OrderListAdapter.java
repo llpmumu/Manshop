@@ -39,7 +39,6 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.View
         return holder;
     }
 
-
     @Override
     public void onBindViewHolder(final ViewHolder holder, final int position) {
         /**
@@ -48,8 +47,7 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.View
         holder.itemView.setTag(position);
         Order order = mList.get(position);
         Goods good = order.getGood();
-        Glide.with(context).load(good.getPics().get(0)).placeholder(R.drawable.img_loading).into(holder.orderPic);
-
+        holder.orderPic.setImageBitmap(good.getPics().get(0));
 
         holder.orderName.setText(good.getTitle());
         holder.orderPrice.setText(good.getPrice() + "￥");
@@ -58,7 +56,6 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.View
             public void onClick(View v) {
                 Toast.makeText(context, "nnnnn", Toast.LENGTH_SHORT).show();
                 final Order order = mList.get(position);
-//                Log.d("recyle",mList.get(position).getGood().getPics().get(0));
                 Intent intent = new Intent(context, OrderDetailActivity.class);
                 intent.putExtra("oid", order.getId());
                 intent.putExtra("type","old");

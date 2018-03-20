@@ -79,12 +79,18 @@ public class NewAddressActivity extends BaseActivity {
                 finish();
                 break;
             case R.id.item_saveaddress:
-                if (isEdit) {
-                    param.put("id", intent.getIntExtra("id", 0));
-                    requestAdrData(Constant.baseURL + "address/updateAddress", param);
+                if (etConsigneePhone.getText().toString().length() != 11)
+                    Toast.makeText(getApplicationContext(), "手机号码格式错误", Toast.LENGTH_LONG).show();
+                else if (etConsigneeName.getText().toString().length() == 0 || etConsigneePhone.getText().toString().length() == 0 ||
+                        tvConsigneeAdr.getText().toString().length() == 0 || etConsigneeDetailAdr.getText().toString().length() == 0) {
+                    Toast.makeText(getApplicationContext(), "不能为空", Toast.LENGTH_LONG).show();
+                } else {
+                    if (isEdit) {
+                        param.put("id", intent.getIntExtra("id", 0));
+                        requestAdrData(Constant.baseURL + "address/updateAddress", param);
+                    } else
+                        requestAdrData(Constant.baseURL + "address/newAddress", param);
                 }
-                else
-                    requestAdrData(Constant.baseURL + "address/newAddress", param);
                 break;
             default:
         }
@@ -117,7 +123,7 @@ public class NewAddressActivity extends BaseActivity {
     //编辑地址跳转数据传入
     public void edit() {
         intent = getIntent();
-        isEdit = intent.getBooleanExtra("isEdite" , false) ;
+        isEdit = intent.getBooleanExtra("isEdite", false);
         etConsigneeName.setText(intent.getStringExtra("consigneeName"));
         etConsigneePhone.setText(intent.getStringExtra("consigneePhone"));
         tvConsigneeAdr.setText(intent.getStringExtra("selectAdr"));
