@@ -42,7 +42,7 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import okhttp3.Response;
 
-public class ComicActivity extends BaseActivity {
+public class ShowActivity extends BaseActivity {
     @Bind(R.id.tv_titile)
     TextView tvTitle;
     @Bind(R.id.list_pro)
@@ -136,7 +136,7 @@ public class ComicActivity extends BaseActivity {
     public void requestShow(String url, Map<String, Object> params) {
         listShow.clear();
         Log.d("show", "size" + listShow.size());
-        okHttp.doPost(Constant.baseURL + url, new CallBack(ComicActivity.this) {
+        okHttp.doPost(Constant.baseURL + url, new CallBack(ShowActivity.this) {
             @Override
             public void onError(Response response, Exception e) throws IOException {
                 rvShow.setVisibility(View.GONE);
@@ -154,8 +154,8 @@ public class ComicActivity extends BaseActivity {
                 for (Show show : lsShow) {
                     listShow.add(show);
                 }
-                rvShow.setLayoutManager(new LinearLayoutManager(ComicActivity.this));
-                showAdapter = new ShowAdapter(ComicActivity.this, listShow);
+                rvShow.setLayoutManager(new LinearLayoutManager(ShowActivity.this));
+                showAdapter = new ShowAdapter(ShowActivity.this, listShow);
                 rvShow.setAdapter(showAdapter);
                 showAdapter.notifyDataSetChanged();
             }

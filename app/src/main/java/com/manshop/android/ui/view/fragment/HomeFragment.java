@@ -24,7 +24,8 @@ import com.manshop.android.adapter.HomeGoodsListAdapter;
 import com.manshop.android.model.Goods;
 import com.manshop.android.okHttp.CallBack;
 import com.manshop.android.okHttp.OkHttp;
-import com.manshop.android.ui.view.activity.ComicActivity;
+import com.manshop.android.ui.view.activity.AnimeDataActivity;
+import com.manshop.android.ui.view.activity.ShowActivity;
 import com.manshop.android.util.Constant;
 import com.manshop.android.util.GlideImageLoader;
 import com.manshop.android.util.StringUtil;
@@ -34,18 +35,13 @@ import com.youth.banner.Transformer;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import butterknife.Bind;
 import okhttp3.Response;
 
 public class HomeFragment extends Fragment {
-//    主界面按钮
-    @Bind(R.id.tv_show)
-    TextView tvShow;
     //商品列表
     private RecyclerView recyclerview;
     private HomeGoodsListAdapter adapter;
@@ -53,7 +49,6 @@ public class HomeFragment extends Fragment {
     //轮播图
     private List<Integer> images = new ArrayList<>();
 
-    //    private ScrollView mScrollView;
     public static HomeFragment newInstance(String index) {
         HomeFragment f = new HomeFragment();
         Bundle args = new Bundle();
@@ -104,7 +99,14 @@ public class HomeFragment extends Fragment {
         tvShow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getActivity(), ComicActivity.class));
+                startActivity(new Intent(getActivity(), ShowActivity.class));
+            }
+        });
+        TextView tvData = (TextView) view.findViewById(R.id.tv_data);
+        tvData.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getActivity(), AnimeDataActivity.class));
             }
         });
     }
@@ -124,17 +126,13 @@ public class HomeFragment extends Fragment {
 
             @Override
             public void callBackSuccess(Response response, Object o) throws IOException {
-                Log.d("good", "success");
                 JSONObject json = JSON.parseObject((String) o);
                 Object jsonArray = json.get("data");
                 System.out.println(jsonArray);
                 List<Goods> listGood = JSON.parseArray(jsonArray + "", Goods.class);
-                Log.d("good", " " + mGood.size());
                 for (Goods good : listGood) {
-//                    Log.i("syso","aaa  "+good.getPicture());
                     good.setPics(StringUtil.getInstance().spiltPic(good.getPicture()));
                     mGood.add(good);
-                    Log.d("address", " 2222221    " + mGood.size());
                 }
                 recyclerview.setNestedScrollingEnabled(false);
                 adapter = new HomeGoodsListAdapter(getActivity(), mGood);
@@ -143,8 +141,4 @@ public class HomeFragment extends Fragment {
         },param);
     }
 
-    public void show(View view){
-        Intent intent = new Intent(getContext(),ComicActivity.class);
-        startActivity(intent);
-    }
 }

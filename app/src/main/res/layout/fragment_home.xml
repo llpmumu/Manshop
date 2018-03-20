@@ -7,85 +7,82 @@
     android:orientation="vertical">
 
     <com.cjj.MaterialRefreshLayout
-    android:id="@+id/matfresh_refresh"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    app:overlay="true"
-    app:wave_show="true"
-    app:wave_color="#90ffffff"
-    app:progress_colors="@array/material_colors"
-    app:wave_height_type="higher">
-
-    <android.support.v4.widget.NestedScrollView
-        android:id="@+id/scrollView"
+        android:id="@+id/matfresh_refresh"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:scrollbars="none">
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        app:overlay="true"
+        app:progress_colors="@array/material_colors"
+        app:wave_color="#90ffffff"
+        app:wave_height_type="higher"
+        app:wave_show="true">
 
-        <LinearLayout
+        <android.support.v4.widget.NestedScrollView
+            android:id="@+id/scrollView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
-
-            <com.youth.banner.Banner
-                android:id="@+id/banner"
-                android:layout_width="match_parent"
-                android:layout_height="170dp" />
+            android:scrollbars="none">
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_margin="10dp"
-                android:orientation="horizontal">
+                android:layout_height="match_parent"
+                android:orientation="vertical">
 
-                <TextView
-                    android:id="@+id/tv_buy"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:drawableTop="@drawable/ic_buy"
-                    android:gravity="center"
-                    android:text="出售" />
+                <com.youth.banner.Banner
+                    android:id="@+id/banner"
+                    android:layout_width="match_parent"
+                    android:layout_height="170dp" />
 
-                <TextView
-                    android:id="@+id/tv_rent"
-                    android:layout_width="0dp"
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:drawableTop="@drawable/ic_rent"
-                    android:gravity="center"
-                    android:text="出租" />
+                    android:layout_gravity="center"
+                    android:layout_margin="10dp"
+                    android:orientation="horizontal">
 
-                <TextView
-                    android:id="@+id/tv_data"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:drawableTop="@drawable/ic_data"
-                    android:gravity="center"
-                    android:text="资料" />
+                    <TextView
+                        android:id="@+id/tv_buy"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:drawableTop="@drawable/ic_buy"
+                        android:gravity="center"
+                        android:text="出售" />
 
-                <TextView
-                    android:id="@+id/tv_show"
-                    android:layout_width="0dp"
+                    <TextView
+                        android:id="@+id/tv_rent"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:drawableTop="@drawable/ic_rent"
+                        android:gravity="center"
+                        android:text="出租" />
+
+                    <TextView
+                        android:id="@+id/tv_data"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:drawableTop="@drawable/ic_data"
+                        android:gravity="center"
+                        android:text="资料" />
+
+                    <TextView
+                        android:id="@+id/tv_show"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:drawableTop="@drawable/ic_show"
+                        android:gravity="center"
+                        android:text="漫展" />
+                </LinearLayout>
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/recycle"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:drawableTop="@drawable/ic_show"
-                    android:gravity="center"
-                    android:onClick="show"
-                    android:text="漫展" />
+                    android:layout_margin="10dp" />
             </LinearLayout>
-
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/recycle"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp" />
-
-
-        </LinearLayout>
-    </android.support.v4.widget.NestedScrollView>
+        </android.support.v4.widget.NestedScrollView>
     </com.cjj.MaterialRefreshLayout>
 </LinearLayout>
