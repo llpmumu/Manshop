@@ -7,9 +7,10 @@
 
     <ImageView
         android:id="@+id/iv_show"
-        android:layout_width="330px"
-        android:layout_height="450px"
+        android:layout_width="180px"
+        android:layout_height="245px"
         android:layout_gravity="center"
+        android:scaleType="fitCenter"
         android:src="@drawable/img_loading" />
 
     <LinearLayout
@@ -22,22 +23,25 @@
         <TextView
             android:id="@+id/tv_show_name"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="45sp"
             android:text="beijing"
             android:textColor="@color/black_de"
             android:paddingBottom="20dp"
-            android:textSize="20sp"/>
+            android:textSize="16sp"
+            android:gravity="center|left"/>
 
         <TextView
             android:id="@+id/tv_show_data"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="2015-1-2-1452-22-33" />
+            android:text="2015-1-2-1452-22-33"
+            android:textSize="13sp"/>
 
         <TextView
             android:id="@+id/tv_show_address"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="renmdsafdsagfdrsagagdsa" />
+            android:text="renmdsafdsagfdrsagagdsa"
+            android:textSize="13sp"/>
     </LinearLayout>
 </LinearLayout>
