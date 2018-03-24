@@ -208,9 +208,10 @@ public class NewPublishActivity extends BaseActivity implements TakePhoto.TakeRe
             @Override
             public void callBackSuccess(Response response, Object o) throws IOException {
                 Log.d("good", "new success");
-                finish();
                 Intent intent = new Intent(NewPublishActivity.this, ListPublishActivity.class);
                 startActivity(intent);
+                finish();
+
             }
         }, params);
     }

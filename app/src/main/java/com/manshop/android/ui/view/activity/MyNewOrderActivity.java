@@ -120,9 +120,6 @@ public class MyNewOrderActivity extends BaseActivity {
             public void callBackSuccess(Response response, Object o) throws IOException {
                 JSONObject json = JSON.parseObject((String) o);
                 good = json.getObject("data", Goods.class);
-//                String picture = good.getPicture();
-//                String[] txtpicture = picture.split(";");
-//                Glide.with(MyNewOrderActivity.this).load(txtpicture[0]).into(ivGpic);
                 ivGpic.setImageBitmap(StringUtil.getInstance().spiltPic(good.getPicture()).get(0));
                 tvGtitle.setText(good.getTitle());
                 tvGprice.setText(good.getPrice() + "￥");
