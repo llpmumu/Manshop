@@ -14,6 +14,7 @@ import com.bumptech.glide.Glide;
 import com.manshop.android.R;
 import com.manshop.android.model.Goods;
 import com.manshop.android.model.Order;
+import com.manshop.android.ui.view.activity.DeliveryActivity;
 import com.manshop.android.ui.view.activity.OrderDetailActivity;
 
 import java.net.URL;
@@ -23,18 +24,18 @@ import java.util.List;
  * Created by Lin on 2018/2/24.
  */
 
-public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.ViewHolder> {
+public class SellOrderAdapter extends RecyclerView.Adapter<SellOrderAdapter.ViewHolder> {
     Context context;
     List<Order> mList;
 
-    public OrderListAdapter(Context context, List<Order> mList) {
+    public SellOrderAdapter(Context context, List<Order> mList) {
         this.context = context;
         this.mList = mList;
     }
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = View.inflate(context, R.layout.item_order, null);
+        View view = View.inflate(context, R.layout.item_sell_order, null);
         ViewHolder holder = new ViewHolder(view);
         return holder;
     }
@@ -55,7 +56,7 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.View
             @Override
             public void onClick(View v) {
                 final Order order = mList.get(position);
-                Intent intent = new Intent(context, OrderDetailActivity.class);
+                Intent intent = new Intent(context, DeliveryActivity.class);
                 intent.putExtra("oid", order.getId());
                 intent.putExtra("type","old");
                 context.startActivity(intent);

@@ -56,7 +56,8 @@
         <activity android:name=".ui.view.activity.DeliveryActivity" />
         <activity android:name=".ui.view.activity.OrderDetailActivity" />
         <activity android:name=".ui.view.activity.ListOrderActivity" />
-        <activity android:name=".ui.view.activity.AnimeDataActivity"></activity>
+        <activity android:name=".ui.view.activity.AnimeDataActivity" />
+        <activity android:name=".ui.view.activity.ListSellActivity"></activity>
     </application>
 
 </manifest>

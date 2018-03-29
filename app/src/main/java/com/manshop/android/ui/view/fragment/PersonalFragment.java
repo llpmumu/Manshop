@@ -16,7 +16,9 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.makeramen.roundedimageview.RoundedImageView;
 import com.manshop.android.R;
+import com.manshop.android.adapter.SellOrderAdapter;
 import com.manshop.android.ui.view.activity.ListOrderActivity;
+import com.manshop.android.ui.view.activity.ListSellActivity;
 import com.manshop.android.ui.view.activity.LoginActivity;
 import com.manshop.android.ui.view.activity.ListPublishActivity;
 
@@ -97,6 +99,10 @@ public class PersonalFragment extends Fragment {
                         //买到的
                         startActivity(new Intent(getContext(),ListOrderActivity.class));
                         break;
+                    case 2:
+                        //卖出的
+                        startActivity(new Intent(getContext(),ListSellActivity.class));
+                        break;
                     default:
                 }
             }
@@ -105,8 +111,8 @@ public class PersonalFragment extends Fragment {
 
     public void initPer() {
         mPerList.add("我发布的");
+        mPerList.add("我买到的");
         mPerList.add("我卖出的");
-        mPerList.add("我出租的");
         mPerList.add("我买到的");
         mPerList.add("我收藏的");
     }
