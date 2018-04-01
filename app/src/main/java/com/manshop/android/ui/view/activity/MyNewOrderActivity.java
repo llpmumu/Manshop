@@ -103,8 +103,10 @@ public class MyNewOrderActivity extends BaseActivity {
                 if(address.equals("")) {
 
                 }
-                tvUserMsg.setText(address.getConsignee() + "(" + address.getAddphone() + ")");
-                tvAddress.setText(address.getAddress());
+                else {
+                    tvUserMsg.setText(address.getConsignee() + "(" + address.getAddphone() + ")");
+                    tvAddress.setText(address.getAddress());
+                }
             }
         }, params);
     }
