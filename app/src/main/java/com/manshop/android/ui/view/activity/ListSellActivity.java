@@ -45,6 +45,7 @@ public class ListSellActivity extends BaseActivity {
         setContentView(R.layout.activity_list_sell);
         ButterKnife.bind(this);
         showToolbar();
+        initData();
     }
 
     @Override
@@ -62,7 +63,7 @@ public class ListSellActivity extends BaseActivity {
     public void initData() {
         final List<String> mPic = new ArrayList<>();
         final Map<String, Object> param = new HashMap<>();
-        param.put("buid", MyApplication.getInstance().getUserId());
+        param.put("suid", MyApplication.getInstance().getUserId());
         okhttp.doPost(Constant.baseURL + "order/getSellOrder", new CallBack(ListSellActivity.this) {
 
             @Override

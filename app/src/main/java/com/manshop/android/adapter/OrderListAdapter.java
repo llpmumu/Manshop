@@ -51,6 +51,12 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.View
 
         holder.orderName.setText(good.getTitle());
         holder.orderPrice.setText(good.getPrice() + "￥");
+        if(order.getState() == 0)
+            holder.orderState.setText("等待发货");
+        else if(order.getState() == 1)
+            holder.orderState.setText("等待收货");
+        else
+            holder.orderState.setText("交易完成");
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -72,12 +78,14 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.View
         ImageView orderPic;
         TextView orderName;
         TextView orderPrice;
+        TextView orderState;
 
         public ViewHolder(View itemView) {
             super(itemView);
             orderPic = (ImageView) itemView.findViewById(R.id.item_order_pic);
             orderName = (TextView) itemView.findViewById(R.id.item_order_name);
             orderPrice = (TextView) itemView.findViewById(R.id.item_order_price);
+            orderState = (TextView)itemView.findViewById(R.id.item_order_state);
         }
     }
 

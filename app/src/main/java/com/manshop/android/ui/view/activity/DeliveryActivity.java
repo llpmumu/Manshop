@@ -23,7 +23,7 @@ public class DeliveryActivity extends BaseActivity {
     //加载标题栏
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.item_add, menu);
+        super.onCreateOptionsMenu(menu);
         return true;
     }
 }

@@ -41,11 +41,12 @@
                 android:textSize="18sp" />
 
             <TextView
+                android:id="@+id/item_order_state"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/item_order_price"
                 android:gravity="center"
-                android:text="交易完成" />
+                android:text="等待发货" />
 
         </RelativeLayout>
     </LinearLayout>

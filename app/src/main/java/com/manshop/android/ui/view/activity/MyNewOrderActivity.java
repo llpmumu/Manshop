@@ -50,6 +50,7 @@ public class MyNewOrderActivity extends BaseActivity {
     TextView tvAllPrice;
 
     private Goods good;
+    private Address address;
     private Intent intent;
     private OkHttp okhttp = OkHttp.getOkhttpHelper();
 
@@ -97,8 +98,11 @@ public class MyNewOrderActivity extends BaseActivity {
             @Override
             public void callBackSuccess(Response response, Object o) throws IOException {
                 JSONObject json = JSON.parseObject((String) o);
-                Address address = json.getObject("data", Address.class);
+                address = json.getObject("data", Address.class);
                 Log.d("order", "55" + tvUserMsg);
+                if(address.equals("")) {
+
+                }
                 tvUserMsg.setText(address.getConsignee() + "(" + address.getAddphone() + ")");
                 tvAddress.setText(address.getAddress());
             }
@@ -138,6 +142,7 @@ public class MyNewOrderActivity extends BaseActivity {
         params.put("state", 1);
         java.sql.Date date = new java.sql.Date(System.currentTimeMillis());
         params.put("ordertime", date);
+        params.put("aid",address.getId());
         okhttp.doPost(Constant.baseURL + "order/newOrder", new CallBack(MyNewOrderActivity.this) {
 
             @Override
