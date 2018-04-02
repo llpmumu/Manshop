@@ -44,6 +44,13 @@
         android:paddingTop="10dp">
 
         <TextView
+            android:id="@id/tip"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="暂无收货地址"
+            android:visibility="gone"/>
+
+        <TextView
             android:id="@+id/userMsg"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

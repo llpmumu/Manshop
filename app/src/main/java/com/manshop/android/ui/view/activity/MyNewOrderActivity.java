@@ -38,6 +38,8 @@ public class MyNewOrderActivity extends BaseActivity {
     TextView tvUserMsg;
     @Bind(R.id.address)
     TextView tvAddress;
+    @Bind(R.id.tip)
+    TextView tvTip;
 
     //订单信息
     @Bind(R.id.good_picture)
@@ -92,7 +94,10 @@ public class MyNewOrderActivity extends BaseActivity {
 
             @Override
             public void onError(Response response, Exception e) throws IOException {
-                Toast.makeText(getApplicationContext(), "获取地址失败", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(getApplicationContext(), "获取地址失败", Toast.LENGTH_SHORT).show();
+                tvTip.setVisibility(View.VISIBLE);
+                tvUserMsg.setVisibility(View.GONE);
+                tvAddress.setVisibility(View.GONE);
             }
 
             @Override
@@ -100,13 +105,11 @@ public class MyNewOrderActivity extends BaseActivity {
                 JSONObject json = JSON.parseObject((String) o);
                 address = json.getObject("data", Address.class);
                 Log.d("order", "55" + tvUserMsg);
-                if(address.equals("")) {
-
-                }
-                else {
-                    tvUserMsg.setText(address.getConsignee() + "(" + address.getAddphone() + ")");
-                    tvAddress.setText(address.getAddress());
-                }
+                tvTip.setVisibility(View.GONE);
+                tvUserMsg.setVisibility(View.VISIBLE);
+                tvAddress.setVisibility(View.VISIBLE);
+                tvUserMsg.setText(address.getConsignee() + "(" + address.getAddphone() + ")");
+                tvAddress.setText(address.getAddress());
             }
         }, params);
     }
@@ -144,7 +147,11 @@ public class MyNewOrderActivity extends BaseActivity {
         params.put("state", 1);
         java.sql.Date date = new java.sql.Date(System.currentTimeMillis());
         params.put("ordertime", date);
-        params.put("aid",address.getId());
+        if (address.equals("")) {
+            Toast.makeText(MyNewOrderActivity.this, "请选择地址", Toast.LENGTH_LONG).show();
+            return;
+        } else
+            params.put("aid", address.getId());
         okhttp.doPost(Constant.baseURL + "order/newOrder", new CallBack(MyNewOrderActivity.this) {
 
             @Override
@@ -155,11 +162,11 @@ public class MyNewOrderActivity extends BaseActivity {
             @Override
             public void callBackSuccess(Response response, Object o) throws IOException {
                 JSONObject json = JSON.parseObject((String) o);
-                String oid = json.getObject("data",String.class);
+                String oid = json.getObject("data", String.class);
 
                 Intent intentToDetail = new Intent(MyNewOrderActivity.this, OrderDetailActivity.class);
-                intentToDetail.putExtra("oid",oid);
-                intentToDetail.putExtra("type","buy");
+                intentToDetail.putExtra("oid", oid);
+                intentToDetail.putExtra("type", "buy");
                 startActivity(intentToDetail);
             }
         }, params);
