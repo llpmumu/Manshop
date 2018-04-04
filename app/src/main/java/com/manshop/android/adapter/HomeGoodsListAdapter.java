@@ -35,7 +35,6 @@ public class HomeGoodsListAdapter extends RecyclerView.Adapter<HomeGoodsListAdap
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-
         View view = View.inflate(context, R.layout.item_goods, null);
         ViewHolder holder = new ViewHolder(view);
         return holder;

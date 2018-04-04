@@ -16,7 +16,6 @@ import com.manshop.android.MyApplication;
 import com.manshop.android.R;
 import com.manshop.android.adapter.DialogueAdapter;
 import com.manshop.android.model.Dialogue;
-import com.manshop.android.model.Message;
 import com.manshop.android.okHttp.CallBack;
 import com.manshop.android.okHttp.OkHttp;
 import com.manshop.android.ui.base.BaseActivity;
@@ -32,16 +31,11 @@ import okhttp3.Response;
 
 public class DialogueActivity extends BaseActivity {
     private List<Dialogue> msgList = new ArrayList<Dialogue>();
-
     private EditText inputText;
-
     private RecyclerView msgRecyclerView;
     private DialogueAdapter adapter;
-
     private Intent intent;
     private OkHttp okHttp = OkHttp.getOkhttpHelper();
-
-//    private String msg;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,7 +58,6 @@ public class DialogueActivity extends BaseActivity {
 
     public void init() {
         intent = getIntent();
-
         inputText = (EditText) findViewById(R.id.input_text);
         msgRecyclerView = (RecyclerView) findViewById(R.id.msg_recycler);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
@@ -90,11 +83,8 @@ public class DialogueActivity extends BaseActivity {
                 Object jsonArray = json.get("data");
                 System.out.println(jsonArray);
                 List<Dialogue> listDialogue = JSON.parseArray(jsonArray + "", Dialogue.class);
-                Log.d("good", " " + msgList.size());
                 for (Dialogue dialogue : listDialogue) {
-                    Log.d("good", " " + msgList.toString());
                     msgList.add(dialogue);
-//                    Log.d("good", " goodtime    " + good.getGoodtime());
                 }
 
             }
