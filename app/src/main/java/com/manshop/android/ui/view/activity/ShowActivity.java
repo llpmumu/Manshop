@@ -149,7 +149,6 @@ public class ShowActivity extends BaseActivity {
                 tvTip.setVisibility(View.GONE);
                 JSONObject json = JSON.parseObject((String) o);
                 Object jsonArray = json.get("data");
-                System.out.println(jsonArray);
                 List<Show> lsShow = JSON.parseArray(jsonArray + "", Show.class);
                 for (Show show : lsShow) {
                     listShow.add(show);

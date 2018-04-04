@@ -25,10 +25,12 @@ import com.bumptech.glide.Glide;
 import com.makeramen.roundedimageview.RoundedImageView;
 import com.manshop.android.R;
 import com.manshop.android.adapter.ViewPagerAdapter;
+import com.manshop.android.service.PollingService;
 import com.manshop.android.ui.base.BaseActivity;
 import com.manshop.android.ui.view.fragment.HomeFragment;
 import com.manshop.android.ui.view.fragment.MessageFragment;
 import com.manshop.android.ui.view.fragment.PersonalFragment;
+import com.manshop.android.util.PollingUtils;
 
 
 public class MainActivity extends BaseActivity {
@@ -73,7 +75,7 @@ public class MainActivity extends BaseActivity {
         RelativeLayout info = (RelativeLayout) navView.inflateHeaderView(R.layout.info_header);
         head = (RoundedImageView) info.findViewById(R.id.im_head);
         tvUsername = (TextView) info.findViewById(R.id.tv_username);
-
+        PollingUtils.startPollingService(this, 5, PollingService.class, PollingService.ACTION);
     }
 
     public void addListener() {
@@ -233,5 +235,13 @@ public class MainActivity extends BaseActivity {
         adapter.addFragment(MessageFragment.newInstance("ic_message"));
         adapter.addFragment(PersonalFragment.newInstance("per"));
         viewPager.setAdapter(adapter);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        //Stop polling service
+        System.out.println("Stop polling service...");
+        PollingUtils.stopPollingService(this, PollingService.class, PollingService.ACTION);
     }
 }
