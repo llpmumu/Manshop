@@ -11,6 +11,8 @@ import android.text.TextUtils;
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.manshop.android.model.User;
 
+import cn.jpush.im.android.api.JMessageClient;
+
 /**
  * Created by Lin on 2017/12/27.
  */
@@ -25,6 +27,8 @@ public class MyApplication extends Application {
         share = getSharedPreferences("User", MODE_PRIVATE);
         this.myApplication = this;
         Fresco.initialize(this);
+        JMessageClient.setDebugMode(true);
+        JMessageClient.init(this);
     }
 
     public static MyApplication myApplication;

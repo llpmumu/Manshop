@@ -5,9 +5,6 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.NavigationView;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
@@ -16,21 +13,22 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.makeramen.roundedimageview.RoundedImageView;
 import com.manshop.android.R;
 import com.manshop.android.adapter.ViewPagerAdapter;
-import com.manshop.android.service.PollingService;
 import com.manshop.android.ui.base.BaseActivity;
 import com.manshop.android.ui.view.fragment.HomeFragment;
 import com.manshop.android.ui.view.fragment.MessageFragment;
 import com.manshop.android.ui.view.fragment.PersonalFragment;
-import com.manshop.android.util.PollingUtils;
+
+import cn.jpush.im.android.api.JMessageClient;
+import cn.jpush.im.android.api.model.UserInfo;
 
 
 public class MainActivity extends BaseActivity {
@@ -75,7 +73,6 @@ public class MainActivity extends BaseActivity {
         RelativeLayout info = (RelativeLayout) navView.inflateHeaderView(R.layout.info_header);
         head = (RoundedImageView) info.findViewById(R.id.im_head);
         tvUsername = (TextView) info.findViewById(R.id.tv_username);
-        PollingUtils.startPollingService(this, 5, PollingService.class, PollingService.ACTION);
     }
 
     public void addListener() {
@@ -93,8 +90,16 @@ public class MainActivity extends BaseActivity {
                         mDrawerLayout.closeDrawers();
                         break;
                     case R.id.item_logout:
-                        intent = new Intent(MainActivity.this, LoginActivity.class);
-                        startActivity(intent);
+                        UserInfo myInfo = JMessageClient.getMyInfo();
+                        if (myInfo != null) {
+                            JMessageClient.logout();
+                            Toast.makeText(MainActivity.this, "登出成功", Toast.LENGTH_SHORT).show();
+                            intent = new Intent(MainActivity.this, LoginActivity.class);
+                            startActivity(intent);
+                            finish();
+                        } else {
+                            Toast.makeText(MainActivity.this, "登出失败", Toast.LENGTH_SHORT).show();
+                        }
                         break;
                 }
                 return true;
@@ -242,6 +247,5 @@ public class MainActivity extends BaseActivity {
         super.onDestroy();
         //Stop polling service
         System.out.println("Stop polling service...");
-        PollingUtils.stopPollingService(this, PollingService.class, PollingService.ACTION);
     }
 }

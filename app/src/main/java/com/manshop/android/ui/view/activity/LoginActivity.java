@@ -25,6 +25,8 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
+import cn.jpush.im.android.api.JMessageClient;
+import cn.jpush.im.api.BasicCallback;
 import okhttp3.Response;
 
 public class LoginActivity extends BaseActivity {
@@ -73,7 +75,6 @@ public class LoginActivity extends BaseActivity {
     public void login(View v) {
         String phone = etPhone.getText().toString();
         String password = etPassword.getText().toString();
-
         if (phone.equals("")) {
             Toast.makeText(getApplicationContext(), "手机号不能为空", Toast.LENGTH_SHORT).show();
             return;
@@ -104,10 +105,21 @@ public class LoginActivity extends BaseActivity {
                 map.put("head", user.getHead());
                 map.put("phone", user.getPhone());
                 sharePreferenceHelper.saveSharePreference("User", map);
-                Log.d("user", "------map" + map);
-                Log.d("user", "------user" + user);
+                /**=================     调用SDk登陆接口    =================*/
+                JMessageClient.login(user.getPhone(), user.getPassword(), new BasicCallback() {
+                    @Override
+                    public void gotResult(int responseCode, String LoginDesc) {
+                        if (responseCode == 0) {
+                            Toast.makeText(getApplicationContext(), "登录成功", Toast.LENGTH_SHORT).show();
+                            Log.i("LoginActivity", "JMessageClient.login" + ", responseCode = " + responseCode + " ; LoginDesc = " + LoginDesc);
+                            startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                            finish();
+                        } else {
+                            Log.i("LoginActivity", "JMessageClient.login" + ", responseCode = " + responseCode + " ; LoginDesc = " + LoginDesc);
+                        }
+                    }
+                });
                 MyApplication.getInstance().setUser(user);
-                startActivity(new Intent(LoginActivity.this, MainActivity.class));
             }
         }, param);
     }
