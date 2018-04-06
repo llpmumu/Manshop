@@ -444,7 +444,6 @@ public class MessageAdapter extends BaseAdapter {
                                 } else {
                                     content.setText(contentStr);
                                 }
-
                             }
                         }
                     }
@@ -466,7 +465,6 @@ public class MessageAdapter extends BaseAdapter {
             builder.setSpan(new ForegroundColorSpan(Color.RED), 0, 4, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
             content.setText(builder);
         }
-        Log.d("Conv","  "+ content.getText().toString());
         if (convItem.getType().equals(ConversationType.single)) {
             convName.setText(convItem.getTitle());
             mUserInfo = (UserInfo) convItem.getTargetInfo();
