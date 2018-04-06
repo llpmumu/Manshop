@@ -98,6 +98,8 @@ public class MainActivity extends BaseActivity {
                             startActivity(intent);
                             finish();
                         } else {
+                            intent = new Intent(MainActivity.this, LoginActivity.class);
+                            startActivity(intent);
                             Toast.makeText(MainActivity.this, "登出失败", Toast.LENGTH_SHORT).show();
                         }
                         break;
