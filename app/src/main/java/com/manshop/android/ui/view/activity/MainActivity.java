@@ -245,7 +245,7 @@ public class MainActivity extends BaseActivity {
     }
 
     @Override
-    protected void onDestroy() {
+    public void onDestroy() {
         super.onDestroy();
         //Stop polling service
         System.out.println("Stop polling service...");

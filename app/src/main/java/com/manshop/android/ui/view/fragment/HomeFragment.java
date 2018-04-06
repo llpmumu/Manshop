@@ -48,6 +48,7 @@ public class HomeFragment extends Fragment {
     private List<Goods> mGood = new ArrayList<>();
     //轮播图
     private List<Integer> images = new ArrayList<>();
+    private OkHttp okhttp = OkHttp.getOkhttpHelper();
 
     public static HomeFragment newInstance(String index) {
         HomeFragment f = new HomeFragment();
@@ -111,7 +112,6 @@ public class HomeFragment extends Fragment {
         });
     }
 
-    private OkHttp okhttp = OkHttp.getOkhttpHelper();
 
     private void initData() {
         final List<String> mPic = new ArrayList<>();

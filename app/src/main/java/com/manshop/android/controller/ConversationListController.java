@@ -8,6 +8,7 @@ import android.widget.AdapterView;
 
 import com.manshop.android.MyApplication;
 import com.manshop.android.adapter.MessageAdapter;
+import com.manshop.android.ui.view.activity.ChatActivity;
 import com.manshop.android.ui.view.activity.DialogueActivity;
 import com.manshop.android.ui.view.fragment.MessageFragment;
 import com.manshop.android.util.SortConvList;
@@ -23,10 +24,6 @@ import cn.jpush.im.android.api.enums.ConversationType;
 import cn.jpush.im.android.api.model.Conversation;
 import cn.jpush.im.android.api.model.GroupInfo;
 import cn.jpush.im.android.api.model.UserInfo;
-
-/**
- * Created by ${chenyn} on 2017/2/20.
- */
 
 public class ConversationListController implements View.OnClickListener,
         AdapterView.OnItemClickListener{
@@ -128,11 +125,11 @@ public class ConversationListController implements View.OnClickListener,
                 long groupId = ((GroupInfo) conv.getTargetInfo()).getGroupID();
                 intent.putExtra(MyApplication.GROUP_ID, groupId);
                 intent.putExtra(MyApplication.DRAFT, getAdapter().getDraft(conv.getId()));
-                intent.setClass(mContext.getActivity(), DialogueActivity.class);
+                intent.setClass(mContext.getActivity(), ChatActivity.class);
                 mContext.getActivity().startActivity(intent);
                 return;
             }
-            intent.setClass(mContext.getActivity(), DialogueActivity.class);
+            intent.setClass(mContext.getActivity(), ChatActivity.class);
             mContext.getContext().startActivity(intent);
 
         }
