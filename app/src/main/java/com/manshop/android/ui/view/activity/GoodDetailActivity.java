@@ -150,7 +150,7 @@ public class GoodDetailActivity extends BaseActivity {
                     .setConversation(conversation)
                     .build());
         }
-        finish();
+//        finish();
     }
 
 //    获取用户信息

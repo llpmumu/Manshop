@@ -148,7 +148,6 @@
         <activity android:name=".ui.view.activity.GoodDetailActivity" />
         <activity android:name=".ui.view.activity.ShowActivity" />
         <activity android:name=".ui.view.activity.NewAddressActivity" />
-        <activity android:name=".ui.view.activity.DialogueActivity" />
         <activity
             android:name=".ui.view.activity.NewPublishActivity"
             android:windowSoftInputMode="stateHidden" />

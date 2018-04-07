@@ -13,21 +13,14 @@ import android.os.Handler;
 import android.os.HandlerThread;
 import android.os.Looper;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONObject;
 import com.manshop.android.MyApplication;
 import com.manshop.android.R;
-import com.manshop.android.adapter.MessageAdapter;
 import com.manshop.android.controller.ConversationListController;
 import com.manshop.android.entity.Event;
-import com.manshop.android.model.Dialogue;
-import com.manshop.android.okHttp.CallBack;
-import com.manshop.android.okHttp.OkHttp;
 import com.manshop.android.ui.base.BaseFragment;
 import com.manshop.android.view.ConversationListView;
 
@@ -45,19 +38,12 @@ import cn.jpush.im.android.api.model.GroupInfo;
 import cn.jpush.im.android.api.model.Message;
 import cn.jpush.im.android.api.model.UserInfo;
 import cn.jpush.im.android.eventbus.EventBus;
-import okhttp3.Response;
 
 /**
  * Created by Lin on 2017/10/31.
  */
 
 public class MessageFragment extends BaseFragment {
-    //    private RecyclerView msgRecycler;
-//    private List<Dialogue> mMsg = new ArrayList<>();
-//    ;
-//    private MessageAdapter adapter;
-//    private OkHttp okHttp = OkHttp.getOkhttpHelper();
-//
     public static MessageFragment newInstance(String index) {
         MessageFragment f = new MessageFragment();
         Bundle args = new Bundle();
@@ -65,48 +51,6 @@ public class MessageFragment extends BaseFragment {
         f.setArguments(args);
         return f;
     }
-//
-//
-//    @Override
-//    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-//        View view = inflater.inflate(R.layout.fragment_message, container, false);
-//        init(view);
-//        return view;
-//    }
-//
-//    public void init(View view) {
-//        LinearLayoutManager manager = new LinearLayoutManager(view.getContext(), LinearLayoutManager.VERTICAL, false);
-//        msgRecycler = (RecyclerView) view.findViewById(R.id.msg_recycler);
-//        msgRecycler.setLayoutManager(manager);
-//        getMsgList();
-//    }
-//
-//    //填写收货地址
-//    public void getMsgList() {
-//        final Map<String, Object> params = new HashMap<>();
-//        params.put("sender", MyApplication.getInstance().getUserId());
-//        okHttp.doPost(Constant.baseURL + "message/getMsgList", new CallBack(getContext()) {
-//            @Override
-//            public void onError(Response response, Exception e) throws IOException {
-//
-//            }
-//
-//            @Override
-//            public void callBackSuccess(Response response, Object o) throws IOException {
-//                JSONObject json = JSON.parseObject((String) o);
-//                Object jsonArray = json.get("data");
-//                List<Dialogue> listDialogue = JSON.parseArray(jsonArray + "", Dialogue.class);
-//                Log.d("msg11", "" + listDialogue.size());
-//                for (Dialogue dialogue : listDialogue) {
-//                    mMsg.add(dialogue);
-//                }
-//                msgRecycler.setNestedScrollingEnabled(false);
-//                adapter = new MessageAdapter(getActivity(), mMsg);
-//                msgRecycler.setAdapter(adapter);
-//            }
-//        }, params);
-//    }
-
 
     private Activity mContext;
     private View mRootView;

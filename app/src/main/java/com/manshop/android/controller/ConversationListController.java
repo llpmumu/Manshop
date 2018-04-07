@@ -10,7 +10,6 @@ import android.widget.AdapterView;
 import com.manshop.android.MyApplication;
 import com.manshop.android.adapter.MessageAdapter;
 import com.manshop.android.ui.view.activity.ChatActivity;
-import com.manshop.android.ui.view.activity.DialogueActivity;
 import com.manshop.android.ui.view.fragment.MessageFragment;
 import com.manshop.android.util.SortConvList;
 import com.manshop.android.util.SortTopConvList;
