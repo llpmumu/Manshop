@@ -17,6 +17,7 @@ import android.support.v4.content.ContextCompat;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.Window;
@@ -509,6 +510,7 @@ public class ChatActivity extends BaseActivity implements FuncLayout.OnFuncKeyBo
             }
         } else if (null != targetId) {
             String appKey = getIntent().getStringExtra(TARGET_APP_KEY);
+//            Log.d("Conv","111 "+targetId+" "+appKey);
             JMessageClient.enterSingleConversation(targetId, appKey);
         }
 

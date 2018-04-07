@@ -3,6 +3,7 @@ package com.manshop.android.controller;
 import android.app.Dialog;
 import android.content.Intent;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 
@@ -114,6 +115,7 @@ public class ConversationListController implements View.OnClickListener,
                 intent.putExtra(MyApplication.TARGET_ID, targetId);
                 intent.putExtra(MyApplication.TARGET_APP_KEY, conv.getTargetAppKey());
                 intent.putExtra(MyApplication.DRAFT, getAdapter().getDraft(conv.getId()));
+                Log.d("Conv",targetId+" "+conv.getTargetAppKey()+" "+getAdapter().getDraft(conv.getId())+" "+conv.getId());
             } else {
                 if (mListAdapter.includeAtMsg(conv)) {
                     intent.putExtra("atMsgId", mListAdapter.getAtMsgId(conv));

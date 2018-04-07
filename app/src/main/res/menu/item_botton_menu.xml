@@ -15,5 +15,4 @@
         android:id="@+id/item_personal"
         android:icon="@drawable/ic_personal"
         android:title="@string/title_personal" />
-
 </menu>

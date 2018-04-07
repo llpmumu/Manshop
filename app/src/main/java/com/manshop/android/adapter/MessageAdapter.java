@@ -154,12 +154,6 @@ public class MessageAdapter extends BaseAdapter {
     public void setToTop(Conversation conv) {
         int oldCount = 0;
         int newCount = 0;
-        ThreadUtil.runInUiThread(new Runnable() {
-            @Override
-            public void run() {
-                mConversationListView.setNullConversation(true);
-            }
-        });
 
         //如果是旧的会话
         for (Conversation conversation : mDatas) {

@@ -65,7 +65,6 @@ public class ConversationListView {
     }
 
     public void setNullConversation(boolean isHaveConv) {
-        Log.d("Conv","null  "+isHaveConv);
         if (isHaveConv) {
             mNull_conversation.setVisibility(View.GONE);
         } else {

@@ -52,7 +52,7 @@ import okhttp3.Response;
  */
 
 public class MessageFragment extends BaseFragment {
-//    private RecyclerView msgRecycler;
+    //    private RecyclerView msgRecycler;
 //    private List<Dialogue> mMsg = new ArrayList<>();
 //    ;
 //    private MessageAdapter adapter;
@@ -121,7 +121,7 @@ public class MessageFragment extends BaseFragment {
     protected boolean isCreate = false;
 
     @Override
-    public void onCreate(Bundle savedInstanceState){
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         isCreate = true;
         mContext = this.getActivity();
@@ -250,10 +250,10 @@ public class MessageFragment extends BaseFragment {
     /**
      * 消息撤回
      */
-//    public void onEvent(MessageRetractEvent event) {
-//        Conversation conversation = event.getConversation();
-//        mBackgroundHandler.sendMessage(mBackgroundHandler.obtainMessage(REFRESH_CONVERSATION_LIST, conversation));
-//    }
+    public void onEvent(MessageRetractEvent event) {
+        Conversation conversation = event.getConversation();
+        mBackgroundHandler.sendMessage(mBackgroundHandler.obtainMessage(REFRESH_CONVERSATION_LIST, conversation));
+    }
 
     /**
      * 消息已读事件
@@ -286,10 +286,17 @@ public class MessageFragment extends BaseFragment {
         @Override
         public void handleMessage(android.os.Message msg) {
             super.handleMessage(msg);
+            final Conversation conv;
             switch (msg.what) {
                 case REFRESH_CONVERSATION_LIST:
-                    Conversation conv = (Conversation) msg.obj;
-                    mConvListController.getAdapter().setToTop(conv);
+                    conv = (Conversation) msg.obj;
+                    mContext.runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            mConvListView.setNullConversation(true);
+                            mConvListController.getAdapter().setToTop(conv);
+                        }
+                    });
                     break;
                 case DISMISS_REFRESH_HEADER:
                     mContext.runOnUiThread(new Runnable() {

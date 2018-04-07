@@ -65,7 +65,7 @@ public class HomeGoodsListAdapter extends RecyclerView.Adapter<HomeGoodsListAdap
                 final Goods good = mList.get(position);
                 Intent intent = new Intent(context, GoodDetailActivity.class);
                 intent.putExtra("gid", good.getId());
-                intent.putExtra("uid",good.getUid());
+                intent.putExtra("targetId",good.getUser().getPhone());
                 context.startActivity(intent);
             }
         });

@@ -13,7 +13,7 @@
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="@dimen/title_bar_height"
             android:background="?attr/colorPrimary"
             app:titleTextColor="@color/textColor"
             app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"

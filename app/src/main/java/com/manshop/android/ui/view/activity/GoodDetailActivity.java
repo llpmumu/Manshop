@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextPaint;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -18,13 +19,17 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.bumptech.glide.Glide;
 import com.makeramen.roundedimageview.RoundedImageView;
+import com.manshop.android.MyApplication;
 import com.manshop.android.R;
 import com.manshop.android.adapter.GoodDetailPicAdapter;
+import com.manshop.android.entity.Event;
+import com.manshop.android.entity.EventType;
 import com.manshop.android.model.Goods;
 import com.manshop.android.okHttp.CallBack;
 import com.manshop.android.okHttp.OkHttp;
 import com.manshop.android.ui.base.BaseActivity;
 import com.manshop.android.util.Constant;
+import com.manshop.android.util.HandleResponseCode;
 import com.manshop.android.util.StringUtil;
 
 import java.io.IOException;
@@ -34,6 +39,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import cn.jpush.im.android.api.JMessageClient;
+import cn.jpush.im.android.api.callback.GetUserInfoCallback;
+import cn.jpush.im.android.api.model.Conversation;
+import cn.jpush.im.android.api.model.UserInfo;
+import cn.jpush.im.android.eventbus.EventBus;
 import okhttp3.Response;
 
 public class GoodDetailActivity extends BaseActivity {
@@ -45,6 +55,11 @@ public class GoodDetailActivity extends BaseActivity {
 
     private Intent intent;
     private GoodDetailPicAdapter adapter;
+
+    private Conversation conversation;
+    private UserInfo mUserInfo;
+    private String mTargetId;
+    private String mUserID;
 
     OkHttp okHttp = OkHttp.getOkhttpHelper();
 
@@ -68,6 +83,7 @@ public class GoodDetailActivity extends BaseActivity {
     }
 
     public void init() {
+        intent = getIntent();
         RivPhoto = (RoundedImageView) findViewById(R.id.user_photo);
         tvUsername = (TextView) findViewById(R.id.user_name);
         tvPrice = (TextView) findViewById(R.id.good_price);
@@ -75,12 +91,14 @@ public class GoodDetailActivity extends BaseActivity {
         rePic = (RecyclerView) findViewById(R.id.recycle_pic);
         LinearLayoutManager manager = new LinearLayoutManager(GoodDetailActivity.this, LinearLayoutManager.VERTICAL, false);
         rePic.setLayoutManager(manager);
+        mTargetId = getIntent().getStringExtra(MyApplication.TARGET_ID);
+        mUserID = getIntent().getStringExtra("targetId");
+        getUserInfo();
     }
 
     public void setData() {
-        intent = getIntent();
         Map<String, Object> params = new HashMap<>();
-        params.put("id", intent.getIntExtra("gid",0));
+        params.put("id", intent.getIntExtra("gid", 0));
         okHttp.doPost(Constant.baseURL + "goods/getOneGood", new CallBack(GoodDetailActivity.this) {
             @Override
             public void onError(Response response, Exception e) throws IOException {
@@ -106,7 +124,7 @@ public class GoodDetailActivity extends BaseActivity {
                 rePic.requestFocus();
             }
         }, params);
-     }
+    }
 
     public void buy(View v) {
         Intent intentToOrder = new Intent(GoodDetailActivity.this, MyNewOrderActivity.class);
@@ -115,9 +133,42 @@ public class GoodDetailActivity extends BaseActivity {
     }
 
     public void contact(View view) {
-        Intent intentToMsg = new Intent(GoodDetailActivity.this, DialogueActivity.class);
-        Log.d("msg","000"+intent.getIntExtra("uid", 0));
-        intentToMsg.putExtra("sid", intent.getIntExtra("uid", 0));
+        String title = mUserInfo.getNickname();
+        if (TextUtils.isEmpty(title)) {
+            title = mUserInfo.getUserName();
+        }
+        Intent intentToMsg = new Intent(this, ChatActivity.class);
+        intentToMsg.putExtra(MyApplication.CONV_TITLE, title);
+        intentToMsg.putExtra(MyApplication.TARGET_ID, mUserInfo.getUserName());
+        intentToMsg.putExtra(MyApplication.TARGET_APP_KEY, mUserInfo.getAppKey());
         startActivity(intentToMsg);
+        //如果会话为空，使用EventBus通知会话列表添加新会话
+        if (conversation == null) {
+            conversation = Conversation.createSingleConversation(mTargetId, "5db12393770a692f26f7ed32");
+            EventBus.getDefault().post(new Event.Builder()
+                    .setType(EventType.createConversation)
+                    .setConversation(conversation)
+                    .build());
+        }
+        finish();
+    }
+
+//    获取用户信息
+    public void getUserInfo(){
+        if (TextUtils.isEmpty(mTargetId) && !TextUtils.isEmpty(mUserID)) {
+            mTargetId = mUserID;
+        }
+        JMessageClient.getUserInfo("12345678977", new GetUserInfoCallback() {
+            @Override
+            public void gotResult(int i, String s, UserInfo userInfo) {
+                if (i == 0) {
+                    Log.e("Conv", "   5555" + userInfo.toString());
+                    mUserInfo = userInfo;
+                } else {
+                    Log.e("Conv", "   1111");
+                    HandleResponseCode.onHandle(GoodDetailActivity.this, i, false);
+                }
+            }
+        });
     }
 }

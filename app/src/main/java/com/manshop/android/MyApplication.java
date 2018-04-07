@@ -118,7 +118,7 @@ public class MyApplication extends Application {
         this.myApplication = this;
         Fresco.initialize(this);
         JMessageClient.setDebugMode(true);
-        JMessageClient.init(this);
+        JMessageClient.init(this,true);
     }
 
     public static MyApplication myApplication;
