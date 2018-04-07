@@ -32,7 +32,6 @@ public class OkHttp {
     private Gson gson;
     public static final MediaType JSON_TYPE = MediaType.parse("application/json; charset=utf-8");
 
-
     //定义枚举类型
     enum METHOD_TYPE {
         GET,
@@ -43,6 +42,7 @@ public class OkHttp {
 //        client = new OkHttpClient();
 //    }
     private OkHttp() {
+//        System.getproperty("java.classpath");
         client = new OkHttpClient.Builder()
                 .connectTimeout(5, TimeUnit.SECONDS)
                 .writeTimeout(5, TimeUnit.SECONDS)
@@ -82,18 +82,18 @@ public class OkHttp {
         doGet(url, callback, null);
     }
 
-    public void doGet(String url, BaseCallback callback, Map<String,Object> param) {
+    public void doGet(String url, BaseCallback callback, Map<String, Object> param) {
         Request request = buildRequest(url, METHOD_TYPE.GET, param);
         doResponse(request, callback);
     }
 
     //提交post请求
-    public void doPost(String url, BaseCallback callback, Map<String,Object> param) {
+    public void doPost(String url, BaseCallback callback, Map<String, Object> param) {
         Request request = buildRequest(url, METHOD_TYPE.POST, param);
         doResponse(request, callback);
     }
 
-    private Request buildRequest(String url, METHOD_TYPE method_type, Map<String,Object> param) {
+    private Request buildRequest(String url, METHOD_TYPE method_type, Map<String, Object> param) {
         Request.Builder builder = new Request.Builder();
 
         if (method_type == METHOD_TYPE.GET) {

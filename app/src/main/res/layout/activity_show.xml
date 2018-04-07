@@ -14,7 +14,7 @@
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
+            android:layout_height="50dp"
             android:background="?attr/colorPrimary"
             app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
             app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
@@ -50,40 +50,45 @@
             android:layout_height="match_parent"
             android:background="#cdcdcd" />
 
-        <RelativeLayout
+        <LinearLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="3"
-            android:background="@color/white">
+            android:background="@color/white"
+            android:orientation="vertical">
 
             <LinearLayout
+                android:id="@+id/list_show"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tv_titile"
+                    android:layout_width="match_parent"
+                    android:layout_height="35dp"
+                    android:background="#DCDBDB"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="20dp"
+                    android:text="全部"
+                    android:textSize="17sp" />
 
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/rv_show"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent" />
+
             </LinearLayout>
 
             <TextView
-                android:id="@+id/tv_titile"
-                android:layout_width="match_parent"
-                android:layout_height="35dp"
-                android:background="#DCDBDB"
-                android:gravity="center_vertical"
-                android:paddingLeft="20dp"
-                android:text="全部"
-                android:textSize="17sp" />
-
-            <TextView
                 android:id="@+id/tv_tip"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:layout_centerInParent="true"
+                android:gravity="center"
                 android:text="该省目前没有漫展"
                 android:textSize="20sp"
                 android:visibility="gone"/>
-        </RelativeLayout>
+        </LinearLayout>
     </LinearLayout>
 </LinearLayout>

@@ -23,9 +23,19 @@
                 <android.support.v7.widget.Toolbar
                     android:id="@+id/toolbar"
                     android:layout_width="match_parent"
-                    android:layout_height="?attr/actionBarSize"
+                    android:layout_height="50dp"
                     android:background="?attr/colorPrimary"
-                    app:titleTextColor="@color/textColor" />
+                    app:titleTextColor="@color/textColor">
+
+                    <TextView
+                        android:id="@+id/main_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="漫街"
+                        android:textColor="@color/white"
+                        android:textSize="19sp"
+                        android:textStyle="bold"/>
+                </android.support.v7.widget.Toolbar>
             </android.support.design.widget.AppBarLayout>
 
             <!--中部导航栏-->

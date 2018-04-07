@@ -184,7 +184,7 @@ public class SwipeBackLayout extends FrameLayout {
         mEnable = enable;
     }
 
-    /**
+    /*
      * Enable edge tracking for the selected edges of the parent view. The
      * callback's
      * {@link me.imid.swipebacklayout.lib.ViewDragHelper.Callback#onEdgeTouched(int, int)}
@@ -302,7 +302,7 @@ public class SwipeBackLayout extends FrameLayout {
         mScrollThreshold = threshold;
     }
 
-    /**
+    /*
      * Set a drawable used for edge shadow.
      *
      * @param shadow    Drawable to use

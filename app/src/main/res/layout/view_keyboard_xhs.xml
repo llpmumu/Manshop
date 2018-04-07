@@ -24,7 +24,7 @@
             android:src="@drawable/btn_voice_or_text"/>
 
         <!--语音输入-->
-        <jiguang.chat.view.RecordVoiceButton
+        <com.manshop.android.view.RecordVoiceButton
             android:id="@+id/btn_voice"
             android:layout_width="match_parent"
             android:layout_height="34dp"
@@ -51,7 +51,7 @@
             android:paddingTop="5dp">
 
             <!--输入框-->
-            <com.manshop.android.utils.keyboard.widget.EmoticonsEditText
+            <com.manshop.android.util.keyboard.widget.EmoticonsEditText
                 android:id="@+id/et_chat"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -85,7 +85,7 @@
                 android:layout_marginLeft="7dp"
                 android:src="@drawable/icon_face_nomal"/>
 
-            <!--&lt;!&ndash;apps 功能&ndash;&gt;-->
+            <!--apps 功能-->
             <!--<ImageView-->
                 <!--android:id="@+id/btn_multimedia"-->
                 <!--android:layout_width="wrap_content"-->
@@ -104,12 +104,11 @@
                 android:background="@drawable/btn_send_bg_disable"
                 android:text="@string/btn_send"
                 android:textColor="@color/btn_send_textcolor"
-                android:textSize="16sp"
-                android:visibility="gone"/>
+                android:textSize="16sp"/>
         </RelativeLayout>
     </RelativeLayout>
 
-    <com.manshop.android.utils.keyboard.widget.FuncLayout
+    <com.manshop.android.util.keyboard.widget.FuncLayout
         android:id="@+id/ly_kvml"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

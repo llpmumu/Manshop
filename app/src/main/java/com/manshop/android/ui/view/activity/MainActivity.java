@@ -33,6 +33,7 @@ import cn.jpush.im.android.api.model.UserInfo;
 
 public class MainActivity extends BaseActivity {
     private Toolbar toolbar;
+    private TextView tvPageName;
     //侧边栏
     private DrawerLayout mDrawerLayout;
     private NavigationView navView;
@@ -73,6 +74,7 @@ public class MainActivity extends BaseActivity {
         RelativeLayout info = (RelativeLayout) navView.inflateHeaderView(R.layout.info_header);
         head = (RoundedImageView) info.findViewById(R.id.im_head);
         tvUsername = (TextView) info.findViewById(R.id.tv_username);
+        tvPageName = (TextView) findViewById(R.id.main_name);
     }
 
     public void addListener() {
@@ -117,19 +119,19 @@ public class MainActivity extends BaseActivity {
                             case R.id.item_home:
                                 viewPager.setCurrentItem(0);
                                 Log.d("page", "---------0");
-                                toolbar.setTitle("漫街");
+                                tvPageName.setText("漫街");
                                 toolbarMenu.setVisible(true);
                                 break;
                             case R.id.item_message:
                                 viewPager.setCurrentItem(1);
                                 Log.d("page", "---------1");
-                                toolbar.setTitle("消息");
+                                tvPageName.setText("消息");
                                 toolbarMenu.setVisible(false);
                                 break;
                             case R.id.item_personal:
                                 viewPager.setCurrentItem(2);
                                 Log.d("page", "---------2");
-                                toolbar.setTitle("我的");
+                                tvPageName.setText("我的");
                                 toolbarMenu.setVisible(false);
                                 break;
                         }
@@ -159,19 +161,19 @@ public class MainActivity extends BaseActivity {
                     case R.id.item_home:
                         viewPager.setCurrentItem(0);
                         Log.d("page", "---------0");
-                        toolbar.setTitle("漫街");
+                        tvPageName.setText("漫街");
                         toolbarMenu.setVisible(true);
                         break;
                     case R.id.item_message:
                         viewPager.setCurrentItem(1);
                         Log.d("page", "---------1");
-                        toolbar.setTitle("消息");
+                        tvPageName.setText("消息");
                         toolbarMenu.setVisible(false);
                         break;
                     case R.id.item_personal:
                         viewPager.setCurrentItem(2);
                         Log.d("page", "---------2");
-                        toolbar.setTitle("我的");
+                        tvPageName.setText("我的");
                         toolbarMenu.setVisible(false);
                         break;
                 }
@@ -202,6 +204,7 @@ public class MainActivity extends BaseActivity {
     public void showToolbar() {
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
         mDrawerLayout = (DrawerLayout) findViewById(R.id.myDrawer);
         final ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {

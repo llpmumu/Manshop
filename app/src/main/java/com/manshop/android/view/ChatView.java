@@ -88,17 +88,17 @@ public class ChatView extends RelativeLayout {
 
     public void setListeners(ChatActivity listeners) {
         mReturnButton.setOnClickListener(listeners);
-        mRightBtn.setOnClickListener(listeners);
-        mAtMeBtn.setOnClickListener(listeners);
+//        mRightBtn.setOnClickListener(listeners);
+//        mAtMeBtn.setOnClickListener(listeners);
     }
 
-    public void dismissRightBtn() {
-        mRightBtn.setVisibility(View.GONE);
-    }
-
-    public void showRightBtn() {
-        mRightBtn.setVisibility(View.VISIBLE);
-    }
+//    public void dismissRightBtn() {
+//        mRightBtn.setVisibility(View.GONE);
+//    }
+//
+//    public void showRightBtn() {
+//        mRightBtn.setVisibility(View.VISIBLE);
+//    }
 
     public void setChatTitle(int id, int count) {
         mChatTitle.setText(id);
@@ -109,9 +109,9 @@ public class ChatView extends RelativeLayout {
     public void setChatTitle(int id) {
         mChatTitle.setText(id);
     }
-    public void showAtMeButton() {
-        mAtMeBtn.setVisibility(VISIBLE);
-    }
+//    public void showAtMeButton() {
+//        mAtMeBtn.setVisibility(VISIBLE);
+//    }
 
 
     //设置群聊名字

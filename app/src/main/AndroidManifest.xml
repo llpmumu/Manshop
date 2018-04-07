@@ -157,7 +157,8 @@
         <activity android:name=".ui.view.activity.OrderDetailActivity" />
         <activity android:name=".ui.view.activity.ListOrderActivity" />
         <activity android:name=".ui.view.activity.AnimeDataActivity" />
-        <activity android:name=".ui.view.activity.ListSellActivity"></activity>
+        <activity android:name=".ui.view.activity.ListSellActivity"/>
+        <activity android:name=".ui.view.activity.ChatActivity"/>
     </application>
 
 </manifest>

@@ -21,7 +21,7 @@
             <android.support.v7.widget.Toolbar
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
+                android:layout_height="50dp"
                 android:background="?attr/colorPrimary"
                 app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
                 app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
@@ -51,13 +51,13 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="70dp"
+                    android:layout_height="60dp"
                     android:orientation="horizontal">
 
                     <com.makeramen.roundedimageview.RoundedImageView
                         android:id="@+id/user_photo"
-                        android:layout_width="50dp"
-                        android:layout_height="50dp"
+                        android:layout_width="45dp"
+                        android:layout_height="45dp"
                         android:layout_gravity="center"
                         android:src="@drawable/ic_tou"
                         app:riv_border_color="#00000000"
@@ -74,21 +74,19 @@
                             android:id="@+id/user_name"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_marginLeft="10dp"
                             android:gravity="center"
                             android:text="name"
-                            android:textSize="24sp" />
+                            android:textSize="16sp" />
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="12:4:5" />
+                        <!--<TextView-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:text="12:4:5" />-->
                     </LinearLayout>
                 </LinearLayout>
 
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="0.5dp"
-                    android:background="@color/splitline" />
+                <View style="@style/line" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -101,14 +99,14 @@
                         android:layout_height="wrap_content"
                         android:text="3￥"
                         android:textColor="@color/red"
-                        android:textSize="24sp" />
+                        android:textSize="20sp" />
 
                     <TextView
                         android:id="@+id/good_detail"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="12"
-                        android:textSize="22sp" />
+                        android:textSize="18sp" />
 
                     <android.support.v7.widget.RecyclerView
                         android:id="@+id/recycle_pic"
@@ -148,9 +146,9 @@
             android:layout_marginRight="102dp"
             android:background="@color/btnBuy"
             android:gravity="center"
+            android:onClick="contact"
             android:text="联系"
-            android:textColor="@color/white"
-            android:onClick="contact"/>
+            android:textColor="@color/white" />
 
         <Button
             android:id="@+id/btn_buy"

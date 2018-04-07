@@ -276,12 +276,12 @@ public class ChatActivity extends BaseActivity implements FuncLayout.OnFuncKeyBo
 
             @Override
             public void onTextChanged(CharSequence s, int start, int count, int after) {
-//                temp = s;
-//                if (s.length() > 0 && after >= 1 && s.subSequence(start, start + 1).charAt(0) == '@' && !mLongClick) {
-//                    if (null != mConv && mConv.getType() == ConversationType.group) {
+                temp = s;
+                if (s.length() > 0 && after >= 1 && s.subSequence(start, start + 1).charAt(0) == '@' && !mLongClick) {
+                    if (null != mConv && mConv.getType() == ConversationType.group) {
 //                        ChooseAtMemberActivity.show(ChatActivity.this, ekBar.getEtChat(), mConv.getTargetId());
-//                    }
-//                }
+                    }
+                }
             }
         });
     }
@@ -1218,10 +1218,10 @@ public class ChatActivity extends BaseActivity implements FuncLayout.OnFuncKeyBo
                                 if (info != null) {
                                     activity.mChatView.setChatTitle(activity.mTitle,
                                             activity.mGroupInfo.getGroupMembers().size());
-                                    activity.mChatView.showRightBtn();
+//                                    activity.mChatView.showRightBtn();
                                 } else {
                                     activity.mChatView.setChatTitle(activity.mTitle);
-                                    activity.mChatView.dismissRightBtn();
+//                                    activity.mChatView.dismissRightBtn();
                                 }
                             }
                         }

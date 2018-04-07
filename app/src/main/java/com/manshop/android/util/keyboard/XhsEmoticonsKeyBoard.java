@@ -56,14 +56,14 @@ public class XhsEmoticonsKeyBoard extends AutoHeightLayout implements View.OnCli
     public XhsEmoticonsKeyBoard(Context context, AttributeSet attrs) {
         super(context, attrs);
         mInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        inflateKeyboardBar();
+        mInflater.inflate(R.layout.view_keyboard_xhs, this);
+//        inflateKeyboardBar();
         initView();
         initFuncView();
     }
 
-    protected void inflateKeyboardBar() {
-        mInflater.inflate(R.layout.view_keyboard_xhs, this);
-    }
+//    protected void inflateKeyboardBar() {
+//    }
 
     protected View inflateFunc() {
         return mInflater.inflate(R.layout.view_func_emoticon, null);
@@ -79,7 +79,7 @@ public class XhsEmoticonsKeyBoard extends AutoHeightLayout implements View.OnCli
         mBtnSend = ((Button) findViewById(R.id.btn_send));
         mLyKvml = ((FuncLayout) findViewById(R.id.ly_kvml));
 
-//        mBtnVoiceOrText.setOnClickListener(this);
+        mBtnVoiceOrText.setOnClickListener(this);
         mBtnFace.setOnClickListener(this);
 //        mBtnMultimedia.setOnClickListener(this);
         mEtChat.setOnBackKeyClickListener(this);

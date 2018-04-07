@@ -1,47 +1,54 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="wrap_content"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="horizontal"
-    android:padding="10dp">
-
-    <ImageView
-        android:id="@+id/iv_show"
-        android:layout_width="180px"
-        android:layout_height="245px"
-        android:layout_gravity="center"
-        android:scaleType="fitCenter"
-        android:src="@drawable/img_loading" />
+    android:orientation="vertical">
 
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_gravity="center"
-        android:layout_marginLeft="10dp">
+        android:orientation="horizontal"
+        android:padding="10dp">
 
-        <TextView
-            android:id="@+id/tv_show_name"
-            android:layout_width="wrap_content"
-            android:layout_height="45sp"
-            android:text="beijing"
-            android:textColor="@color/black_de"
-            android:paddingBottom="20dp"
-            android:textSize="16sp"
-            android:gravity="center|left"/>
+        <ImageView
+            android:id="@+id/iv_show"
+            android:layout_width="180px"
+            android:layout_height="245px"
+            android:layout_gravity="center"
+            android:scaleType="fitXY"
+            android:src="@drawable/img_loading" />
 
-        <TextView
-            android:id="@+id/tv_show_data"
+        <LinearLayout
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="2015-1-2-1452-22-33"
-            android:textSize="13sp"/>
+            android:layout_height="245px"
+            android:layout_gravity="center"
+            android:layout_marginLeft="10dp"
+            android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/tv_show_address"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="renmdsafdsagfdrsagagdsa"
-            android:textSize="13sp"/>
+            <TextView
+                android:id="@+id/tv_show_name"
+                android:layout_width="wrap_content"
+                android:layout_height="50sp"
+                android:gravity="center|left"
+                android:paddingBottom="5dp"
+                android:text="beijing"
+                android:textColor="@color/black_de"
+                android:textSize="15sp" />
+
+            <TextView
+                android:id="@+id/tv_show_data"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="2015-1-2-1452-22-33"
+                android:textSize="13sp" />
+
+            <TextView
+                android:id="@+id/tv_show_address"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="renmdsafdsagfdrsagagdsa"
+                android:textSize="13sp" />
+        </LinearLayout>
     </LinearLayout>
+    <View style="@style/line" />
 </LinearLayout>

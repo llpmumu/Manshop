@@ -82,8 +82,5 @@
 
     </RelativeLayout>
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="2dp"
-        android:background="@color/splitline" />
+    <View style="@style/line" />
 </LinearLayout>

@@ -19,8 +19,8 @@
         <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
             android:layout_gravity="center"
+            android:orientation="vertical"
             android:paddingLeft="15dp">
 
             <TextView
@@ -30,30 +30,28 @@
                 android:gravity="center"
                 android:text="111"
                 android:textSize="23sp"
-                android:typeface="monospace"/>
+                android:typeface="monospace" />
 
             <TextView
                 android:id="@+id/item_order_price"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_below="@id/item_order_name"
                 android:gravity="center"
                 android:text="15￥"
-                android:layout_below="@id/item_order_name"
                 android:textColor="@color/red"
                 android:textSize="18sp" />
+
             <TextView
                 android:id="@+id/item_order_state"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/item_order_price"
-                android:text="等待发货"
-                android:gravity="center"/>
+                android:gravity="center"
+                android:text="等待发货" />
 
         </RelativeLayout>
     </LinearLayout>
 
-    <View
-        android:layout_width="wrap_content"
-        android:layout_height="2dp"
-        android:background="@color/splitline" />
+    <View style="@style/line" />
 </LinearLayout>
