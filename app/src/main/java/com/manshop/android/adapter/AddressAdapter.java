@@ -39,6 +39,7 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.ViewHold
     private List<Address> mList;
     private OkHttp okHttp = OkHttp.getOkhttpHelper();
     private ListAddressActivity mlistAddressActivity;
+    private final String TAG="address";
 
     public AddressAdapter(Context context, List<Address> mList) {
         this.context = context;
@@ -58,14 +59,17 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.ViewHold
                     for (int i = 0; i < mList.size(); i++) {
                         if (mList.get(i).isDefault()) {
                             setDefauteAdr(i, position);
-                            holder.isDefault.setPressed(isChecked);
-                            mlistAddressActivity.initAddress();
+                            holder.isDefault.setChecked(isChecked);
+//                            mlistAddressActivity.initAddress();
+                            initAddress();
+                            Log.d(TAG,"111111111111111111");
                             return;
                         }
                     }
                     setDefauteAdr(0, true);
-                    mlistAddressActivity.initAddress();
-//                    notifyDataSetChanged();
+//                    mlistAddressActivity.initAddress();
+                    initAddress();
+                    Log.d(TAG,"22222222222222");
                     return;
                 }
             }
@@ -209,6 +213,31 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.ViewHold
                 }
             }
         }, params);
+    }
+
+    public void initAddress() {
+        Map<String, Object> param = new HashMap<>();
+        param.put("uid", MyApplication.getInstance().getUserId());
+        okHttp.doPost(Constant.baseURL + "address/getAddress", new CallBack(context) {
+            @Override
+            public void onError(Response response, Exception e) throws IOException {
+//                Toast.makeText(getApplicationContext(), "获取地址失败", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void callBackSuccess(Response response, Object o) throws IOException {
+                JSONObject json = JSON.parseObject((String) o);
+                Object jsonArray = json.get("data");
+                System.out.println(jsonArray);
+                List<Address> listAddress = JSON.parseArray(jsonArray + "", Address.class);
+                mList.clear();
+                for (Address address : listAddress) {
+                    mList.add(address);
+                }
+                Log.d("address", mList.size() + "              333333");
+                notifyDataSetChanged();
+            }
+        }, param);
     }
 
 }
