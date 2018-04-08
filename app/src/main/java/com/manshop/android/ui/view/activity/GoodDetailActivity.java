@@ -158,7 +158,7 @@ public class GoodDetailActivity extends BaseActivity {
         if (TextUtils.isEmpty(mTargetId) && !TextUtils.isEmpty(mUserID)) {
             mTargetId = mUserID;
         }
-        JMessageClient.getUserInfo("12345678977", new GetUserInfoCallback() {
+        JMessageClient.getUserInfo(mTargetId, new GetUserInfoCallback() {
             @Override
             public void gotResult(int i, String s, UserInfo userInfo) {
                 if (i == 0) {

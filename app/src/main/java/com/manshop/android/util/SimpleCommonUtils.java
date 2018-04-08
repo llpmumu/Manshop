@@ -94,9 +94,9 @@ public class SimpleCommonUtils {
 
         addEmojiPageSetEntity(pageSetAdapter, context, emoticonClickListener);
 
-//        addXhsPageSetEntity(pageSetAdapter, context, emoticonClickListener);
+        addXhsPageSetEntity(pageSetAdapter, context, emoticonClickListener);
 
-//        addWechatPageSetEntity(pageSetAdapter, context, emoticonClickListener);
+        addWechatPageSetEntity(pageSetAdapter, context, emoticonClickListener);
 
         addGoodGoodStudyPageSetEntity(pageSetAdapter, context, emoticonClickListener);
 
@@ -224,13 +224,13 @@ public class SimpleCommonUtils {
     }
 
 
-//    /**
-//     * 插入颜文字表情集
-//     *
-//     * @param pageSetAdapter
-//     * @param context
-//     * @param emoticonClickListener
-//     */
+    /**
+     * 插入颜文字表情集
+     *
+     * @param pageSetAdapter
+     * @param context
+     * @param emoticonClickListener
+     */
 //    public static void addKaomojiPageSetEntity(PageSetAdapter pageSetAdapter, Context context, EmoticonClickListener emoticonClickListener) {
 //        EmoticonPageSetEntity kaomojiPageSetEntity
 //                = new EmoticonPageSetEntity.Builder()
