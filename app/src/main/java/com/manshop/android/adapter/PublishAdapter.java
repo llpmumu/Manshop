@@ -46,7 +46,7 @@ public class PublishAdapter extends RecyclerView.Adapter<PublishAdapter.ViewHold
 //        Glide.with(context).load(good.getPics().get(0)).into(holder.goodPic);
         holder.goodPic.setImageBitmap(good.getPics().get(0));
         holder.goodName.setText(good.getTitle());
-        holder.goodPrice.setText(good.getPrice());
+        holder.goodPrice.setText(good.getPrice() + "￥");
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -58,8 +58,8 @@ public class PublishAdapter extends RecyclerView.Adapter<PublishAdapter.ViewHold
                 intent.putExtra("title", good.getTitle());
                 intent.putExtra("detail", good.getDetail());
                 intent.putExtra("picture", good.getPicture());
-                intent.putExtra("price",good.getPrice());
-                intent.putExtra("rental",good.getRental());
+                intent.putExtra("price", good.getPrice());
+                intent.putExtra("rental", good.getRental());
                 intent.putExtra("type", good.getType());
                 intent.putExtra("state", good.getState());
                 intent.putExtra("isEdite", true);

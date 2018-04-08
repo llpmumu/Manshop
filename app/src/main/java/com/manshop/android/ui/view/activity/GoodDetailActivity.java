@@ -111,7 +111,7 @@ public class GoodDetailActivity extends BaseActivity {
                 Goods good = json.getObject("data", Goods.class);
                 Glide.with(GoodDetailActivity.this).load(good.getUser().getHead()).into(RivPhoto);
                 tvUsername.setText(good.getUser().getUsername());
-                tvPrice.setText(good.getPrice());
+                tvPrice.setText(good.getPrice()+"￥");
                 tvDetail.setText(good.getDetail());
                 TextPaint paint = tvDetail.getPaint();
                 paint.setFakeBoldText(true);
@@ -144,7 +144,7 @@ public class GoodDetailActivity extends BaseActivity {
         startActivity(intentToMsg);
         //如果会话为空，使用EventBus通知会话列表添加新会话
         if (conversation == null) {
-            conversation = Conversation.createSingleConversation(mTargetId, "5db12393770a692f26f7ed32");
+            conversation = Conversation.createSingleConversation(mTargetId, MyApplication.APP_KEY);
             EventBus.getDefault().post(new Event.Builder()
                     .setType(EventType.createConversation)
                     .setConversation(conversation)
@@ -153,8 +153,9 @@ public class GoodDetailActivity extends BaseActivity {
 //        finish();
     }
 
-//    获取用户信息
-    public void getUserInfo(){
+    //    获取用户信息
+    public void getUserInfo() {
+        conversation = JMessageClient.getSingleConversation(mTargetId, MyApplication.APP_KEY);
         if (TextUtils.isEmpty(mTargetId) && !TextUtils.isEmpty(mUserID)) {
             mTargetId = mUserID;
         }
@@ -162,10 +163,8 @@ public class GoodDetailActivity extends BaseActivity {
             @Override
             public void gotResult(int i, String s, UserInfo userInfo) {
                 if (i == 0) {
-                    Log.e("Conv", "   5555" + userInfo.toString());
                     mUserInfo = userInfo;
                 } else {
-                    Log.e("Conv", "   1111");
                     HandleResponseCode.onHandle(GoodDetailActivity.this, i, false);
                 }
             }

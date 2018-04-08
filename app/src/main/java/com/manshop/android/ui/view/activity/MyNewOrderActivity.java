@@ -38,8 +38,6 @@ public class MyNewOrderActivity extends BaseActivity {
     TextView tvUserMsg;
     @Bind(R.id.address)
     TextView tvAddress;
-    @Bind(R.id.tip)
-    TextView tvTip;
 
     //订单信息
     @Bind(R.id.good_picture)
@@ -83,7 +81,9 @@ public class MyNewOrderActivity extends BaseActivity {
 
     @OnClick(R.id.btn_address_select)
     public void selectAdr() {
-        startActivity(new Intent(MyNewOrderActivity.this, ListAddressActivity.class));
+        Intent intent = new Intent(MyNewOrderActivity.this, ListAddressActivity.class);
+        intent.putExtra("order", true);
+        startActivity(intent);
     }
 
     //填写收货地址
@@ -94,10 +94,8 @@ public class MyNewOrderActivity extends BaseActivity {
 
             @Override
             public void onError(Response response, Exception e) throws IOException {
-//                Toast.makeText(getApplicationContext(), "获取地址失败", Toast.LENGTH_SHORT).show();
-                tvTip.setVisibility(View.VISIBLE);
-                tvUserMsg.setVisibility(View.GONE);
-                tvAddress.setVisibility(View.GONE);
+                tvUserMsg.setText("暂无收货地址");
+                tvAddress.setText("");
             }
 
             @Override
@@ -105,9 +103,6 @@ public class MyNewOrderActivity extends BaseActivity {
                 JSONObject json = JSON.parseObject((String) o);
                 address = json.getObject("data", Address.class);
                 Log.d("order", "55" + tvUserMsg);
-                tvTip.setVisibility(View.GONE);
-                tvUserMsg.setVisibility(View.VISIBLE);
-                tvAddress.setVisibility(View.VISIBLE);
                 tvUserMsg.setText(address.getConsignee() + "(" + address.getAddphone() + ")");
                 tvAddress.setText(address.getAddress());
             }
@@ -171,4 +166,31 @@ public class MyNewOrderActivity extends BaseActivity {
             }
         }, params);
     }
+
+//    @Override
+//    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+//        // TODO Auto-generated method stub
+//        super.onActivityResult(requestCode, resultCode, data);
+//        if (resultCode == RESULT_OK) {
+////            if (MyApplication.getInstance().getUser().g() == null) {
+////                userMsg.setText("点击右侧箭头添加收货人信息");
+////                address.setText("");
+////            } else {
+////                userMsg.setText(MyApplication.getInstance().getUser().getDefauteConsigen().getConsignee()
+////                        + "(" +
+////                        MyApplication.getInstance().getUser().getDefauteConsigen().getPhone().substring(0, 2)
+////                        + "*****" +
+////                        MyApplication.getInstance().getUser().getDefauteConsigen().getPhone().substring(8)
+////                        + ")");
+////                address.setText(MyApplication.getInstance().getUser().getDefauteConsigen().getAddr());
+////            }
+//        }
+//    }
+
+//    @Override
+//    protected void onRestart() {
+//        super.onRestart();
+//        Log.d("----", "onRestart: 刷新");
+//        addAddress();
+//    }
 }

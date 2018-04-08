@@ -10,6 +10,7 @@ public class Address {
     private String consignee;
     private String address;
     private String addphone;
+    private boolean isDefault;
 
     public Address() {
         super();
@@ -60,6 +61,14 @@ public class Address {
 
     public void setAddphone(String addphone) {
         this.addphone = addphone;
+    }
+
+    public boolean isDefault() {
+        return isDefault;
+    }
+
+    public void setDefault(boolean aDefault) {
+        isDefault = aDefault;
     }
 
     @Override

@@ -1,12 +1,23 @@
 package com.manshop.android.model;
 
 
+import java.util.List;
+
 public class User {
     private Integer id;
     private String phone;
     private String username;
     private String password;
     private String head;
+    private Address defauteConsigen;
+
+    public Address getDefauteConsigen() {
+        return defauteConsigen;
+    }
+
+    public void setDefauteConsigen(Address defauteConsigen) {
+        this.defauteConsigen = defauteConsigen;
+    }
 
     public Integer getId() {
         return id;
@@ -47,4 +58,5 @@ public class User {
     public void setHead(String head) {
         this.head = head;
     }
+
 }

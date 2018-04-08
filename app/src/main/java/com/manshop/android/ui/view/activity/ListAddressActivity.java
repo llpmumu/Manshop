@@ -7,6 +7,7 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
@@ -28,9 +29,10 @@ import java.util.Map;
 import okhttp3.Response;
 
 public class ListAddressActivity extends BaseActivity {
-    private List<Address> mAddress=new ArrayList<>();
+    private List<Address> mAddress = new ArrayList<>();
     private RecyclerView recyclerView;
     private AddressAdapter adapter;
+    private OkHttp okHttp = OkHttp.getOkhttpHelper();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,18 +66,22 @@ public class ListAddressActivity extends BaseActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
-                startActivity(new Intent(ListAddressActivity.this, MainActivity.class));
+                if (getIntent().getBooleanExtra("order", false)) {
+                    finish();
+                } else {
+                    startActivity(new Intent(ListAddressActivity.this, MainActivity.class));
+                }
                 break;
             case R.id.item_newaddress:
-                startActivity(new Intent(ListAddressActivity.this, NewAddressActivity.class));
+                Intent intent = new Intent(ListAddressActivity.this, NewAddressActivity.class);
+                startActivity(intent);
                 break;
             default:
         }
         return true;
     }
 
-    private OkHttp okHttp = OkHttp.getOkhttpHelper();
-    private void initAddress() {
+    public void initAddress() {
         Map<String, Object> param = new HashMap<>();
         param.put("uid", MyApplication.getInstance().getUserId());
         okHttp.doPost(Constant.baseURL + "address/getAddress", new CallBack(ListAddressActivity.this) {
@@ -89,17 +95,21 @@ public class ListAddressActivity extends BaseActivity {
                 JSONObject json = JSON.parseObject((String) o);
                 Object jsonArray = json.get("data");
                 System.out.println(jsonArray);
-                List<Address> listAddress = JSON.parseArray(jsonArray+"", Address.class);
-                Log.d("address"," "+mAddress.size());
+                List<Address> listAddress = JSON.parseArray(jsonArray + "", Address.class);
                 for (Address address : listAddress) {
-                    Log.d("address"," "+address.toString());
                     mAddress.add(address);
-                    Log.d("address"," 2222221    "+mAddress.size());
                 }
                 adapter = new AddressAdapter(ListAddressActivity.this, mAddress);
                 recyclerView.setAdapter(adapter);
             }
-        },param);
+        }, param);
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        Log.d("----", "onRestart: 刷新");
+        initAddress();
     }
 
 }

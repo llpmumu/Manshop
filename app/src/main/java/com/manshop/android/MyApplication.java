@@ -97,6 +97,9 @@ public class MyApplication extends Application {
     public static final String TARGET_APP_KEY = "targetAppKey";
     public static int maxImgCount;               //允许选择图片最大数
     public static final String GROUP_NAME = "groupName";
+    public static final String APP_KEY = "5db12393770a692f26f7ed32";
+    public static Boolean RETURN_MAIN_OR_DETAIL = false;
+
 
     public static Context context;
 //    public static LocationService locationService;
