@@ -82,6 +82,7 @@ public class ListAddressActivity extends BaseActivity {
     }
 
     public void initAddress() {
+        mAddress.clear();
         Map<String, Object> param = new HashMap<>();
         param.put("uid", MyApplication.getInstance().getUserId());
         okHttp.doPost(Constant.baseURL + "address/getAddress", new CallBack(ListAddressActivity.this) {
@@ -101,6 +102,7 @@ public class ListAddressActivity extends BaseActivity {
                 }
                 adapter = new AddressAdapter(ListAddressActivity.this, mAddress);
                 recyclerView.setAdapter(adapter);
+                adapter.notifyDataSetChanged();
             }
         }, param);
     }

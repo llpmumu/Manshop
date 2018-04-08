@@ -49,7 +49,7 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.ViewHold
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = View.inflate(context, R.layout.item_address, null);
         final ViewHolder holder = new ViewHolder(view);
-
+        mlistAddressActivity = new ListAddressActivity();
         holder.isDefault.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -59,12 +59,13 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.ViewHold
                         if (mList.get(i).isDefault()) {
                             setDefauteAdr(i, position);
                             holder.isDefault.setPressed(isChecked);
+                            mlistAddressActivity.initAddress();
                             return;
                         }
                     }
                     setDefauteAdr(0, true);
                     mlistAddressActivity.initAddress();
-                    notifyDataSetChanged();
+//                    notifyDataSetChanged();
                     return;
                 }
             }
