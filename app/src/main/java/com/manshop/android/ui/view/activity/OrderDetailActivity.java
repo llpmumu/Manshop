@@ -99,28 +99,30 @@ public class OrderDetailActivity extends BaseActivity {
                 Order order = json.getObject("data", Order.class);
 
                 //物流信息
-                if (order.getDelivery() == 1) {
-                    tvLogisInfo.setText("见面交易，无需快递");
-                } else if (order.getDelivery() == 2) {
-                    tvLogisInfo.setText(order.getTrackingnum());
-                } else {
+                if (order.getState() == 0) {
                     tvLogisInfo.setText("等待发货");
+                } else if (order.getState() == 1) {
+                    if (order.getDelivery() == 1) {
+                        tvLogisInfo.setText("见面交易，无需快递");
+                    } else if (order.getDelivery() == 2) {
+                        tvLogisInfo.setText(order.getTrackingnum());
+                    }
+                } else {
+                    tvLogisInfo.setText("交易完成");
                 }
 
                 //物品信息
                 Goods good = order.getGood();
                 String picture = good.getPicture();
-//                String[] txtpicture = picture.split(";");
-//                Glide.with(OrderDetailActivity.this).load(txtpicture[0]).into(sdvPic);
                 sdvPic.setImageBitmap(StringUtil.getInstance().spiltPic(picture).get(0));
                 dtlTitle.setText(good.getTitle());
 
                 //订单信息
-                if(getIntent().getBooleanExtra("sell",false)) {
+                if (getIntent().getBooleanExtra("sell", false)) {
                     tvTip.setText("买家昵称");
                     User buser = order.getBuser();
                     tvSellerName.setText(buser.getUsername());
-                }else{
+                } else {
                     tvTip.setText("卖家昵称");
                     User suser = order.getSuser();
                     tvSellerName.setText(suser.getUsername());
