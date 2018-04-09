@@ -60,16 +60,16 @@ public class NewPublishActivity extends BaseActivity implements TakePhoto.TakeRe
     private EditText etDetail;
 
     //选择出售、或者出租
-    private RadioGroup pubRg;
-    private RadioButton saleRb;
-    private RadioButton rentRb;
+//    private RadioGroup pubRg;
+//    private RadioButton saleRb;
+//    private RadioButton rentRb;
 
     //价格 租金
     private TextView tip1;
     private EditText etPrice;
-    private TextView tip2;
-    private EditText etRent;
-    private TextView tip3;
+//    private TextView tip2;
+//    private EditText etRent;
+//    private TextView tip3;
 
     private Boolean isEdit;
     private Intent intent;
@@ -115,32 +115,32 @@ public class NewPublishActivity extends BaseActivity implements TakePhoto.TakeRe
         etTitle = (EditText) findViewById(R.id.et_sale_name);
         etDetail = (EditText) findViewById(R.id.etContent);
 
-        pubRg = (RadioGroup) findViewById(R.id.publish_RadioGroup);
-        saleRb = (RadioButton) findViewById(R.id.rb_sale);
-        rentRb = (RadioButton) findViewById(R.id.rb_rent);
+//        pubRg = (RadioGroup) findViewById(R.id.publish_RadioGroup);
+//        saleRb = (RadioButton) findViewById(R.id.rb_sale);
+//        rentRb = (RadioButton) findViewById(R.id.rb_rent);
 
         tip1 = (TextView) findViewById(R.id.tv_tip1);
         etPrice = (EditText) findViewById(R.id.et_sale_price);
-        tip2 = (TextView) findViewById(R.id.tv_tip2);
-        tip3 = (TextView) findViewById(R.id.tv_tip3);
-        etRent = (EditText) findViewById(R.id.et_rent_price);
+//        tip2 = (TextView) findViewById(R.id.tv_tip2);
+//        tip3 = (TextView) findViewById(R.id.tv_tip3);
+//        etRent = (EditText) findViewById(R.id.et_rent_price);
 
-        pubRg.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(RadioGroup group, @IdRes int checkedId) {
-                if (checkedId == saleRb.getId()) {
-                    tip1.setText("价格");
-                    tip2.setVisibility(View.GONE);
-                    etPrice.setVisibility(View.GONE);
-                    tip3.setVisibility(View.GONE);
-                } else if (checkedId == rentRb.getId()) {
-                    tip1.setText("租金");
-                    tip2.setVisibility(View.VISIBLE);
-                    etRent.setVisibility(View.VISIBLE);
-                    tip3.setVisibility(View.VISIBLE);
-                }
-            }
-        });
+//        pubRg.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+//            @Override
+//            public void onCheckedChanged(RadioGroup group, @IdRes int checkedId) {
+//                if (checkedId == saleRb.getId()) {
+//                    tip1.setText("价格");
+//                    tip2.setVisibility(View.GONE);
+//                    etPrice.setVisibility(View.GONE);
+//                    tip3.setVisibility(View.GONE);
+//                } else if (checkedId == rentRb.getId()) {
+//                    tip1.setText("租金");
+//                    tip2.setVisibility(View.VISIBLE);
+//                    etRent.setVisibility(View.VISIBLE);
+//                    tip3.setVisibility(View.VISIBLE);
+//                }
+//            }
+//        });
 
         takePhoto = getTakePhoto();
         gw = (GridView) findViewById(R.id.picture_gridview);
@@ -162,7 +162,7 @@ public class NewPublishActivity extends BaseActivity implements TakePhoto.TakeRe
         etTitle.setText(intent.getStringExtra("title"));
         etDetail.setText(intent.getStringExtra("detail"));
         etPrice.setText(intent.getStringExtra("price"));
-        etRent.setText(intent.getStringExtra("rental"));
+//        etRent.setText(intent.getStringExtra("rental"));
     }
 
     private OkHttp okhttp = OkHttp.getOkhttpHelper();
@@ -181,12 +181,12 @@ public class NewPublishActivity extends BaseActivity implements TakePhoto.TakeRe
         String title = etTitle.getText().toString();
         String detail = etDetail.getText().toString();
         String price = etPrice.getText().toString();
-        String rent = etRent.getText().toString();
+//        String rent = etRent.getText().toString();
         params.put("uid", MyApplication.getInstance().getUserId());
         params.put("title", title);
         params.put("detail", detail);
         params.put("price", price);
-        params.put("rental", rent);
+//        params.put("rental", rent);
         String string = "";
         ByteArrayOutputStream bStream;
         for (int i = 0; i < listBitmap.size(); i++) {

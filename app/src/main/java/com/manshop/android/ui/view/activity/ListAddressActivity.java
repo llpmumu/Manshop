@@ -2,6 +2,7 @@ package com.manshop.android.ui.view.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -102,7 +103,7 @@ public class ListAddressActivity extends BaseActivity {
                 }
                 adapter = new AddressAdapter(ListAddressActivity.this, mAddress);
                 recyclerView.setAdapter(adapter);
-                adapter.notifyDataSetChanged();
+//                ((DefaultItemAnimator) recyclerView.getItemAnimator()).setSupportsChangeAnimations(false);
             }
         }, param);
     }

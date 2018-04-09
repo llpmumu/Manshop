@@ -15,9 +15,9 @@
             android:id="@+id/item_order_pic"
             android:layout_width="80dp"
             android:layout_height="80dp"
-            android:scaleType="fitXY"
             android:layout_gravity="center"
-            android:src="@drawable/img_loading"/>
+            android:scaleType="fitXY"
+            android:src="@drawable/img_loading" />
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -29,17 +29,19 @@
             <TextView
                 android:id="@+id/item_order_name"
                 android:layout_width="wrap_content"
-                android:layout_height="40dp"
+                android:layout_height="0dp"
+                android:layout_weight="1"
                 android:gravity="center"
                 android:text=""
-                android:textSize="23sp"
+                android:textSize="22sp"
                 android:typeface="monospace" />
 
             <TextView
                 android:id="@+id/item_order_price"
                 android:layout_width="wrap_content"
-                android:layout_height="30dp"
+                android:layout_height="0dp"
                 android:layout_below="@id/item_order_name"
+                android:layout_weight="1"
                 android:gravity="center"
                 android:text=""
                 android:textColor="@color/red"
@@ -48,8 +50,9 @@
             <TextView
                 android:id="@+id/item_order_state"
                 android:layout_width="wrap_content"
-                android:layout_height="25dp"
+                android:layout_height="0dp"
                 android:layout_below="@id/item_order_price"
+                android:layout_weight="1"
                 android:gravity="center"
                 android:text="" />
 

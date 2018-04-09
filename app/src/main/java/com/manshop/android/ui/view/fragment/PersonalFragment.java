@@ -113,7 +113,7 @@ public class PersonalFragment extends Fragment {
         mPerList.add("我发布的");
         mPerList.add("我买到的");
         mPerList.add("我卖出的");
-        mPerList.add("我买到的");
-        mPerList.add("我收藏的");
+//        mPerList.add("我买到的");
+//        mPerList.add("我收藏的");
     }
 }

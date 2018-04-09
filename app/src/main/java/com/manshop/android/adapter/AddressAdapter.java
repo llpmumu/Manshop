@@ -39,7 +39,7 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.ViewHold
     private List<Address> mList;
     private OkHttp okHttp = OkHttp.getOkhttpHelper();
     private ListAddressActivity mlistAddressActivity;
-    private final String TAG="address";
+    private final String TAG = "address";
 
     public AddressAdapter(Context context, List<Address> mList) {
         this.context = context;
@@ -51,6 +51,7 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.ViewHold
         View view = View.inflate(context, R.layout.item_address, null);
         final ViewHolder holder = new ViewHolder(view);
         mlistAddressActivity = new ListAddressActivity();
+        holder.isDefault.setOnCheckedChangeListener(null);//重点，取消监听
         holder.isDefault.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -59,17 +60,13 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.ViewHold
                     for (int i = 0; i < mList.size(); i++) {
                         if (mList.get(i).isDefault()) {
                             setDefauteAdr(i, position);
-                            holder.isDefault.setChecked(isChecked);
-//                            mlistAddressActivity.initAddress();
-                            initAddress();
-                            Log.d(TAG,"111111111111111111");
+//                            holder.isDefault.setChecked(mList.get(i).isDefault());
+                            Log.d(TAG, i + "                " + position);
                             return;
                         }
                     }
                     setDefauteAdr(0, true);
-//                    mlistAddressActivity.initAddress();
-                    initAddress();
-                    Log.d(TAG,"22222222222222");
+                    Log.d(TAG, "22222222222222");
                     return;
                 }
             }
@@ -155,6 +152,7 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.ViewHold
             edit = (TextView) itemView.findViewById(R.id.edite_address);
             delete = (TextView) itemView.findViewById(R.id.delete_address);
             isDefault = (RadioButton) itemView.findViewById(R.id.radio_selected);
+//            ((RadioButton)itemView.findViewById(R.id.radio_selected)).setChecked(true);
         }
     }
 
@@ -211,33 +209,20 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.ViewHold
                     Log.d("address", address.getAddphone() + "              333333");
                     MyApplication.getInstance().getUser().setDefauteConsigen(address);
                 }
+                removeData(curPosition);
+                addData(curPosition, address);
             }
         }, params);
     }
 
-    public void initAddress() {
-        Map<String, Object> param = new HashMap<>();
-        param.put("uid", MyApplication.getInstance().getUserId());
-        okHttp.doPost(Constant.baseURL + "address/getAddress", new CallBack(context) {
-            @Override
-            public void onError(Response response, Exception e) throws IOException {
-//                Toast.makeText(getApplicationContext(), "获取地址失败", Toast.LENGTH_SHORT).show();
-            }
+    public void addData(int position, Address address) {
+        mList.add(position, address);
+        notifyItemInserted(position);
+    }
 
-            @Override
-            public void callBackSuccess(Response response, Object o) throws IOException {
-                JSONObject json = JSON.parseObject((String) o);
-                Object jsonArray = json.get("data");
-                System.out.println(jsonArray);
-                List<Address> listAddress = JSON.parseArray(jsonArray + "", Address.class);
-                mList.clear();
-                for (Address address : listAddress) {
-                    mList.add(address);
-                }
-                Log.d("address", mList.size() + "              333333");
-                notifyDataSetChanged();
-            }
-        }, param);
+    public void removeData(int position) {
+        mList.remove(position);
+        notifyItemRemoved(position);
     }
 
 }

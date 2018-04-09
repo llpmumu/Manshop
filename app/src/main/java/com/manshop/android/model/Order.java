@@ -16,6 +16,8 @@ public class Order {
     private User suser;
     private Integer buid;
     private User buser;
+    private Integer aid;
+    private Address address;
     private Integer delivery;
     private String trackingnum;
     private Integer state;
@@ -128,6 +130,23 @@ public class Order {
 
     public void setOrdertime(Timestamp ordertime) {
         this.ordertime = ordertime;
+    }
+
+
+    public Integer getAid() {
+        return aid;
+    }
+
+    public void setAid(Integer aid) {
+        this.aid = aid;
+    }
+
+    public Address getAddress() {
+        return address;
+    }
+
+    public void setAddress(Address address) {
+        this.address = address;
     }
 
     @Override

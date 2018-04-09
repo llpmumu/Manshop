@@ -49,14 +49,14 @@
                         android:gravity="center"
                         android:text="出售" />
 
-                    <TextView
-                        android:id="@+id/tv_rent"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:drawableTop="@drawable/ic_rent"
-                        android:gravity="center"
-                        android:text="出租" />
+                    <!--<TextView-->
+                        <!--android:id="@+id/tv_rent"-->
+                        <!--android:layout_width="0dp"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:layout_weight="1"-->
+                        <!--android:drawableTop="@drawable/ic_rent"-->
+                        <!--android:gravity="center"-->
+                        <!--android:text="出租" />-->
 
                     <TextView
                         android:id="@+id/tv_data"

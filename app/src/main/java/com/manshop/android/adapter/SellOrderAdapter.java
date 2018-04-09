@@ -52,9 +52,9 @@ public class SellOrderAdapter extends RecyclerView.Adapter<SellOrderAdapter.View
 
         holder.orderName.setText(good.getTitle());
         holder.orderPrice.setText(good.getPrice() + "￥");
-        if(order.getState() == 0)
+        if (order.getState() == 0)
             holder.orderState.setText("等待发货");
-        else if(order.getState() == 1)
+        else if (order.getState() == 1)
             holder.orderState.setText("等待收货");
         else
             holder.orderState.setText("交易完成");
@@ -62,10 +62,18 @@ public class SellOrderAdapter extends RecyclerView.Adapter<SellOrderAdapter.View
             @Override
             public void onClick(View v) {
                 final Order order = mList.get(position);
-                Intent intent = new Intent(context, DeliveryActivity.class);
-                intent.putExtra("oid", order.getId());
-                intent.putExtra("type","old");
-                context.startActivity(intent);
+                if (order.getState() == 0) {
+                    Intent intent = new Intent(context, DeliveryActivity.class);
+                    intent.putExtra("oid", order.getId());
+                    intent.putExtra("sell", true);
+                    context.startActivity(intent);
+                } else {
+                    Intent intent = new Intent(context, OrderDetailActivity.class);
+                    intent.putExtra("oid", order.getId());
+                    intent.putExtra("type", "old");
+                    intent.putExtra("sell", true);
+                    context.startActivity(intent);
+                }
             }
         });
     }

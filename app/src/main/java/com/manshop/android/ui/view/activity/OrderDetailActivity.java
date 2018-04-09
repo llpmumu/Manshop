@@ -40,7 +40,9 @@ public class OrderDetailActivity extends BaseActivity {
     @Bind(R.id.dtl_title)
     TextView dtlTitle;
 
-    @Bind(R.id.seller_name)
+    @Bind(R.id.tv_name_tip)
+    TextView tvTip;
+    @Bind(R.id.tv_nickname)
     TextView tvSellerName;
     @Bind(R.id.order_id)
     TextView tvOrderId;
@@ -114,8 +116,15 @@ public class OrderDetailActivity extends BaseActivity {
                 dtlTitle.setText(good.getTitle());
 
                 //订单信息
-                User suser = order.getSuser();
-                tvSellerName.setText(suser.getUsername());
+                if(getIntent().getBooleanExtra("sell",false)) {
+                    tvTip.setText("买家昵称");
+                    User buser = order.getBuser();
+                    tvSellerName.setText(buser.getUsername());
+                }else{
+                    tvTip.setText("卖家昵称");
+                    User suser = order.getSuser();
+                    tvSellerName.setText(suser.getUsername());
+                }
                 tvOrderId.setText(order.getId());
                 SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
                 tvOrderTime.setText(sdf.format(order.getOrdertime()));

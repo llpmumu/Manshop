@@ -59,7 +59,7 @@
                         android:layout_width="45dp"
                         android:layout_height="45dp"
                         android:layout_gravity="center"
-                        android:src="@drawable/ic_tou"
+                        android:src="@drawable/img_loading"
                         app:riv_border_color="#00000000"
                         app:riv_border_width="2dp"
                         app:riv_oval="true" />
@@ -76,7 +76,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="10dp"
                             android:gravity="center"
-                            android:text="name"
+                            android:text=""
                             android:textSize="16sp" />
 
                         <!--<TextView-->
@@ -97,7 +97,7 @@
                         android:id="@+id/good_price"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="3￥"
+                        android:text=""
                         android:textColor="@color/red"
                         android:textSize="20sp" />
 
@@ -105,7 +105,7 @@
                         android:id="@+id/good_detail"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="12"
+                        android:text=""
                         android:textSize="18sp" />
 
                     <android.support.v7.widget.RecyclerView

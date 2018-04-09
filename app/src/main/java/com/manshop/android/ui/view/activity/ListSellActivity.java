@@ -61,6 +61,7 @@ public class ListSellActivity extends BaseActivity {
     }
 
     public void initData() {
+        mOrder.clear();
         final List<String> mPic = new ArrayList<>();
         final Map<String, Object> param = new HashMap<>();
         param.put("suid", MyApplication.getInstance().getUserId());
@@ -87,5 +88,12 @@ public class ListSellActivity extends BaseActivity {
                 rvOrder.setAdapter(adapter);
             }
         }, param);
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        Log.d("----", "onRestart: 刷新");
+        initData();
     }
 }

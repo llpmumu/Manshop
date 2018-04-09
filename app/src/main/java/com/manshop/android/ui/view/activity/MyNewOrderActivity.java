@@ -88,25 +88,39 @@ public class MyNewOrderActivity extends BaseActivity {
 
     //填写收货地址
     public void addAddress() {
-        final Map<String, Object> params = new HashMap<>();
-        params.put("uid", MyApplication.getInstance().getUserId());
-        okhttp.doPost(Constant.baseURL + "address/getOneAddress", new CallBack(MyNewOrderActivity.this) {
+        if (MyApplication.getInstance().getUser().getDefauteConsigen() == null) {
+            final Map<String, Object> params = new HashMap<>();
+            params.put("uid", MyApplication.getInstance().getUserId());
+            okhttp.doPost(Constant.baseURL + "address/getDefaultAddress", new CallBack(MyNewOrderActivity.this) {
 
-            @Override
-            public void onError(Response response, Exception e) throws IOException {
-                tvUserMsg.setText("暂无收货地址");
-                tvAddress.setText("");
-            }
+                @Override
+                public void onError(Response response, Exception e) throws IOException {
+                    tvUserMsg.setText("暂无收货地址");
+                    tvAddress.setText("");
+                }
 
-            @Override
-            public void callBackSuccess(Response response, Object o) throws IOException {
-                JSONObject json = JSON.parseObject((String) o);
-                address = json.getObject("data", Address.class);
-                Log.d("order", "55" + tvUserMsg);
-                tvUserMsg.setText(address.getConsignee() + "(" + address.getAddphone() + ")");
-                tvAddress.setText(address.getAddress());
-            }
-        }, params);
+                @Override
+                public void callBackSuccess(Response response, Object o) throws IOException {
+                    JSONObject json = JSON.parseObject((String) o);
+                    address = json.getObject("data", Address.class);
+                    if (address == null) {
+                        tvUserMsg.setText("暂无收货地址");
+                        tvAddress.setText("");
+                    } else {
+                        MyApplication.getInstance().getUser().setDefauteConsigen(address);
+                        tvUserMsg.setText(address.getConsignee() + "(" + address.getAddphone() + ")");
+                        tvAddress.setText(address.getAddress());
+                    }
+                    MyApplication.getInstance().getUser().setDefauteConsigen(address);
+                    Log.d("order", "55" + tvUserMsg);
+                    tvUserMsg.setText(address.getConsignee() + "(" + address.getAddphone() + ")");
+                    tvAddress.setText(address.getAddress());
+                }
+            }, params);
+        }else{
+            tvUserMsg.setText(MyApplication.getInstance().getUser().getDefauteConsigen().getConsignee() + "(" + MyApplication.getInstance().getUser().getDefauteConsigen().getAddphone() + ")");
+            tvAddress.setText(MyApplication.getInstance().getUser().getDefauteConsigen().getAddress());
+        }
     }
 
     //获取商品信息
@@ -139,14 +153,10 @@ public class MyNewOrderActivity extends BaseActivity {
         params.put("gid", intent.getIntExtra("gid", 0));
         params.put("suid", good.getUser().getId());
         params.put("buid", MyApplication.getInstance().getUserId());
-        params.put("state", 1);
+        params.put("state", 0);
         java.sql.Date date = new java.sql.Date(System.currentTimeMillis());
         params.put("ordertime", date);
-        if (address.equals("")) {
-            Toast.makeText(MyNewOrderActivity.this, "请选择地址", Toast.LENGTH_LONG).show();
-            return;
-        } else
-            params.put("aid", address.getId());
+        params.put("aid", MyApplication.getInstance().getUser().getDefauteConsigen().getId());
         okhttp.doPost(Constant.baseURL + "order/newOrder", new CallBack(MyNewOrderActivity.this) {
 
             @Override
@@ -187,10 +197,10 @@ public class MyNewOrderActivity extends BaseActivity {
 //        }
 //    }
 
-//    @Override
-//    protected void onRestart() {
-//        super.onRestart();
-//        Log.d("----", "onRestart: 刷新");
-//        addAddress();
-//    }
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        Log.d("----", "onRestart: 刷新");
+        addAddress();
+    }
 }

@@ -82,6 +82,7 @@
         android:paddingTop="10dp">
 
         <EditText
+            android:id="@+id/et_deli_num"
             android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:background="@null"
@@ -90,12 +91,21 @@
             android:hint="请输快递单号" />
 
         <TextView
+            android:id="@+id/tv_not_deli"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingTop="5dp"
             android:text="无需快递"
             android:textColor="@color/blue"
             android:textSize="10sp" />
+
+        <Button
+            android:id="@+id/btn_commit"
+            android:layout_width="300dp"
+            android:layout_height="35dp"
+            android:text="提交"
+            android:background="@color/colorPrimary"
+            android:layout_marginTop="10dp"/>
     </LinearLayout>
 
 </LinearLayout>
