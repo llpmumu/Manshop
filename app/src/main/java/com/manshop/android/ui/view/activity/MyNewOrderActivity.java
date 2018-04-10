@@ -96,7 +96,7 @@ public class MyNewOrderActivity extends BaseActivity {
 
     //填写收货地址
     public void addAddress() {
-        if (MyApplication.getInstance().getUser().getDefauteConsigen() == null) {
+//        if (MyApplication.getInstance().getUser().getDefauteConsigen() == null || MyApplication.getInstance().getUser() == null) {
             final Map<String, Object> params = new HashMap<>();
             params.put("uid", MyApplication.getInstance().getUserId());
             okhttp.doPost(Constant.baseURL + "address/getDefaultAddress", new CallBack(MyNewOrderActivity.this) {
@@ -115,20 +115,21 @@ public class MyNewOrderActivity extends BaseActivity {
                         tvUserMsg.setText("暂无收货地址");
                         tvAddress.setText("");
                     } else {
-                        MyApplication.getInstance().getUser().setDefauteConsigen(address);
+//                        MyApplication.getInstance().getUser().setDefauteConsigen(address);
                         tvUserMsg.setText(address.getConsignee() + "(" + address.getAddphone() + ")");
                         tvAddress.setText(address.getAddress());
                     }
-                    MyApplication.getInstance().getUser().setDefauteConsigen(address);
-                    Log.d("order", "55" + tvUserMsg);
-                    tvUserMsg.setText(address.getConsignee() + "(" + address.getAddphone() + ")");
-                    tvAddress.setText(address.getAddress());
+//                    MyApplication.getInstance().getUser().setDefauteConsigen(address);
+//                    Log.d("order", "55" + tvUserMsg);
+//                    tvUserMsg.setText(address.getConsignee() + "(" + address.getAddphone() + ")");
+//                    tvAddress.setText(address.getAddress());
                 }
             }, params);
-        } else {
-            tvUserMsg.setText(MyApplication.getInstance().getUser().getDefauteConsigen().getConsignee() + "(" + MyApplication.getInstance().getUser().getDefauteConsigen().getAddphone() + ")");
-            tvAddress.setText(MyApplication.getInstance().getUser().getDefauteConsigen().getAddress());
-        }
+//        }
+//        else {
+//            tvUserMsg.setText(MyApplication.getInstance().getUser().getDefauteConsigen().getConsignee() + "(" + MyApplication.getInstance().getUser().getDefauteConsigen().getAddphone() + ")");
+//            tvAddress.setText(MyApplication.getInstance().getUser().getDefauteConsigen().getAddress());
+//        }
     }
 
     //获取商品信息
@@ -165,7 +166,7 @@ public class MyNewOrderActivity extends BaseActivity {
         params.put("state", 0);
         java.sql.Date date = new java.sql.Date(System.currentTimeMillis());
         params.put("ordertime", date);
-        params.put("aid", MyApplication.getInstance().getUser().getDefauteConsigen().getId());
+        params.put("aid", address.getId());
         okhttp.doPost(Constant.baseURL + "order/newOrder", new CallBack(MyNewOrderActivity.this) {
 
             @Override

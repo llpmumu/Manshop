@@ -114,6 +114,7 @@ public class HomeFragment extends Fragment {
 
 
     private void initData() {
+        mGood.clear();
         final List<String> mPic = new ArrayList<>();
         final Map<String, Object> param = new HashMap<>();
         param.put("uid", MyApplication.getInstance().getUserId());
