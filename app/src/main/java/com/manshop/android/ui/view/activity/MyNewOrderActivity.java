@@ -12,10 +12,6 @@ import android.widget.Toast;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
-import com.bumptech.glide.Glide;
-import com.fuqianla.paysdk.FuQianLa;
-import com.fuqianla.paysdk.FuQianLaPay;
-import com.fuqianla.paysdk.bean.FuQianLaResult;
 import com.manshop.android.MyApplication;
 import com.manshop.android.R;
 import com.manshop.android.model.Address;
@@ -57,7 +53,6 @@ public class MyNewOrderActivity extends BaseActivity {
     private Goods good;
     private Address address;
     private Intent intent;
-    private FuQianLaPay pay;
     private OkHttp okhttp = OkHttp.getOkhttpHelper();
 
     @Override
@@ -161,7 +156,6 @@ public class MyNewOrderActivity extends BaseActivity {
 
     //提交订单
     public void submitOrder(View view) {
-        pay.startPay(FuQianLa.ALI);
         final Map<String, Object> params = new HashMap<>();
 //        params.put("id", null);
         params.put("id", OrderIdUtil.getOutTradeNo());

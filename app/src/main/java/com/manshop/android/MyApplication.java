@@ -3,14 +3,9 @@ package com.manshop.android;
 import android.app.Application;
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.graphics.Bitmap;
-import android.graphics.Color;
-import android.os.Environment;
 import android.support.multidex.MultiDex;
-import android.text.TextUtils;
 
 import com.facebook.drawee.backends.pipeline.Fresco;
-import com.fuqianla.paysdk.FuQianLa;
 import com.manshop.android.model.User;
 
 import java.util.ArrayList;
