@@ -11,7 +11,7 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.manshop.android.MyApplication;
 import com.manshop.android.R;
-import com.manshop.android.adapter.OrderListAdapter;
+import com.manshop.android.adapter.ListOrderAdapter;
 import com.manshop.android.model.Goods;
 import com.manshop.android.model.Order;
 import com.manshop.android.okHttp.CallBack;
@@ -32,7 +32,7 @@ import okhttp3.Response;
 
 public class ListOrderActivity extends BaseActivity {
     private List<Order> mOrder = new ArrayList<>();
-    private OrderListAdapter adapter;
+    private ListOrderAdapter adapter;
     @Bind(R.id.recycle_order)
     RecyclerView rvOrder;
     private OkHttp okhttp = OkHttp.getOkhttpHelper();
@@ -81,7 +81,7 @@ public class ListOrderActivity extends BaseActivity {
                     good.setPics(StringUtil.getInstance().spiltPic(good.getPicture()));
                     mOrder.add(order);
                 }
-                adapter = new OrderListAdapter(ListOrderActivity.this, mOrder);
+                adapter = new ListOrderAdapter(ListOrderActivity.this, mOrder);
                 LinearLayoutManager manager = new LinearLayoutManager(ListOrderActivity.this, LinearLayoutManager.VERTICAL, false);
                 rvOrder.setLayoutManager(manager);
                 rvOrder.setAdapter(adapter);

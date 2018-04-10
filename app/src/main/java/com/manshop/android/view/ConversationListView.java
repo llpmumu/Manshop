@@ -1,7 +1,6 @@
 package com.manshop.android.view;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
@@ -11,8 +10,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.manshop.android.R;
-import com.manshop.android.ui.view.fragment.MessageFragment;
-import com.manshop.android.util.ThreadUtil;
+import com.manshop.android.ui.view.fragment.ConversationFragment;
 
 /**
  * Created by ${chenyn} on 2017/3/13.
@@ -24,9 +22,9 @@ public class ConversationListView {
     private LinearLayout mHeader;
     private Context mContext;
     private TextView mNull_conversation;
-    private MessageFragment mFragment;
+    private ConversationFragment mFragment;
 
-    public ConversationListView(View view, Context context, MessageFragment fragment) {
+    public ConversationListView(View view, Context context, ConversationFragment fragment) {
         this.mConvListFragment = view;
         this.mContext = context;
         this.mFragment = fragment;

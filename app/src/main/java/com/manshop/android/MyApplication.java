@@ -10,6 +10,7 @@ import android.support.multidex.MultiDex;
 import android.text.TextUtils;
 
 import com.facebook.drawee.backends.pipeline.Fresco;
+import com.fuqianla.paysdk.FuQianLa;
 import com.manshop.android.model.User;
 
 import java.util.ArrayList;
@@ -122,8 +123,12 @@ public class MyApplication extends Application {
         share = getSharedPreferences("User", MODE_PRIVATE);
         this.myApplication = this;
         Fresco.initialize(this);
+//        极光通讯初始化
         JMessageClient.setDebugMode(true);
         JMessageClient.init(this,true);
+
+//        付钱啦初始化
+//        FuQianLa.getInstance().init(getApplicationContext());
     }
 
     public static MyApplication myApplication;

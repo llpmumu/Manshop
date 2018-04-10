@@ -13,6 +13,9 @@ import android.widget.Toast;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.bumptech.glide.Glide;
+import com.fuqianla.paysdk.FuQianLa;
+import com.fuqianla.paysdk.FuQianLaPay;
+import com.fuqianla.paysdk.bean.FuQianLaResult;
 import com.manshop.android.MyApplication;
 import com.manshop.android.R;
 import com.manshop.android.model.Address;
@@ -21,6 +24,8 @@ import com.manshop.android.okHttp.CallBack;
 import com.manshop.android.okHttp.OkHttp;
 import com.manshop.android.ui.base.BaseActivity;
 import com.manshop.android.util.Constant;
+import com.manshop.android.util.Merchant;
+import com.manshop.android.util.OrderIdUtil;
 import com.manshop.android.util.StringUtil;
 
 import java.io.IOException;
@@ -52,6 +57,7 @@ public class MyNewOrderActivity extends BaseActivity {
     private Goods good;
     private Address address;
     private Intent intent;
+    private FuQianLaPay pay;
     private OkHttp okhttp = OkHttp.getOkhttpHelper();
 
     @Override
@@ -77,6 +83,13 @@ public class MyNewOrderActivity extends BaseActivity {
         intent = getIntent();
         addAddress();
         getGoodInfo();
+//        pay = new FuQianLaPay.Builder(this)
+//                .model(FuQianLa.MODEL_PRE_CHANNEL)//通道前置模式
+//                .orderID(OrderIdUtil.getOutTradeNo())//订单号
+//                .amount(0.01)//金额
+//                .subject(good.getTitle())//商品名称
+//                .notifyUrl(Merchant.MERCHANT_NOTIFY_URL)
+//                .build();
     }
 
     @OnClick(R.id.btn_address_select)
@@ -117,7 +130,7 @@ public class MyNewOrderActivity extends BaseActivity {
                     tvAddress.setText(address.getAddress());
                 }
             }, params);
-        }else{
+        } else {
             tvUserMsg.setText(MyApplication.getInstance().getUser().getDefauteConsigen().getConsignee() + "(" + MyApplication.getInstance().getUser().getDefauteConsigen().getAddphone() + ")");
             tvAddress.setText(MyApplication.getInstance().getUser().getDefauteConsigen().getAddress());
         }
@@ -148,8 +161,10 @@ public class MyNewOrderActivity extends BaseActivity {
 
     //提交订单
     public void submitOrder(View view) {
+        pay.startPay(FuQianLa.ALI);
         final Map<String, Object> params = new HashMap<>();
-        params.put("id", null);
+//        params.put("id", null);
+        params.put("id", OrderIdUtil.getOutTradeNo());
         params.put("gid", intent.getIntExtra("gid", 0));
         params.put("suid", good.getUser().getId());
         params.put("buid", MyApplication.getInstance().getUserId());
@@ -179,22 +194,15 @@ public class MyNewOrderActivity extends BaseActivity {
 
 //    @Override
 //    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-//        // TODO Auto-generated method stub
-//        super.onActivityResult(requestCode, resultCode, data);
-//        if (resultCode == RESULT_OK) {
-////            if (MyApplication.getInstance().getUser().g() == null) {
-////                userMsg.setText("点击右侧箭头添加收货人信息");
-////                address.setText("");
-////            } else {
-////                userMsg.setText(MyApplication.getInstance().getUser().getDefauteConsigen().getConsignee()
-////                        + "(" +
-////                        MyApplication.getInstance().getUser().getDefauteConsigen().getPhone().substring(0, 2)
-////                        + "*****" +
-////                        MyApplication.getInstance().getUser().getDefauteConsigen().getPhone().substring(8)
-////                        + ")");
-////                address.setText(MyApplication.getInstance().getUser().getDefauteConsigen().getAddr());
-////            }
+//        //返回支付结果
+//        if (requestCode == FuQianLa.REQUESTCODE && resultCode == FuQianLa.RESULTCODE && data != null) {
+//            FuQianLaResult result = data.getParcelableExtra(FuQianLa.PAYRESULT_KEY);
+//            Toast.makeText(this, result.payCode, Toast.LENGTH_SHORT).show();
+//            if (resultCode == 0000){
+//
+//            }
 //        }
+//        super.onActivityResult(requestCode, resultCode, data);
 //    }
 
     @Override

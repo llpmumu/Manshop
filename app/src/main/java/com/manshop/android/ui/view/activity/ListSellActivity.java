@@ -1,6 +1,5 @@
 package com.manshop.android.ui.view.activity;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -12,8 +11,7 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.manshop.android.MyApplication;
 import com.manshop.android.R;
-import com.manshop.android.adapter.OrderListAdapter;
-import com.manshop.android.adapter.SellOrderAdapter;
+import com.manshop.android.adapter.ListSellAdapter;
 import com.manshop.android.model.Goods;
 import com.manshop.android.model.Order;
 import com.manshop.android.okHttp.CallBack;
@@ -34,7 +32,7 @@ import okhttp3.Response;
 
 public class ListSellActivity extends BaseActivity {
     private List<Order> mOrder = new ArrayList<>();
-    private SellOrderAdapter adapter;
+    private ListSellAdapter adapter;
     @Bind(R.id.recycle_sell_order)
     RecyclerView rvOrder;
     private OkHttp okhttp = OkHttp.getOkhttpHelper();
@@ -82,7 +80,7 @@ public class ListSellActivity extends BaseActivity {
                     good.setPics(StringUtil.getInstance().spiltPic(good.getPicture()));
                     mOrder.add(order);
                 }
-                adapter = new SellOrderAdapter(ListSellActivity.this, mOrder);
+                adapter = new ListSellAdapter(ListSellActivity.this, mOrder);
                 LinearLayoutManager manager = new LinearLayoutManager(ListSellActivity.this, LinearLayoutManager.VERTICAL, false);
                 rvOrder.setLayoutManager(manager);
                 rvOrder.setAdapter(adapter);

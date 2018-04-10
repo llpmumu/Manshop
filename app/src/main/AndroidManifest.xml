@@ -10,19 +10,12 @@
     <!-- Required -->
     <uses-permission android:name="com.manshop.android.permission.JPUSH_MESSAGE" />
     <uses-permission android:name="android.permission.RECEIVE_USER_PRESENT"/>
-    <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.WAKE_LOCK"/>
-    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.VIBRATE"/>
     <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS"/>
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
     <uses-permission android:name="android.permission.WRITE_SETTINGS"/>
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
     <uses-permission android:name="android.permission.KILL_BACKGROUND_PROCESSES"/>
-    <uses-permission android:name="android.permission.RECORD_AUDIO"/>
-    <uses-permission android:name="android.permission.CAMERA"/>
     <!--<uses-permission android:name="android.permission.WRITE_APN_SETTINGS"/>-->
 
     <!-- Optional. Required for location feature -->
@@ -51,6 +44,11 @@
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+
+    <uses-permission android:name="android.permission.RECEIVE_SMS" />
+    <uses-permission android:name="org.simalliance.openmobileapi.SMARTCARD" />
+    <uses-permission android:name="android.permission.NFC" />
+    <uses-feature android:name="android.hardware.nfc.hce" />
 
     <application
         android:name=".MyApplication"
@@ -129,6 +127,23 @@
         <meta-data
             android:name="JPUSH_APPKEY"
             android:value="5db12393770a692f26f7ed32" />
+
+        <!-- 付钱拉SDK需要添加 -->
+        <!--<activity-->
+            <!--android:name="com.fuqianla.paysdk.app.FuQianLaActivity"-->
+            <!--android:screenOrientation="portrait"-->
+            <!--android:theme="@android:style/Theme.Translucent.NoTitleBar" />-->
+        <!--<meta-data-->
+            <!--android:name="FQL_APPKEY"-->
+            <!--android:value="YOUR_APPID" />-->
+
+        <!--&lt;!&ndash; 支付宝需要添加 &ndash;&gt;-->
+        <!--<activity-->
+            <!--android:name="com.alipay.sdk.app.H5PayActivity"-->
+            <!--android:configChanges="orientation|keyboardHidden|navigation|screenSize"-->
+            <!--android:exported="false"-->
+            <!--android:screenOrientation="behind"-->
+            <!--android:windowSoftInputMode="adjustResize|stateHidden" />-->
 
         <activity android:name=".ui.view.activity.WelcomeActivity" />
         <activity

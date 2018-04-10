@@ -43,9 +43,9 @@ import cn.jpush.im.android.eventbus.EventBus;
  * Created by Lin on 2017/10/31.
  */
 
-public class MessageFragment extends BaseFragment {
-    public static MessageFragment newInstance(String index) {
-        MessageFragment f = new MessageFragment();
+public class ConversationFragment extends BaseFragment {
+    public static ConversationFragment newInstance(String index) {
+        ConversationFragment f = new ConversationFragment();
         Bundle args = new Bundle();
         args.putString("index", index);
         f.setArguments(args);

@@ -50,6 +50,9 @@ dependencies {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
     //    compile files('libs/mysql-connector-java-5.1.32-bin.jar')
+//    compile files('libs/alipaySDK.jar')
+//    compile files('libs/fuqianla2_6_0.jar')
+//    compile files('libs/fuqianla_support.jar')
     compile 'com.alibaba:fastjson:1.2.44'
     compile(name: 'NativeImgCompress', ext: 'aar')
     compile 'com.android.support:appcompat-v7:25.2.0'
@@ -82,4 +85,5 @@ dependencies {
     compile project(':reclib-testemoticons')
     //    compile files('libs/universal-image-loader-1.9.5.jar')
     //    compile files('libs/picasso-2.5.2.jar')
+
 }

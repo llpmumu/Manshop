@@ -2,7 +2,6 @@ package com.manshop.android.adapter;
 
 import android.content.Context;
 import android.content.Intent;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
@@ -10,26 +9,20 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
-import com.bumptech.glide.Glide;
-import com.manshop.android.MyApplication;
 import com.manshop.android.R;
 import com.manshop.android.model.Goods;
 import com.manshop.android.model.Order;
 import com.manshop.android.okHttp.CallBack;
 import com.manshop.android.okHttp.OkHttp;
-import com.manshop.android.ui.view.activity.ListOrderActivity;
 import com.manshop.android.ui.view.activity.OrderDetailActivity;
 import com.manshop.android.util.Constant;
 import com.manshop.android.util.StringUtil;
 import com.manshop.android.util.ToastUtil;
 
 import java.io.IOException;
-import java.net.URL;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -40,12 +33,12 @@ import okhttp3.Response;
  * Created by Lin on 2018/2/24.
  */
 
-public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.ViewHolder> {
+public class ListOrderAdapter extends RecyclerView.Adapter<ListOrderAdapter.ViewHolder> {
     private Context context;
     private List<Order> mList;
     private OkHttp okHttp = OkHttp.getOkhttpHelper();
 
-    public OrderListAdapter(Context context, List<Order> mList) {
+    public ListOrderAdapter(Context context, List<Order> mList) {
         this.context = context;
         this.mList = mList;
     }

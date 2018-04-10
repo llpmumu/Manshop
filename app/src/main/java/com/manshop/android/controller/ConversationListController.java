@@ -8,9 +8,9 @@ import android.view.View;
 import android.widget.AdapterView;
 
 import com.manshop.android.MyApplication;
-import com.manshop.android.adapter.MessageAdapter;
+import com.manshop.android.adapter.ConversationAdapter;
 import com.manshop.android.ui.view.activity.ChatActivity;
-import com.manshop.android.ui.view.fragment.MessageFragment;
+import com.manshop.android.ui.view.fragment.ConversationFragment;
 import com.manshop.android.util.SortConvList;
 import com.manshop.android.util.SortTopConvList;
 import com.manshop.android.view.ConversationListView;
@@ -29,13 +29,13 @@ public class ConversationListController implements View.OnClickListener,
         AdapterView.OnItemClickListener{
 
     private ConversationListView mConvListView;
-    private MessageFragment mContext;
+    private ConversationFragment mContext;
     private int mWidth;
-    private MessageAdapter mListAdapter;
+    private ConversationAdapter mListAdapter;
     private List<Conversation> mDatas = new ArrayList<Conversation>();
     private Dialog mDialog;
 
-    public ConversationListController(ConversationListView listView, MessageFragment context,
+    public ConversationListController(ConversationListView listView, ConversationFragment context,
                                       int width) {
         this.mConvListView = listView;
         this.mContext = context;
@@ -80,7 +80,7 @@ public class ConversationListController implements View.OnClickListener,
                 i++;
             }
         }
-        mListAdapter = new MessageAdapter(mContext.getActivity(), mDatas, mConvListView);
+        mListAdapter = new ConversationAdapter(mContext.getActivity(), mDatas, mConvListView);
         mConvListView.setConvListAdapter(mListAdapter);
     }
 
@@ -136,7 +136,7 @@ public class ConversationListController implements View.OnClickListener,
         }
     }
 
-    public MessageAdapter getAdapter() {
+    public ConversationAdapter getAdapter() {
         return mListAdapter;
     }
 

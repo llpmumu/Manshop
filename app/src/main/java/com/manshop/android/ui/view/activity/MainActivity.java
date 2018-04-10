@@ -24,7 +24,7 @@ import com.manshop.android.R;
 import com.manshop.android.adapter.ViewPagerAdapter;
 import com.manshop.android.ui.base.BaseActivity;
 import com.manshop.android.ui.view.fragment.HomeFragment;
-import com.manshop.android.ui.view.fragment.MessageFragment;
+import com.manshop.android.ui.view.fragment.ConversationFragment;
 import com.manshop.android.ui.view.fragment.PersonalFragment;
 
 import cn.jpush.im.android.api.JMessageClient;
@@ -242,7 +242,7 @@ public class MainActivity extends BaseActivity {
     private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
         adapter.addFragment(HomeFragment.newInstance("ic_home"));
-        adapter.addFragment(MessageFragment.newInstance("ic_message"));
+        adapter.addFragment(ConversationFragment.newInstance("ic_message"));
         adapter.addFragment(PersonalFragment.newInstance("per"));
         viewPager.setAdapter(adapter);
     }

@@ -9,7 +9,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
 import com.manshop.android.R;
 import com.manshop.android.model.Goods;
 import com.manshop.android.ui.view.activity.NewPublishActivity;
@@ -20,11 +19,11 @@ import java.util.List;
  * Created by Lin on 2018/1/12.
  */
 
-public class PublishAdapter extends RecyclerView.Adapter<PublishAdapter.ViewHolder> {
+public class ListPublishAdapter extends RecyclerView.Adapter<ListPublishAdapter.ViewHolder> {
     Context context;
     List<Goods> mList;
 
-    public PublishAdapter(Context context, List<Goods> mList) {
+    public ListPublishAdapter(Context context, List<Goods> mList) {
         this.context = context;
         this.mList = mList;
     }

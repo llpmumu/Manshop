@@ -13,7 +13,7 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.manshop.android.MyApplication;
 import com.manshop.android.R;
-import com.manshop.android.adapter.PublishAdapter;
+import com.manshop.android.adapter.ListPublishAdapter;
 import com.manshop.android.model.Goods;
 import com.manshop.android.okHttp.CallBack;
 import com.manshop.android.okHttp.OkHttp;
@@ -23,7 +23,6 @@ import com.manshop.android.util.StringUtil;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -32,7 +31,7 @@ import okhttp3.Response;
 
 public class ListPublishActivity extends BaseActivity {
     private List<Goods> mGood = new ArrayList<>();
-    private PublishAdapter adapter;
+    private ListPublishAdapter adapter;
     private RecyclerView recyclerview;
 
     @Override
@@ -102,7 +101,7 @@ public class ListPublishActivity extends BaseActivity {
                     mGood.add(good);
                     Log.d("good", " goodtime    " + good.getGoodtime());
                 }
-                adapter = new PublishAdapter(ListPublishActivity.this, mGood);
+                adapter = new ListPublishAdapter(ListPublishActivity.this, mGood);
                 recyclerview.setNestedScrollingEnabled(false);
                 recyclerview.setAdapter(adapter);
             }

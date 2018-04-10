@@ -3,32 +3,28 @@ package com.manshop.android.adapter;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
 import com.manshop.android.R;
 import com.manshop.android.model.Goods;
 import com.manshop.android.model.Order;
 import com.manshop.android.ui.view.activity.DeliveryActivity;
 import com.manshop.android.ui.view.activity.OrderDetailActivity;
 
-import java.net.URL;
 import java.util.List;
 
 /**
  * Created by Lin on 2018/2/24.
  */
 
-public class SellOrderAdapter extends RecyclerView.Adapter<SellOrderAdapter.ViewHolder> {
+public class ListSellAdapter extends RecyclerView.Adapter<ListSellAdapter.ViewHolder> {
     Context context;
     List<Order> mList;
 
-    public SellOrderAdapter(Context context, List<Order> mList) {
+    public ListSellAdapter(Context context, List<Order> mList) {
         this.context = context;
         this.mList = mList;
     }

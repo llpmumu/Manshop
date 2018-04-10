@@ -52,7 +52,7 @@ import cn.jpush.im.android.api.model.UserInfo;
  * Created by Lin on 2018/1/4.
  */
 
-public class MessageAdapter extends BaseAdapter {
+public class ConversationAdapter extends BaseAdapter {
     private List<Conversation> mDatas;
     private Activity mContext;
     private Map<String, String> mDraftMap = new HashMap<>();
@@ -65,7 +65,7 @@ public class MessageAdapter extends BaseAdapter {
     private UserInfo mUserInfo;
     private ConversationListView mConversationListView;
 
-    public MessageAdapter(Activity context, List<Conversation> data, ConversationListView convListView) {
+    public ConversationAdapter(Activity context, List<Conversation> data, ConversationListView convListView) {
         this.mContext = context;
         this.mDatas = data;
         this.mConversationListView = convListView;
@@ -586,16 +586,16 @@ public class MessageAdapter extends BaseAdapter {
 
     private static class UIHandler extends Handler {
 
-        private final WeakReference<MessageAdapter> mAdapter;
+        private final WeakReference<ConversationAdapter> mAdapter;
 
-        public UIHandler(MessageAdapter adapter) {
+        public UIHandler(ConversationAdapter adapter) {
             mAdapter = new WeakReference<>(adapter);
         }
 
         @Override
         public void handleMessage(android.os.Message msg) {
             super.handleMessage(msg);
-            MessageAdapter adapter = mAdapter.get();
+            ConversationAdapter adapter = mAdapter.get();
             if (adapter != null) {
                 switch (msg.what) {
                     case REFRESH_CONVERSATION_LIST:

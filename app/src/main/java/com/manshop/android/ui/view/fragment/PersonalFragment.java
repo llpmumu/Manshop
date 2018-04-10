@@ -16,7 +16,6 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.makeramen.roundedimageview.RoundedImageView;
 import com.manshop.android.R;
-import com.manshop.android.adapter.SellOrderAdapter;
 import com.manshop.android.ui.view.activity.ListOrderActivity;
 import com.manshop.android.ui.view.activity.ListSellActivity;
 import com.manshop.android.ui.view.activity.LoginActivity;
