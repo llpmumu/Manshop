@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -30,6 +31,7 @@ public class PersonalFragment extends Fragment {
     private ListView LvPer;
     private TextView tvLogin;
     private RoundedImageView head;
+    private Button btnToLogin;
     private ArrayAdapter<String> adapter;
     private List<String> mPerList = new ArrayList<>();
 
@@ -53,6 +55,7 @@ public class PersonalFragment extends Fragment {
         SharedPreferences user = getActivity().getSharedPreferences("User",MODE_PRIVATE);
         tvLogin = (TextView) view.findViewById(R.id.tvlogin);
         head = (RoundedImageView) view.findViewById(R.id.icon_image);
+        btnToLogin = (Button) view.findViewById(R.id.btn_to_login);
         showUser(user);
 
         //ListView列表
@@ -65,13 +68,16 @@ public class PersonalFragment extends Fragment {
 
     public void showUser(SharedPreferences user){
         if (user.getInt("id",-1) != -1){
-            head.setVisibility(View.VISIBLE);
-            tvLogin.setVisibility(View.INVISIBLE);
+//            head.setVisibility(View.VISIBLE);
             Glide.with(getActivity()).load(user.getString("head","")).into(head);
+            tvLogin.setText(user.getString("username",""));
+            btnToLogin.setVisibility(View.GONE);
         }
         else{
-            head.setVisibility(View.INVISIBLE);
-            tvLogin.setVisibility(View.VISIBLE);
+//            head.setVisibility(View.INVISIBLE);
+            head.setImageResource(R.drawable.ic_unlogin);
+            tvLogin.setText("欢迎来到漫街");
+            btnToLogin.setVisibility(View.VISIBLE);
         }
     }
 

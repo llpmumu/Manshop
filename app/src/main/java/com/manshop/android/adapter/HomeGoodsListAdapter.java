@@ -15,7 +15,6 @@ import com.manshop.android.R;
 import com.manshop.android.model.Goods;
 import com.manshop.android.ui.view.activity.GoodDetailActivity;
 import com.manshop.android.utils.ImageLoadUtils;
-import com.manshop.android.utils.StringUtil;
 
 import java.util.List;
 

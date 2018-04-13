@@ -21,7 +21,6 @@ import com.manshop.android.okHttp.OkHttp;
 import com.manshop.android.ui.view.activity.OrderDetailActivity;
 import com.manshop.android.utils.Constant;
 import com.manshop.android.utils.ImageLoadUtils;
-import com.manshop.android.utils.StringUtil;
 import com.manshop.android.utils.ToastUtil;
 
 import java.io.IOException;
@@ -133,7 +132,6 @@ public class ListOrderAdapter extends RecyclerView.Adapter<ListOrderAdapter.View
             public void callBackSuccess(Response response, Object o) throws IOException {
                 JSONObject json = JSON.parseObject((String) o);
                 Order result = json.getObject("data", Order.class);
-//                result.getGood().setPics(StringUtil.getInstance().spiltPic(result.getGood().getPicture()));
                 result.getGood().setPics(ImageLoadUtils.displayGoodsImage(result.getGood().getPicture()));
                 ToastUtil.shortToast(context, "确认收货");
                 mList.remove(position);

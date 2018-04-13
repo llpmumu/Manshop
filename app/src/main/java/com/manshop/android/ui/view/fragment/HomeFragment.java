@@ -23,12 +23,12 @@ import com.manshop.android.adapter.HomeGoodsListAdapter;
 import com.manshop.android.model.Goods;
 import com.manshop.android.okHttp.CallBack;
 import com.manshop.android.okHttp.OkHttp;
+import com.manshop.android.ui.view.activity.AllGoodsActivity;
 import com.manshop.android.ui.view.activity.AnimeDataActivity;
 import com.manshop.android.ui.view.activity.ShowActivity;
 import com.manshop.android.utils.Constant;
 import com.manshop.android.utils.GlideImageLoader;
 import com.manshop.android.utils.ImageLoadUtils;
-import com.manshop.android.utils.StringUtil;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
 import com.youth.banner.Transformer;
@@ -96,6 +96,13 @@ public class HomeFragment extends Fragment {
         LinearLayoutManager manager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
         recyclerview.setLayoutManager(manager);
 
+        TextView tvBuy = (TextView) view.findViewById(R.id.tv_buy);
+        tvBuy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getActivity(), AllGoodsActivity.class));
+            }
+        });
         TextView tvShow = (TextView) view.findViewById(R.id.tv_show);
         tvShow.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -132,7 +139,6 @@ public class HomeFragment extends Fragment {
                 System.out.println(jsonArray);
                 List<Goods> listGood = JSON.parseArray(jsonArray + "", Goods.class);
                 for (Goods good : listGood) {
-//                    good.setPics(StringUtil.getInstance().spiltPic(good.getPicture()));
                     good.setPics(ImageLoadUtils.displayGoodsImage(good.getPicture()));
 
                     mGood.add(good);

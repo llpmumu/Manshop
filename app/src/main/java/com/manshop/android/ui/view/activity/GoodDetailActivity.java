@@ -27,7 +27,6 @@ import com.manshop.android.ui.base.BaseActivity;
 import com.manshop.android.utils.Constant;
 import com.manshop.android.utils.HandleResponseCode;
 import com.manshop.android.utils.ImageLoadUtils;
-import com.manshop.android.utils.StringUtil;
 
 import java.io.IOException;
 import java.util.HashMap;

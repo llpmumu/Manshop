@@ -21,7 +21,6 @@ import com.manshop.android.okHttp.OkHttp;
 import com.manshop.android.ui.base.BaseActivity;
 import com.manshop.android.utils.Constant;
 import com.manshop.android.utils.ImageLoadUtils;
-import com.manshop.android.utils.StringUtil;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -140,7 +139,6 @@ public class MyNewOrderActivity extends BaseActivity {
             public void callBackSuccess(Response response, Object o) throws IOException {
                 JSONObject json = JSON.parseObject((String) o);
                 good = json.getObject("data", Goods.class);
-//                ivGpic.setImageBitmap(StringUtil.getInstance().spiltPic(good.getPicture()).get(0));
                 Glide.with(MyNewOrderActivity.this).load(ImageLoadUtils.displayGoodsImage(good.getPicture()).get(0)).into(ivGpic);
                 tvGtitle.setText(good.getTitle());
                 tvGprice.setText(good.getPrice() + "￥");

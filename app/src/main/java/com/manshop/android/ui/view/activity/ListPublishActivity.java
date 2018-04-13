@@ -20,7 +20,6 @@ import com.manshop.android.okHttp.OkHttp;
 import com.manshop.android.ui.base.BaseActivity;
 import com.manshop.android.utils.Constant;
 import com.manshop.android.utils.ImageLoadUtils;
-import com.manshop.android.utils.StringUtil;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -98,7 +97,6 @@ public class ListPublishActivity extends BaseActivity {
                 Log.d("good", " " + mGood.size());
                 for (Goods good : listGood) {
                     Log.d("good", " " + good.toString());
-//                    good.setPics(StringUtil.getInstance().spiltPic(good.getPicture()));
                     good.setPics(ImageLoadUtils.displayGoodsImage(good.getPicture()));
                     mGood.add(good);
                     Log.d("good", " goodtime    " + good.getGoodtime());
