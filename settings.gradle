@@ -1,1 +1,1 @@
-include ':app',':reclib-qq', ':reclib-testemoticons','android-expandpoptab-library'
+include ':app',':reclib-qq', ':reclib-testemoticons'
