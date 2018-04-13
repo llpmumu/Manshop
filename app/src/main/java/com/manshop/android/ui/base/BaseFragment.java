@@ -6,8 +6,8 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.DisplayMetrics;
 
-import com.manshop.android.util.FileHelper;
-import com.manshop.android.util.SharePreferenceUtil;
+import com.manshop.android.utils.FileHelper;
+import com.manshop.android.utils.SharePreferenceUtil;
 
 import java.io.File;
 

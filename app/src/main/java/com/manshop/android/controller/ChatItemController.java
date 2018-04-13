@@ -22,10 +22,10 @@ import android.widget.Toast;
 import com.manshop.android.R;
 import com.manshop.android.adapter.ChattingListAdapter;
 import com.manshop.android.adapter.ChattingListAdapter.ViewHolder;
-import com.manshop.android.util.FileHelper;
-import com.manshop.android.util.SimpleCommonUtils;
-import com.manshop.android.util.ToastUtil;
-import com.manshop.android.util.keyboard.utils.HandleResponseCode;
+import com.manshop.android.utils.FileHelper;
+import com.manshop.android.utils.SimpleCommonUtils;
+import com.manshop.android.utils.ToastUtil;
+import com.manshop.android.utils.keyboard.utils.HandleResponseCode;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.squareup.picasso.Picasso;
 

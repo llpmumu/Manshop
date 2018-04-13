@@ -21,9 +21,9 @@ import android.widget.Toast;
 
 import com.manshop.android.R;
 import com.manshop.android.adapter.ChattingListAdapter;
-import com.manshop.android.util.FileHelper;
-import com.manshop.android.util.IdHelper;
-import com.manshop.android.util.keyboard.utils.HandleResponseCode;
+import com.manshop.android.utils.FileHelper;
+import com.manshop.android.utils.IdHelper;
+import com.manshop.android.utils.keyboard.utils.HandleResponseCode;
 
 import java.io.File;
 import java.io.FileInputStream;

@@ -6,9 +6,9 @@ import android.text.Spannable;
 import android.text.TextUtils;
 import android.widget.EditText;
 
-import com.manshop.android.util.keyboard.interfaces.EmoticonFilter;
-import com.manshop.android.util.keyboard.utils.EmoticonsKeyboardUtils;
-import com.manshop.android.util.keyboard.widget.EmoticonSpan;
+import com.manshop.android.utils.keyboard.interfaces.EmoticonFilter;
+import com.manshop.android.utils.keyboard.utils.EmoticonsKeyboardUtils;
+import com.manshop.android.utils.keyboard.widget.EmoticonSpan;
 import com.sj.emoji.EmojiDisplayListener;
 import com.sj.emoji.EmojiSpan;
 import com.testemticon.DefXhsEmoticons;

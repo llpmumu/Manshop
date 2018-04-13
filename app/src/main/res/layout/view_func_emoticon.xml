@@ -7,7 +7,7 @@
 
     <include layout="@layout/ic_spitview_horizontal" />
 
-    <com.manshop.android.util.keyboard.widget.EmoticonsFuncView
+    <com.manshop.android.utils.keyboard.widget.EmoticonsFuncView
 
         android:id="@+id/view_epv"
         android:layout_width="match_parent"
@@ -15,7 +15,7 @@
         android:layout_above="@+id/view_eiv"
         android:orientation="vertical" />
 
-    <com.manshop.android.util.keyboard.widget.EmoticonsIndicatorView
+    <com.manshop.android.utils.keyboard.widget.EmoticonsIndicatorView
         android:id="@+id/view_eiv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -31,7 +31,7 @@
         android:layout_height="@dimen/horizontalspit_view_height"
         android:layout_above="@+id/view_etv" />
 
-    <com.manshop.android.util.keyboard.widget.EmoticonsToolBarView
+    <com.manshop.android.utils.keyboard.widget.EmoticonsToolBarView
         android:id="@+id/view_etv"
         android:layout_width="match_parent"
         android:layout_height="@dimen/bar_height"

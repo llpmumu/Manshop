@@ -22,9 +22,9 @@ import java.util.List;
 
 public class GoodDetailPicAdapter extends RecyclerView.Adapter<GoodDetailPicAdapter.ViewHolder> {
     private Context context;
-    private List<Bitmap> mList;
+    private List<String> mList;
 
-    public GoodDetailPicAdapter(Context context, List<Bitmap> mList) {
+    public GoodDetailPicAdapter(Context context, List<String> mList) {
         this.context = context;
         this.mList = mList;
     }
@@ -45,7 +45,8 @@ public class GoodDetailPicAdapter extends RecyclerView.Adapter<GoodDetailPicAdap
 //        holder.picture.setImageURI(picuri);
 //        Glide.with(context).load(picuri).into(holder.picture);
 //        Log.i("syso", position + ":" + mList.get(position).toString());
-        holder.picture.setImageBitmap(mList.get(position));
+//        holder.picture.setImageBitmap(mList.get(position));
+        Glide.with(context).load(mList.get(position)).into(holder.picture);
 //        Log.d("good", "111111111" + mList.get(position));
 //        String ppp = mList.get(position);
 //        holder.pic.setText(ppp);

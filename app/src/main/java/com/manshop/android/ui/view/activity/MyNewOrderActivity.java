@@ -1,7 +1,6 @@
 package com.manshop.android.ui.view.activity;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
@@ -12,6 +11,7 @@ import android.widget.Toast;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.bumptech.glide.Glide;
 import com.manshop.android.MyApplication;
 import com.manshop.android.R;
 import com.manshop.android.model.Address;
@@ -19,10 +19,9 @@ import com.manshop.android.model.Goods;
 import com.manshop.android.okHttp.CallBack;
 import com.manshop.android.okHttp.OkHttp;
 import com.manshop.android.ui.base.BaseActivity;
-import com.manshop.android.util.Constant;
-import com.manshop.android.util.Merchant;
-import com.manshop.android.util.OrderIdUtil;
-import com.manshop.android.util.StringUtil;
+import com.manshop.android.utils.Constant;
+import com.manshop.android.utils.ImageLoadUtils;
+import com.manshop.android.utils.StringUtil;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -78,13 +77,7 @@ public class MyNewOrderActivity extends BaseActivity {
         intent = getIntent();
         addAddress();
         getGoodInfo();
-//        pay = new FuQianLaPay.Builder(this)
-//                .model(FuQianLa.MODEL_PRE_CHANNEL)//通道前置模式
-//                .orderID(OrderIdUtil.getOutTradeNo())//订单号
-//                .amount(0.01)//金额
-//                .subject(good.getTitle())//商品名称
-//                .notifyUrl(Merchant.MERCHANT_NOTIFY_URL)
-//                .build();
+
     }
 
     @OnClick(R.id.btn_address_select)
@@ -147,7 +140,8 @@ public class MyNewOrderActivity extends BaseActivity {
             public void callBackSuccess(Response response, Object o) throws IOException {
                 JSONObject json = JSON.parseObject((String) o);
                 good = json.getObject("data", Goods.class);
-                ivGpic.setImageBitmap(StringUtil.getInstance().spiltPic(good.getPicture()).get(0));
+//                ivGpic.setImageBitmap(StringUtil.getInstance().spiltPic(good.getPicture()).get(0));
+                Glide.with(MyNewOrderActivity.this).load(ImageLoadUtils.displayGoodsImage(good.getPicture()).get(0)).into(ivGpic);
                 tvGtitle.setText(good.getTitle());
                 tvGprice.setText(good.getPrice() + "￥");
                 tvAllPrice.setText(good.getPrice() + "￥");
@@ -158,8 +152,7 @@ public class MyNewOrderActivity extends BaseActivity {
     //提交订单
     public void submitOrder(View view) {
         final Map<String, Object> params = new HashMap<>();
-//        params.put("id", null);
-        params.put("id", OrderIdUtil.getOutTradeNo());
+        params.put("id", null);
         params.put("gid", intent.getIntExtra("gid", 0));
         params.put("suid", good.getUser().getId());
         params.put("buid", MyApplication.getInstance().getUserId());

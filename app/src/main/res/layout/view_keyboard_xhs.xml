@@ -51,7 +51,7 @@
             android:paddingTop="5dp">
 
             <!--输入框-->
-            <com.manshop.android.util.keyboard.widget.EmoticonsEditText
+            <com.manshop.android.utils.keyboard.widget.EmoticonsEditText
                 android:id="@+id/et_chat"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -108,7 +108,7 @@
         </RelativeLayout>
     </RelativeLayout>
 
-    <com.manshop.android.util.keyboard.widget.FuncLayout
+    <com.manshop.android.utils.keyboard.widget.FuncLayout
         android:id="@+id/ly_kvml"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.bumptech.glide.Glide;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.manshop.android.R;
 
@@ -19,9 +20,9 @@ import java.util.List;
 
 public class HomeGoodsPicAdapter extends RecyclerView.Adapter<HomeGoodsPicAdapter.ViewHolder> {
     Context context;
-    List<Bitmap> mList;
+    List<String> mList;
 
-    public HomeGoodsPicAdapter(Context context, List<Bitmap> mList) {
+    public HomeGoodsPicAdapter(Context context, List<String> mList) {
         this.context = context;
         this.mList = mList;
     }
@@ -41,7 +42,8 @@ public class HomeGoodsPicAdapter extends RecyclerView.Adapter<HomeGoodsPicAdapte
         holder.itemView.setTag(position);
 
 //        Uri uri = Uri.parse(mList.get(position));
-        holder.draweeView.setImageBitmap(mList.get(position));
+        Glide.with(context).load(mList.get(position)).into(holder.draweeView);
+//        holder.draweeView.setImageBitmap(mList.get(position));
     }
 
     @Override

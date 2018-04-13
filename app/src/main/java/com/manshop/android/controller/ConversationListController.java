@@ -11,8 +11,8 @@ import com.manshop.android.MyApplication;
 import com.manshop.android.adapter.ConversationAdapter;
 import com.manshop.android.ui.view.activity.ChatActivity;
 import com.manshop.android.ui.view.fragment.ConversationFragment;
-import com.manshop.android.util.SortConvList;
-import com.manshop.android.util.SortTopConvList;
+import com.manshop.android.utils.SortConvList;
+import com.manshop.android.utils.SortTopConvList;
 import com.manshop.android.view.ConversationListView;
 
 import java.util.ArrayList;

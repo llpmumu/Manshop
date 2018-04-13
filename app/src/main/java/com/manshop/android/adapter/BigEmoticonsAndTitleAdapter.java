@@ -5,10 +5,10 @@ import android.view.View;
 
 import com.manshop.android.R;
 import com.manshop.android.model.Constants;
-import com.manshop.android.util.ImageLoadUtils;
-import com.manshop.android.util.keyboard.data.EmoticonEntity;
-import com.manshop.android.util.keyboard.data.EmoticonPageEntity;
-import com.manshop.android.util.keyboard.interfaces.EmoticonClickListener;
+import com.manshop.android.utils.ImageLoadUtils;
+import com.manshop.android.utils.keyboard.data.EmoticonEntity;
+import com.manshop.android.utils.keyboard.data.EmoticonPageEntity;
+import com.manshop.android.utils.keyboard.interfaces.EmoticonClickListener;
 
 import java.io.IOException;
 

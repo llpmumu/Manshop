@@ -7,7 +7,7 @@
                             android:orientation="vertical">
 
 
-    <com.manshop.android.util.keyboard.XhsEmoticonsKeyBoard
+    <com.manshop.android.utils.keyboard.XhsEmoticonsKeyBoard
         android:id="@+id/ek_bar"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -102,7 +102,7 @@
         </LinearLayout>
 
 
-    </com.manshop.android.util.keyboard.XhsEmoticonsKeyBoard>
+    </com.manshop.android.utils.keyboard.XhsEmoticonsKeyBoard>
 
 </com.manshop.android.view.ChatView>
 

@@ -1,7 +1,6 @@
 package com.manshop.android.ui.view.activity;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
@@ -19,8 +18,9 @@ import com.manshop.android.model.User;
 import com.manshop.android.okHttp.CallBack;
 import com.manshop.android.okHttp.OkHttp;
 import com.manshop.android.ui.base.BaseActivity;
-import com.manshop.android.util.Constant;
-import com.manshop.android.util.StringUtil;
+import com.manshop.android.utils.Constant;
+import com.manshop.android.utils.ImageLoadUtils;
+import com.manshop.android.utils.StringUtil;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -114,7 +114,8 @@ public class OrderDetailActivity extends BaseActivity {
                 //物品信息
                 Goods good = order.getGood();
                 String picture = good.getPicture();
-                sdvPic.setImageBitmap(StringUtil.getInstance().spiltPic(picture).get(0));
+//                sdvPic.setImageBitmap(StringUtil.getInstance().spiltPic(picture).get(0));
+                Glide.with(OrderDetailActivity.this).load(ImageLoadUtils.displayGoodsImage(good.getPicture()).get(0)).into(sdvPic);
                 dtlTitle.setText(good.getTitle());
 
                 //订单信息

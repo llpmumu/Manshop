@@ -9,7 +9,6 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,9 +25,10 @@ import com.manshop.android.okHttp.CallBack;
 import com.manshop.android.okHttp.OkHttp;
 import com.manshop.android.ui.view.activity.AnimeDataActivity;
 import com.manshop.android.ui.view.activity.ShowActivity;
-import com.manshop.android.util.Constant;
-import com.manshop.android.util.GlideImageLoader;
-import com.manshop.android.util.StringUtil;
+import com.manshop.android.utils.Constant;
+import com.manshop.android.utils.GlideImageLoader;
+import com.manshop.android.utils.ImageLoadUtils;
+import com.manshop.android.utils.StringUtil;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
 import com.youth.banner.Transformer;
@@ -132,7 +132,9 @@ public class HomeFragment extends Fragment {
                 System.out.println(jsonArray);
                 List<Goods> listGood = JSON.parseArray(jsonArray + "", Goods.class);
                 for (Goods good : listGood) {
-                    good.setPics(StringUtil.getInstance().spiltPic(good.getPicture()));
+//                    good.setPics(StringUtil.getInstance().spiltPic(good.getPicture()));
+                    good.setPics(ImageLoadUtils.displayGoodsImage(good.getPicture()));
+
                     mGood.add(good);
                 }
                 recyclerview.setNestedScrollingEnabled(false);

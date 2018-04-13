@@ -1,6 +1,5 @@
 package com.manshop.android.ui.view.activity;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -18,8 +17,8 @@ import com.manshop.android.model.User;
 import com.manshop.android.okHttp.CallBack;
 import com.manshop.android.ui.base.BaseActivity;
 import com.manshop.android.okHttp.OkHttp;
-import com.manshop.android.util.Constant;
-import com.manshop.android.util.SharePreferenceUtil;
+import com.manshop.android.utils.Constant;
+import com.manshop.android.utils.SharePreferenceUtil;
 
 import java.io.IOException;
 import java.util.HashMap;

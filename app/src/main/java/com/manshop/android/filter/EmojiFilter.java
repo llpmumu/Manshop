@@ -3,8 +3,8 @@ package com.manshop.android.filter;
 import android.text.Spannable;
 import android.widget.EditText;
 
-import com.manshop.android.util.keyboard.interfaces.EmoticonFilter;
-import com.manshop.android.util.keyboard.utils.EmoticonsKeyboardUtils;
+import com.manshop.android.utils.keyboard.interfaces.EmoticonFilter;
+import com.manshop.android.utils.keyboard.utils.EmoticonsKeyboardUtils;
 import com.sj.emoji.EmojiDisplay;
 import com.sj.emoji.EmojiSpan;
 

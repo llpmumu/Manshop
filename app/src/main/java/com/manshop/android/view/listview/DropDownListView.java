@@ -17,7 +17,7 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 
 import com.manshop.android.R;
-import com.manshop.android.util.IdHelper;
+import com.manshop.android.utils.IdHelper;
 
 public class DropDownListView extends ListView implements OnScrollListener {
 

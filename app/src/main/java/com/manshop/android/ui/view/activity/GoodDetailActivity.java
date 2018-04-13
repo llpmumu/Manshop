@@ -1,17 +1,13 @@
 package com.manshop.android.ui.view.activity;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextPaint;
 import android.text.TextUtils;
-import android.util.Log;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -28,15 +24,13 @@ import com.manshop.android.model.Goods;
 import com.manshop.android.okHttp.CallBack;
 import com.manshop.android.okHttp.OkHttp;
 import com.manshop.android.ui.base.BaseActivity;
-import com.manshop.android.util.Constant;
-import com.manshop.android.util.HandleResponseCode;
-import com.manshop.android.util.StringUtil;
+import com.manshop.android.utils.Constant;
+import com.manshop.android.utils.HandleResponseCode;
+import com.manshop.android.utils.ImageLoadUtils;
+import com.manshop.android.utils.StringUtil;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import cn.jpush.im.android.api.JMessageClient;
@@ -118,7 +112,7 @@ public class GoodDetailActivity extends BaseActivity {
 
                 //物品图片
                 String picture = good.getPicture();
-                adapter = new GoodDetailPicAdapter(GoodDetailActivity.this, StringUtil.getInstance().spiltPic(picture));
+                adapter = new GoodDetailPicAdapter(GoodDetailActivity.this, ImageLoadUtils.displayGoodsImage(picture));
                 rePic.setAdapter(adapter);
                 rePic.setFocusableInTouchMode(false);
                 rePic.requestFocus();

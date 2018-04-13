@@ -12,15 +12,17 @@ import android.widget.TextView;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.bumptech.glide.Glide;
 import com.manshop.android.R;
 import com.manshop.android.model.Goods;
 import com.manshop.android.model.Order;
 import com.manshop.android.okHttp.CallBack;
 import com.manshop.android.okHttp.OkHttp;
 import com.manshop.android.ui.view.activity.OrderDetailActivity;
-import com.manshop.android.util.Constant;
-import com.manshop.android.util.StringUtil;
-import com.manshop.android.util.ToastUtil;
+import com.manshop.android.utils.Constant;
+import com.manshop.android.utils.ImageLoadUtils;
+import com.manshop.android.utils.StringUtil;
+import com.manshop.android.utils.ToastUtil;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -58,7 +60,8 @@ public class ListOrderAdapter extends RecyclerView.Adapter<ListOrderAdapter.View
         holder.itemView.setTag(position);
         final Order order = mList.get(position);
         Goods good = order.getGood();
-        holder.orderPic.setImageBitmap(good.getPics().get(0));
+        Glide.with(context).load(good.getPics().get(0)).into(holder.orderPic);
+//        holder.orderPic.setImageBitmap(good.getPics().get(0));
         Log.d("order", order.getState() + "       2222");
         holder.orderName.setText(good.getTitle());
         holder.orderPrice.setText(good.getPrice() + "￥");
@@ -130,7 +133,8 @@ public class ListOrderAdapter extends RecyclerView.Adapter<ListOrderAdapter.View
             public void callBackSuccess(Response response, Object o) throws IOException {
                 JSONObject json = JSON.parseObject((String) o);
                 Order result = json.getObject("data", Order.class);
-                result.getGood().setPics(StringUtil.getInstance().spiltPic(result.getGood().getPicture()));
+//                result.getGood().setPics(StringUtil.getInstance().spiltPic(result.getGood().getPicture()));
+                result.getGood().setPics(ImageLoadUtils.displayGoodsImage(result.getGood().getPicture()));
                 ToastUtil.shortToast(context, "确认收货");
                 mList.remove(position);
                 mList.add(position, result);

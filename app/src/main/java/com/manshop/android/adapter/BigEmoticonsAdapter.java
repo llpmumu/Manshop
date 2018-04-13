@@ -9,11 +9,11 @@ import android.widget.TextView;
 
 import com.manshop.android.R;
 import com.manshop.android.model.Constants;
-import com.manshop.android.util.keyboard.adpater.EmoticonsAdapter;
-import com.manshop.android.util.keyboard.data.EmoticonEntity;
-import com.manshop.android.util.keyboard.data.EmoticonPageEntity;
-import com.manshop.android.util.keyboard.interfaces.EmoticonClickListener;
-import com.manshop.android.util.keyboard.utils.imageloader.ImageLoader;
+import com.manshop.android.utils.keyboard.adpater.EmoticonsAdapter;
+import com.manshop.android.utils.keyboard.data.EmoticonEntity;
+import com.manshop.android.utils.keyboard.data.EmoticonPageEntity;
+import com.manshop.android.utils.keyboard.interfaces.EmoticonClickListener;
+import com.manshop.android.utils.keyboard.utils.imageloader.ImageLoader;
 
 import java.io.IOException;
 

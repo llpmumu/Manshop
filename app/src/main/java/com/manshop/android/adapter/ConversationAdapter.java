@@ -18,11 +18,11 @@ import android.widget.TextView;
 
 import com.manshop.android.MyApplication;
 import com.manshop.android.R;
-import com.manshop.android.util.SharePreferenceUtil;
-import com.manshop.android.util.SortConvList;
-import com.manshop.android.util.SortTopConvList;
-import com.manshop.android.util.TimeFormat;
-import com.manshop.android.util.ViewHolder;
+import com.manshop.android.utils.SharePreferenceUtil;
+import com.manshop.android.utils.SortConvList;
+import com.manshop.android.utils.SortTopConvList;
+import com.manshop.android.utils.TimeFormat;
+import com.manshop.android.utils.ViewHolder;
 import com.manshop.android.view.ConversationListView;
 import com.manshop.android.view.SwipeLayoutConv;
 

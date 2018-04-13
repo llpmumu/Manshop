@@ -1,6 +1,5 @@
 package com.manshop.android.ui.view.activity;
 
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -15,10 +14,9 @@ import com.manshop.android.R;
 import com.manshop.android.okHttp.CallBack;
 import com.manshop.android.ui.base.BaseActivity;
 import com.manshop.android.okHttp.OkHttp;
-import com.manshop.android.util.Constant;
+import com.manshop.android.utils.Constant;
 
 import java.io.IOException;
-import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -26,8 +24,6 @@ import cn.jpush.im.android.api.JMessageClient;
 import cn.jpush.im.android.api.options.RegisterOptionalUserInfo;
 import cn.jpush.im.api.BasicCallback;
 import okhttp3.Response;
-
-import static cn.jpush.im.android.api.model.UserInfo.Field.gender;
 
 
 public class RegisterActivity extends BaseActivity {

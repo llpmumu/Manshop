@@ -15,8 +15,8 @@ import com.manshop.android.model.Order;
 import com.manshop.android.okHttp.CallBack;
 import com.manshop.android.okHttp.OkHttp;
 import com.manshop.android.ui.base.BaseActivity;
-import com.manshop.android.util.Constant;
-import com.manshop.android.util.ToastUtil;
+import com.manshop.android.utils.Constant;
+import com.manshop.android.utils.ToastUtil;
 
 import java.io.IOException;
 import java.util.HashMap;

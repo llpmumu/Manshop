@@ -20,7 +20,7 @@ import com.manshop.android.model.Show;
 import com.manshop.android.okHttp.CallBack;
 import com.manshop.android.okHttp.OkHttp;
 import com.manshop.android.ui.base.BaseActivity;
-import com.manshop.android.util.Constant;
+import com.manshop.android.utils.Constant;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;

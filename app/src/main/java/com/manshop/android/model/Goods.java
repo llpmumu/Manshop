@@ -20,7 +20,7 @@ public class Goods {
     private Integer type;
     private Integer state;
     private String picture;
-    private List<Bitmap> pics;
+    private List<String> pics;
     private Timestamp goodtime;
 
     public Goods() {
@@ -106,11 +106,11 @@ public class Goods {
         this.picture = picture;
     }
 
-    public List<Bitmap> getPics() {
+    public List<String> getPics() {
         return pics;
     }
 
-    public void setPics(List<Bitmap> pics) {
+    public void setPics(List<String> pics) {
         this.pics = pics;
     }
 

@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.manshop.android.R;
 import com.manshop.android.model.Goods;
 import com.manshop.android.model.Order;
@@ -44,7 +45,8 @@ public class ListSellAdapter extends RecyclerView.Adapter<ListSellAdapter.ViewHo
         holder.itemView.setTag(position);
         Order order = mList.get(position);
         Goods good = order.getGood();
-        holder.orderPic.setImageBitmap(good.getPics().get(0));
+        Glide.with(context).load(good.getPics().get(0)).into(holder.orderPic);
+//        holder.orderPic.setImageBitmap(good.getPics().get(0));
 
         holder.orderName.setText(good.getTitle());
         holder.orderPrice.setText(good.getPrice() + "￥");

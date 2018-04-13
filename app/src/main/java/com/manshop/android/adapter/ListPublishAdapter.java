@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.manshop.android.R;
 import com.manshop.android.model.Goods;
 import com.manshop.android.ui.view.activity.NewPublishActivity;
@@ -42,8 +43,8 @@ public class ListPublishAdapter extends RecyclerView.Adapter<ListPublishAdapter.
          */
         holder.itemView.setTag(position);
         Goods good = mList.get(position);
-//        Glide.with(context).load(good.getPics().get(0)).into(holder.goodPic);
-        holder.goodPic.setImageBitmap(good.getPics().get(0));
+        Glide.with(context).load(good.getPics().get(0)).into(holder.goodPic);
+//        holder.goodPic.setImageBitmap(good.getPics().get(0));
         holder.goodName.setText(good.getTitle());
         holder.goodPrice.setText(good.getPrice() + "￥");
 

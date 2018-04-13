@@ -14,10 +14,9 @@ import com.makeramen.roundedimageview.RoundedImageView;
 import com.manshop.android.R;
 import com.manshop.android.model.Goods;
 import com.manshop.android.ui.view.activity.GoodDetailActivity;
-import com.manshop.android.util.StringUtil;
+import com.manshop.android.utils.ImageLoadUtils;
+import com.manshop.android.utils.StringUtil;
 
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 /**
@@ -56,7 +55,7 @@ public class HomeGoodsListAdapter extends RecyclerView.Adapter<HomeGoodsListAdap
         LinearLayoutManager manager = new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false);
         holder.recyclerView.setLayoutManager(manager);
 
-        HomeGoodsPicAdapter adapter = new HomeGoodsPicAdapter(context, StringUtil.getInstance().spiltPic(good.getPicture()));
+        HomeGoodsPicAdapter adapter = new HomeGoodsPicAdapter(context, ImageLoadUtils.displayGoodsImage(good.getPicture()));
         holder.recyclerView.setAdapter(adapter);
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {

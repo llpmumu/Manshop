@@ -17,8 +17,9 @@ import com.manshop.android.model.Order;
 import com.manshop.android.okHttp.CallBack;
 import com.manshop.android.okHttp.OkHttp;
 import com.manshop.android.ui.base.BaseActivity;
-import com.manshop.android.util.Constant;
-import com.manshop.android.util.StringUtil;
+import com.manshop.android.utils.Constant;
+import com.manshop.android.utils.ImageLoadUtils;
+import com.manshop.android.utils.StringUtil;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -77,8 +78,8 @@ public class ListOrderActivity extends BaseActivity {
                 List<Order> listOrder = JSON.parseArray(jsonArray + "", Order.class);
                 for (Order order : listOrder) {
                     Goods good = order.getGood();
-                    Log.d("order", "222" + good.getPicture());
-                    good.setPics(StringUtil.getInstance().spiltPic(good.getPicture()));
+//                    good.setPics(StringUtil.getInstance().spiltPic(good.getPicture()));
+                    good.setPics(ImageLoadUtils.displayGoodsImage(good.getPicture()));
                     mOrder.add(order);
                 }
                 adapter = new ListOrderAdapter(ListOrderActivity.this, mOrder);

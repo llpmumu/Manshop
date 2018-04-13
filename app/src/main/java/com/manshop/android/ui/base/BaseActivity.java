@@ -4,8 +4,6 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.PersistableBundle;
-import android.support.annotation.Nullable;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -22,13 +20,12 @@ import android.widget.TextView;
 import com.manshop.android.R;
 import com.manshop.android.ui.view.activity.LoginActivity;
 import com.manshop.android.ui.view.activity.MainActivity;
-import com.manshop.android.util.DialogCreator;
-import com.manshop.android.util.FileHelper;
-import com.manshop.android.util.SharePreferenceUtil;
+import com.manshop.android.utils.DialogCreator;
+import com.manshop.android.utils.FileHelper;
+import com.manshop.android.utils.SharePreferenceUtil;
 
 import java.io.File;
 
-import butterknife.ButterKnife;
 import cn.jpush.im.android.api.JMessageClient;
 import cn.jpush.im.android.api.event.LoginStateChangeEvent;
 import cn.jpush.im.android.api.model.UserInfo;
