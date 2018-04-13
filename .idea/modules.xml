@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/Manshop.iml" filepath="$PROJECT_DIR$/Manshop.iml" />
+      <module fileurl="file://$PROJECT_DIR$/android-expandpoptab-library/android-expandpoptab-library.iml" filepath="$PROJECT_DIR$/android-expandpoptab-library/android-expandpoptab-library.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/reclib-qq/reclib-qq.iml" filepath="$PROJECT_DIR$/reclib-qq/reclib-qq.iml" />
       <module fileurl="file://$PROJECT_DIR$/reclib-testemoticons/reclib-testemoticons.iml" filepath="$PROJECT_DIR$/reclib-testemoticons/reclib-testemoticons.iml" />

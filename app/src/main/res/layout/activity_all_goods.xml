@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context="com.manshop.android.ui.view.activity.AllGoodsActivity">
 
     <LinearLayout
@@ -28,5 +29,10 @@
                 android:textColor="#fff"
                 android:textSize="20sp" />
         </android.support.v7.widget.Toolbar>
+
+        <ExpandTab
+            android:id="@+id/expandtab_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
     </LinearLayout>
 </LinearLayout>

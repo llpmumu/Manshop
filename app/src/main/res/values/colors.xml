@@ -16,6 +16,8 @@
     <color name="btnBuy">#ff0000</color>
     <color name="green">#7CFC00</color>
     <color name="btn_send">#82C462</color>
+    <color name="choose_eara_item_press_color">#f4f4f4</color>
+    <color name="popup_main_background">#b0000000</color>
 
     <color name="jmui_jpush_blue">#2DD0CF</color>
     <color name="titlebar_text_color">#fff</color>
