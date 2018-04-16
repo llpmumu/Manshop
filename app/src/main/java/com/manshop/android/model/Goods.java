@@ -13,6 +13,8 @@ public class Goods {
     private Integer id;
     private Integer uid;
     private User user;
+    private Integer sid;
+    private SmallSort smallSort;
     private String title;
     private String detail;
     private String price;
@@ -48,6 +50,22 @@ public class Goods {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public Integer getSid() {
+        return sid;
+    }
+
+    public void setSid(Integer sid) {
+        this.sid = sid;
+    }
+
+    public SmallSort getSmallSort() {
+        return smallSort;
+    }
+
+    public void setSmallSort(SmallSort smallSort) {
+        this.smallSort = smallSort;
     }
 
     public String getTitle() {

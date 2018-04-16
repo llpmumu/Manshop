@@ -31,9 +31,15 @@
         </android.support.v7.widget.Toolbar>
 
     </LinearLayout>
+
     <com.manshop.android.view.ExpandTabView
         android:id="@+id/expandtab_view"
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/hello_world" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/re_goods"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
 </LinearLayout>

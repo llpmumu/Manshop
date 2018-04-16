@@ -88,17 +88,7 @@ public class ViewMiddle extends LinearLayout implements ViewBaseAction {
         setBackgroundDrawable(getResources().getDrawable(
                 R.drawable.choosearea_bg_left));
 
-//        for (int i = 0; i < 10; i++) {
-//            groups.add(i + "行");
-
-//            for (int j = 0; j < 15; j++) {
-//
-//                tItem.add(i + "行" + j + "列");
-//
-//            }
-//            children.put(i, tItem);
-//        }
-        initSort(context, groups,children);
+        initSort(context);
 
         earaListViewAdapter = new TextAdapter(context, groups,
                 R.drawable.choose_item_selected,
@@ -106,8 +96,7 @@ public class ViewMiddle extends LinearLayout implements ViewBaseAction {
         earaListViewAdapter.setTextSize(17);
         earaListViewAdapter.setSelectedPositionNoNotify(tEaraPosition);
         regionListView.setAdapter(earaListViewAdapter);
-        earaListViewAdapter
-                .setOnItemClickListener(new TextAdapter.OnItemClickListener() {
+        earaListViewAdapter.setOnItemClickListener(new TextAdapter.OnItemClickListener() {
 
                     @Override
                     public void onItemClick(View view, int position) {
@@ -131,10 +120,8 @@ public class ViewMiddle extends LinearLayout implements ViewBaseAction {
 
                     @Override
                     public void onItemClick(View view, final int position) {
-
                         showString = childrenItem.get(position);
                         if (mOnSelectListener != null) {
-
                             mOnSelectListener.getValue(showString);
                         }
 
@@ -166,7 +153,8 @@ public class ViewMiddle extends LinearLayout implements ViewBaseAction {
         public void getValue(String showText);
     }
 
-    public void initSort(Context context, final List<String> sortList, final SparseArray<LinkedList<String>> smallSortList) {
+//    载入分类
+    public void initSort(Context context) {
         okHttp.doGet(Constant.baseURL + "sort/getSort", new CallBack(context) {
             @Override
             public void onError(Response response, Exception e) throws IOException {
@@ -180,7 +168,7 @@ public class ViewMiddle extends LinearLayout implements ViewBaseAction {
                 System.out.println(jsonArray);
                 List<Sort> listSort = JSON.parseArray(jsonArray + "", Sort.class);
                 for (int i =0;i<listSort.size();i++) {
-                    sortList.add(listSort.get(i).getSortName());
+                    groups.add(listSort.get(i).getSortName());
                     LinkedList<String> tItem = new LinkedList<String>();
                     for (SmallSort smallSort : listSort.get(i).getSmallSortList()) {
                         tItem.add(smallSort.getSortName());
