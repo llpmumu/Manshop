@@ -2,6 +2,7 @@ package com.manshop.android.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -48,7 +49,8 @@ public class ShowAdapter extends RecyclerView.Adapter<ShowAdapter.ViewHolder> {
         Glide.with(context).load(show.getPicture()).into(holder.ivShow);
         holder.tvShowName.setText(show.getTitle());
         holder.tvShowAddress.setText(show.getAddress());
-        holder.tvShowData.setText(show.getShowdata());
+        holder.tvShowDate.setText(show.getShowdate());
+        Log.d("show",show.getShowdate());
     }
 
 
@@ -61,14 +63,14 @@ public class ShowAdapter extends RecyclerView.Adapter<ShowAdapter.ViewHolder> {
         ImageView ivShow;
         TextView tvShowName;
         TextView tvShowAddress;
-        TextView tvShowData;
+        TextView tvShowDate;
 
         public ViewHolder(View itemView) {
             super(itemView);
             ivShow = (ImageView) itemView.findViewById(R.id.iv_show);
             tvShowName = (TextView) itemView.findViewById(R.id.tv_show_name);
             tvShowAddress = (TextView) itemView.findViewById(R.id.tv_show_address);
-            tvShowData = (TextView) itemView.findViewById(R.id.tv_show_data);
+            tvShowDate = (TextView) itemView.findViewById(R.id.tv_show_date);
         }
     }
 

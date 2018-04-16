@@ -191,8 +191,8 @@ public class MainActivity extends BaseActivity {
         SharedPreferences share = getSharedPreferences("User", MODE_PRIVATE);
         Log.d("user", "login");
         if (share.getInt("id", -1) != -1) {
-//            Glide.with(MainActivity.this).load(share.getString("head", "")).into(head);
-            Glide.with(MainActivity.this).load(Constant.baseURL+"image/2.jpg").into(head);
+            Glide.with(MainActivity.this).load(share.getString("head", "")).into(head);
+//            Glide.with(MainActivity.this).load(Constant.baseURL+"image/2.jpg").into(head);
             tvUsername.setText(share.getString("username", ""));
             Log.d("user", share.getString("head", ""));
             Log.d("user", share.getString("username", ""));

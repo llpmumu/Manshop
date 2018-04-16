@@ -10,7 +10,7 @@ public class Show {
     private String province;
     private String address;
     private String picture;
-    private String showdata;
+    private String showdate;
 
 
     public Show() {
@@ -40,12 +40,12 @@ public class Show {
         this.address = address;
     }
 
-    public String getShowdata() {
-        return showdata;
+    public String getShowdate() {
+        return showdate;
     }
 
-    public void setShowdata(String showdata) {
-        this.showdata = showdata;
+    public void setShowdate(String showdate) {
+        this.showdate = showdate;
     }
 
     public String getPicture() {
@@ -64,15 +64,4 @@ public class Show {
         this.province = province;
     }
 
-    @Override
-    public String toString() {
-        return "Show{" +
-                "id=" + id +
-                ", title='" + title + '\'' +
-                ", province='" + province + '\'' +
-                ", address='" + address + '\'' +
-                ", picture='" + picture + '\'' +
-                ", showdata='" + showdata + '\'' +
-                '}';
-    }
 }
