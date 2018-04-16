@@ -165,7 +165,12 @@
         <activity android:name=".ui.view.activity.NewAddressActivity" />
         <activity
             android:name=".ui.view.activity.NewPublishActivity"
-            android:windowSoftInputMode="stateHidden" />
+            android:windowSoftInputMode="stateHidden">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity android:name=".ui.view.activity.MyNewOrderActivity" />
         <activity android:name=".ui.view.activity.DeliveryActivity" />
         <activity android:name=".ui.view.activity.OrderDetailActivity" />
@@ -174,11 +179,7 @@
         <activity android:name=".ui.view.activity.ListSellActivity" />
         <activity android:name=".ui.view.activity.ChatActivity" />
         <activity android:name=".ui.view.activity.AllGoodsActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
     </application>
 

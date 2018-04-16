@@ -6,6 +6,7 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
@@ -16,6 +17,7 @@ import com.manshop.android.adapter.ListAllGoodsAdapter;
 import com.manshop.android.model.Goods;
 import com.manshop.android.okHttp.CallBack;
 import com.manshop.android.okHttp.OkHttp;
+import com.manshop.android.ui.base.BaseActivity;
 import com.manshop.android.utils.Constant;
 import com.manshop.android.utils.ImageLoadUtils;
 import com.manshop.android.view.ExpandTabView;
@@ -32,7 +34,7 @@ import java.util.Map;
 
 import okhttp3.Response;
 
-public class AllGoodsActivity extends AppCompatActivity {
+public class AllGoodsActivity extends BaseActivity {
     private ExpandTabView expandTabView;
     private RecyclerView reGoods;
     private ListAllGoodsAdapter adapter;
@@ -46,10 +48,21 @@ public class AllGoodsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_all_goods);
+        showToolbar();
         initView();
         initVaule();
         initListener();
         refreshView("全部");
+    }
+
+    @Override
+    public void showToolbar() {
+        super.showToolbar();
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        return super.onOptionsItemSelected(item);
     }
 
     private void initView() {
