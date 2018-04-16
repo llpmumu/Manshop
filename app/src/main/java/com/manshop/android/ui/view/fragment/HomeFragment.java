@@ -140,7 +140,6 @@ public class HomeFragment extends Fragment {
                 List<Goods> listGood = JSON.parseArray(jsonArray + "", Goods.class);
                 for (Goods good : listGood) {
                     good.setPics(ImageLoadUtils.displayGoodsImage(good.getPicture()));
-
                     mGood.add(good);
                 }
                 recyclerview.setNestedScrollingEnabled(false);

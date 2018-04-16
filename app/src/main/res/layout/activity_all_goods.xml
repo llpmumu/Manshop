@@ -30,9 +30,10 @@
                 android:textSize="20sp" />
         </android.support.v7.widget.Toolbar>
 
-        <ExpandTab
-            android:id="@+id/expandtab_view"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
     </LinearLayout>
+    <com.manshop.android.view.ExpandTabView
+        android:id="@+id/expandtab_view"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/hello_world" />
 </LinearLayout>

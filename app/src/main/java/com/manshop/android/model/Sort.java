@@ -5,15 +5,15 @@ import java.util.List;
 public class Sort {
     private Integer id;
     private String sortName;
-    private List<String> smallSort;
+    private List<SmallSort> smallSortList;
 
     public Sort() {
     }
 
-    public Sort(Integer id, String sortName, List<String> smallSort) {
+    public Sort(Integer id, String sortName, List<SmallSort> smallSortList) {
         this.id = id;
         this.sortName = sortName;
-        this.smallSort = smallSort;
+        this.smallSortList = smallSortList;
     }
 
     public Integer getId() {
@@ -32,11 +32,11 @@ public class Sort {
         this.sortName = sortName;
     }
 
-    public List<String> getSmallSort() {
-        return smallSort;
+    public List<SmallSort> getSmallSortList() {
+        return smallSortList;
     }
 
-    public void setSmallSort(List<String> smallSort) {
-        this.smallSort = smallSort;
+    public void setSmallSortList(List<SmallSort> smallSortList) {
+        this.smallSortList = smallSortList;
     }
 }
