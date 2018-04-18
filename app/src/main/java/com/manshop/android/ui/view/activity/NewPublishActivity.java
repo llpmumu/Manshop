@@ -11,11 +11,15 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.GridView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.jph.takephoto.app.TakePhoto;
 import com.jph.takephoto.app.TakePhotoImpl;
 import com.jph.takephoto.compress.CompressConfig;
@@ -29,6 +33,9 @@ import com.longsh.optionframelibrary.OptionBottomDialog;
 import com.manshop.android.MyApplication;
 import com.manshop.android.R;
 import com.manshop.android.adapter.GridViewAddImgesAdpter;
+import com.manshop.android.model.Goods;
+import com.manshop.android.model.Order;
+import com.manshop.android.model.SmallSort;
 import com.manshop.android.okHttp.CallBack;
 import com.manshop.android.okHttp.OkHttp;
 import com.manshop.android.ui.base.BaseActivity;
@@ -52,26 +59,21 @@ public class NewPublishActivity extends BaseActivity implements TakePhoto.TakeRe
     private EditText etTitle;
     private EditText etDetail;
 
-    //选择出售、或者出租
-//    private RadioGroup pubRg;
-//    private RadioButton saleRb;
-//    private RadioButton rentRb;
-
     //价格 租金
-    private TextView tip1;
     private EditText etPrice;
-//    private TextView tip2;
-//    private EditText etRent;
-//    private TextView tip3;
 
+    private Spinner spSort;
     private Boolean isEdit;
     private Intent intent;
+    private List<String> listSort = new ArrayList<>();
+    private ArrayAdapter<String> adapter;
 
     //图片上传网格布局
     private GridView gw;
     private List<Map<String, Object>> datas;
     private GridViewAddImgesAdpter gridViewAddImgesAdpter;
     public List<Bitmap> listBitmap = new ArrayList<>();
+    private OkHttp okhttp = OkHttp.getOkhttpHelper();
 
     //打开相机、相册
     private static final String TAG = "photo";
@@ -107,33 +109,11 @@ public class NewPublishActivity extends BaseActivity implements TakePhoto.TakeRe
         showToolbar();
         etTitle = (EditText) findViewById(R.id.et_sale_name);
         etDetail = (EditText) findViewById(R.id.etContent);
-
-//        pubRg = (RadioGroup) findViewById(R.id.publish_RadioGroup);
-//        saleRb = (RadioButton) findViewById(R.id.rb_sale);
-//        rentRb = (RadioButton) findViewById(R.id.rb_rent);
-
-        tip1 = (TextView) findViewById(R.id.tv_tip1);
+        spSort = (Spinner) findViewById(R.id.spinner_sort);
         etPrice = (EditText) findViewById(R.id.et_sale_price);
-//        tip2 = (TextView) findViewById(R.id.tv_tip2);
-//        tip3 = (TextView) findViewById(R.id.tv_tip3);
-//        etRent = (EditText) findViewById(R.id.et_rent_price);
 
-//        pubRg.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-//            @Override
-//            public void onCheckedChanged(RadioGroup group, @IdRes int checkedId) {
-//                if (checkedId == saleRb.getId()) {
-//                    tip1.setText("价格");
-//                    tip2.setVisibility(View.GONE);
-//                    etPrice.setVisibility(View.GONE);
-//                    tip3.setVisibility(View.GONE);
-//                } else if (checkedId == rentRb.getId()) {
-//                    tip1.setText("租金");
-//                    tip2.setVisibility(View.VISIBLE);
-//                    etRent.setVisibility(View.VISIBLE);
-//                    tip3.setVisibility(View.VISIBLE);
-//                }
-//            }
-//        });
+        adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, listSort);
+        getSort();
 
         takePhoto = getTakePhoto();
         gw = (GridView) findViewById(R.id.picture_gridview);
@@ -155,10 +135,8 @@ public class NewPublishActivity extends BaseActivity implements TakePhoto.TakeRe
         etTitle.setText(intent.getStringExtra("title"));
         etDetail.setText(intent.getStringExtra("detail"));
         etPrice.setText(intent.getStringExtra("price"));
-//        etRent.setText(intent.getStringExtra("rental"));
     }
 
-    private OkHttp okhttp = OkHttp.getOkhttpHelper();
 
     public void publish(View view) {
         Map<String, Object> param = new HashMap<>();
@@ -174,12 +152,10 @@ public class NewPublishActivity extends BaseActivity implements TakePhoto.TakeRe
         String title = etTitle.getText().toString();
         String detail = etDetail.getText().toString();
         String price = etPrice.getText().toString();
-//        String rent = etRent.getText().toString();
         params.put("uid", MyApplication.getInstance().getUserId());
         params.put("title", title);
         params.put("detail", detail);
         params.put("price", price);
-//        params.put("rental", rent);
         String string = "";
         ByteArrayOutputStream bStream;
         for (int i = 0; i < listBitmap.size(); i++) {
@@ -207,6 +183,45 @@ public class NewPublishActivity extends BaseActivity implements TakePhoto.TakeRe
 
             }
         }, params);
+    }
+
+    //提交数据
+    public void getSort() {
+        okhttp.doGet(Constant.baseURL+"sort/getSmallSort", new CallBack(NewPublishActivity.this) {
+            @Override
+            public void onError(Response response, Exception e) throws IOException {
+                Toast.makeText(getApplicationContext(), "失败", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void callBackSuccess(Response response, Object o) throws IOException {
+                JSONObject json = JSON.parseObject((String) o);
+                Object jsonArray = json.get("data");
+                System.out.println(jsonArray);
+                List<SmallSort> smallSort = JSON.parseArray(jsonArray + "", SmallSort.class);
+                Log.d("sort",smallSort.size()+"  2222");
+                for(SmallSort sort:smallSort){
+                    listSort.add(sort.getSortName());
+                    System.out.println(sort.getSortName());
+                }
+                adapter.setDropDownViewResource(android.R.layout.simple_list_item_single_choice);
+                spSort.setAdapter(adapter);
+                spSort.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                    // parent： 为控件Spinner view：显示文字的TextView position：下拉选项的位置从0开始
+                    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+//                ArrayAdapter<String> adapter = (ArrayAdapter<String>) parent.getAdapter();
+//                spSort.setSelection(position,true);
+                        parent.setVisibility(View.VISIBLE);
+//                TextView tvResult = (TextView) findViewById(R.id.tvResult);
+                        //获取Spinner控件的适配器
+//                tvResult.setText(adapter.getItem(position));
+                    }
+                    //没有选中时的处理
+                    public void onNothingSelected(AdapterView<?> parent) {
+                    }
+                });
+            }
+        });
     }
 
     //下面为拍照功能
