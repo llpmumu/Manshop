@@ -31,11 +31,9 @@
         </android.support.v7.widget.Toolbar>
     </LinearLayout>
 
-    <!--<android.support.v7.widget.RecyclerView-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content" />-->
-    <ImageView
-        android:id="@+id/iv"
+    <ListView
+        android:id="@+id/lv_comic_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
+
 </LinearLayout>

@@ -3,6 +3,7 @@ package com.manshop.android.ui.view.activity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.widget.ImageView;
+import android.widget.ListView;
 
 import com.bumptech.glide.Glide;
 import com.manshop.android.R;
@@ -12,8 +13,8 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 
 public class AnimeDataActivity extends BaseActivity {
-    @Bind(R.id.iv)
-    ImageView iv;
+    @Bind(R.id.lv_comic_name)
+    ListView listvName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,8 +22,6 @@ public class AnimeDataActivity extends BaseActivity {
         setContentView(R.layout.activity_anime_data);
         ButterKnife.bind(this);
         showToolbar();
-//        iv.setImageBitmap(Constant.baseImageURL+"1523374653580.jpg");
-//        Glide.with(AnimeDataActivity.this).load(Constant.baseImageURL+"1523374653580.jpg").into(iv);
     }
     @Override
     public void showToolbar() {
