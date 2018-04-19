@@ -4,8 +4,8 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
-import android.os.Environment;
 import android.os.Bundle;
+import android.os.Environment;
 import android.util.Base64;
 import android.util.Log;
 import android.view.MenuItem;
@@ -15,7 +15,6 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.alibaba.fastjson.JSON;
@@ -33,15 +32,12 @@ import com.longsh.optionframelibrary.OptionBottomDialog;
 import com.manshop.android.MyApplication;
 import com.manshop.android.R;
 import com.manshop.android.adapter.GridViewAddImgesAdpter;
-import com.manshop.android.model.Goods;
-import com.manshop.android.model.Order;
 import com.manshop.android.model.SmallSort;
 import com.manshop.android.okHttp.CallBack;
 import com.manshop.android.okHttp.OkHttp;
 import com.manshop.android.ui.base.BaseActivity;
 import com.manshop.android.utils.BitmapUtil;
 import com.manshop.android.utils.Constant;
-
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -65,6 +61,7 @@ public class NewPublishActivity extends BaseActivity implements TakePhoto.TakeRe
     private Spinner spSort;
     private Boolean isEdit;
     private Intent intent;
+    private int sortId;
     private List<String> listSort = new ArrayList<>();
     private ArrayAdapter<String> adapter;
 
@@ -156,6 +153,7 @@ public class NewPublishActivity extends BaseActivity implements TakePhoto.TakeRe
         params.put("title", title);
         params.put("detail", detail);
         params.put("price", price);
+        params.put("sid",sortId);
         String string = "";
         ByteArrayOutputStream bStream;
         for (int i = 0; i < listBitmap.size(); i++) {
@@ -187,7 +185,7 @@ public class NewPublishActivity extends BaseActivity implements TakePhoto.TakeRe
 
     //提交数据
     public void getSort() {
-        okhttp.doGet(Constant.baseURL+"sort/getSmallSort", new CallBack(NewPublishActivity.this) {
+        okhttp.doGet(Constant.baseURL + "sort/getSmallSort", new CallBack(NewPublishActivity.this) {
             @Override
             public void onError(Response response, Exception e) throws IOException {
                 Toast.makeText(getApplicationContext(), "失败", Toast.LENGTH_SHORT).show();
@@ -198,9 +196,9 @@ public class NewPublishActivity extends BaseActivity implements TakePhoto.TakeRe
                 JSONObject json = JSON.parseObject((String) o);
                 Object jsonArray = json.get("data");
                 System.out.println(jsonArray);
-                List<SmallSort> smallSort = JSON.parseArray(jsonArray + "", SmallSort.class);
-                Log.d("sort",smallSort.size()+"  2222");
-                for(SmallSort sort:smallSort){
+                final List<SmallSort> smallSort = JSON.parseArray(jsonArray + "", SmallSort.class);
+                Log.d("sort", smallSort.size() + "  2222");
+                for (SmallSort sort : smallSort) {
                     listSort.add(sort.getSortName());
                     System.out.println(sort.getSortName());
                 }
@@ -209,13 +207,16 @@ public class NewPublishActivity extends BaseActivity implements TakePhoto.TakeRe
                 spSort.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                     // parent： 为控件Spinner view：显示文字的TextView position：下拉选项的位置从0开始
                     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-//                ArrayAdapter<String> adapter = (ArrayAdapter<String>) parent.getAdapter();
-//                spSort.setSelection(position,true);
                         parent.setVisibility(View.VISIBLE);
-//                TextView tvResult = (TextView) findViewById(R.id.tvResult);
-                        //获取Spinner控件的适配器
-//                tvResult.setText(adapter.getItem(position));
+                        ArrayAdapter<String> adapter = (ArrayAdapter<String>) parent.getAdapter();
+                        for (SmallSort sort : smallSort) {
+                            if (adapter.getItem(position).equals(sort.getSortName())) {
+                                sortId = sort.getId();
+                                break;
+                            }
+                        }
                     }
+
                     //没有选中时的处理
                     public void onNothingSelected(AdapterView<?> parent) {
                     }
