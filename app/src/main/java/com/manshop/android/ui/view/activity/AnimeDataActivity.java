@@ -1,9 +1,13 @@
 package com.manshop.android.ui.view.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
@@ -51,9 +55,10 @@ public class AnimeDataActivity extends BaseActivity {
 
     public void init() {
         getAnime();
+
     }
 
-    public void getAnime(){
+    public void getAnime() {
         okHttp.doGet(Constant.baseURL + "anime/getAnime", new CallBack(AnimeDataActivity.this) {
             @Override
             public void onError(Response response, Exception e) throws IOException {
@@ -66,14 +71,30 @@ public class AnimeDataActivity extends BaseActivity {
                 Object jsonArray = json.get("data");
                 System.out.println(jsonArray);
                 final List<Anime> listAnime = JSON.parseArray(jsonArray + "", Anime.class);
-                for (Anime anime:listAnime){
+                for (Anime anime : listAnime) {
                     listName.add(anime.getTitle());
                 }
                 ArrayAdapter<String> adapter = new ArrayAdapter<String>(AnimeDataActivity.this, android.R.layout.simple_list_item_1, listName);
                 listvName.setAdapter(adapter);
+                listvName.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                        ArrayAdapter<String> adapter = (ArrayAdapter<String>) parent.getAdapter();
+                        String name = adapter.getItem(position);
+                        Intent intent = new Intent(AnimeDataActivity.this, AnimeDetailActivity.class);
+                        intent.putExtra("title",name);
+                        startActivity(intent);
+                    }
+                });
             }
         });
     }
 
 
+//    @Override
+//    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+//        //通过view获取其内部的组件，进而进行操作
+//
+//
+//    }
 }
