@@ -1,5 +1,7 @@
 package com.manshop.android.model;
 
+import java.util.List;
+
 public class Anime {
     private Integer id;
     private String title;
@@ -9,18 +11,10 @@ public class Anime {
     private String produce;
     private String producer;
     private String pictrue;
+    private String JapanName;
+    private List<Role> roleList;
 
     public Anime() {
-    }
-
-    public Anime(Integer id, String title, String detail, String year, String episodes, String produce, String producer) {
-        this.id = id;
-        this.title = title;
-        this.detail = detail;
-        this.year = year;
-        this.episodes = episodes;
-        this.produce = produce;
-        this.producer = producer;
     }
 
     public Integer getId() {
@@ -87,4 +81,19 @@ public class Anime {
         this.pictrue = pictrue;
     }
 
+    public String getJapanName() {
+        return JapanName;
+    }
+
+    public void setJapanName(String japanName) {
+        JapanName = japanName;
+    }
+
+    public List<Role> getRoleList() {
+        return roleList;
+    }
+
+    public void setRoleList(List<Role> roleList) {
+        this.roleList = roleList;
+    }
 }

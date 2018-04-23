@@ -109,7 +109,8 @@ public class NewPublishActivity extends BaseActivity implements TakePhoto.TakeRe
         spSort = (Spinner) findViewById(R.id.spinner_sort);
         etPrice = (EditText) findViewById(R.id.et_sale_price);
 
-        adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, listSort);
+        adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item
+                , listSort);
         getSort();
 
         takePhoto = getTakePhoto();
