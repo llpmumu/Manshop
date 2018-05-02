@@ -51,8 +51,8 @@ public class PersonalFragment extends Fragment {
         return view;
     }
 
-    public void init(View view){
-        SharedPreferences user = getActivity().getSharedPreferences("User",MODE_PRIVATE);
+    public void init(View view) {
+        SharedPreferences user = getActivity().getSharedPreferences("User", MODE_PRIVATE);
         tvLogin = (TextView) view.findViewById(R.id.tvlogin);
         head = (RoundedImageView) view.findViewById(R.id.icon_image);
         btnToLogin = (Button) view.findViewById(R.id.btn_to_login);
@@ -66,30 +66,34 @@ public class PersonalFragment extends Fragment {
 
     }
 
-    public void showUser(SharedPreferences user){
-        if (user.getInt("id",-1) != -1){
+    public void showUser(SharedPreferences user) {
+        if (user.getInt("id", -1) != -1) {
 //            head.setVisibility(View.VISIBLE);
-            Glide.with(getActivity()).load(user.getString("head","")).into(head);
-            tvLogin.setText(user.getString("username",""));
+            Glide.with(getActivity()).load(user.getString("head", "")).into(head);
+            tvLogin.setText(user.getString("username", ""));
+            tvLogin.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+//                    Intent intent = new Intent(getActivity(), PerInfoActivity.class);
+//                    startActivity(intent);
+                }
+            });
             btnToLogin.setVisibility(View.GONE);
-        }
-        else{
-//            head.setVisibility(View.INVISIBLE);
+        } else {
             head.setImageResource(R.drawable.ic_unlogin);
             tvLogin.setText("欢迎来到漫街");
+            tvLogin.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(getActivity(), LoginActivity.class);
+                    startActivity(intent);
+                }
+            });
             btnToLogin.setVisibility(View.VISIBLE);
         }
     }
 
-    public void addListener(){
-        tvLogin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getActivity(),LoginActivity.class);
-                startActivity(intent);
-            }
-        });
-
+    public void addListener() {
         LvPer.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -97,16 +101,16 @@ public class PersonalFragment extends Fragment {
                 switch (position) {
                     case 0:
                         //发布的
-                        Intent intent = new Intent(getActivity(),ListPublishActivity.class);
+                        Intent intent = new Intent(getActivity(), ListPublishActivity.class);
                         startActivity(intent);
                         break;
                     case 1:
                         //买到的
-                        startActivity(new Intent(getContext(),ListOrderActivity.class));
+                        startActivity(new Intent(getContext(), ListOrderActivity.class));
                         break;
                     case 2:
                         //卖出的
-                        startActivity(new Intent(getContext(),ListSellActivity.class));
+                        startActivity(new Intent(getContext(), ListSellActivity.class));
                         break;
                     default:
                 }
