@@ -133,6 +133,16 @@
                 android:onClick="publish"
                 android:padding="0dp"
                 android:text="确认发布" />
+
+            <!--<Button-->
+                <!--android:id="@+id/btn_sale_del"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="40dp"-->
+                <!--android:layout_marginTop="10dp"-->
+                <!--android:background="@drawable/btn_del"-->
+                <!--android:onClick="delete"-->
+                <!--android:padding="0dp"-->
+                <!--android:text="确认发布" />-->
         </LinearLayout>
     </ScrollView>
 </LinearLayout>

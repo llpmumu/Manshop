@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SearchView;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
@@ -20,6 +22,7 @@ import com.manshop.android.okHttp.OkHttp;
 import com.manshop.android.ui.base.BaseActivity;
 import com.manshop.android.utils.Constant;
 import com.manshop.android.utils.ImageLoadUtils;
+import com.manshop.android.utils.ToastUtil;
 import com.manshop.android.view.ExpandTabView;
 import com.manshop.android.view.ViewMiddle;
 import com.manshop.android.view.ViewRight;
@@ -35,6 +38,7 @@ import java.util.Map;
 import okhttp3.Response;
 
 public class AllGoodsActivity extends BaseActivity {
+    private SearchView searchView;
     private ExpandTabView expandTabView;
     private RecyclerView reGoods;
     private ListAllGoodsAdapter adapter;
@@ -66,12 +70,37 @@ public class AllGoodsActivity extends BaseActivity {
     }
 
     private void initView() {
+        searchView = (SearchView) findViewById(R.id.searchEdit);
         expandTabView = (ExpandTabView) findViewById(R.id.expandtab_view);
         reGoods = (RecyclerView) findViewById(R.id.re_goods);
         GridLayoutManager manager = new GridLayoutManager(AllGoodsActivity.this, 2);
         reGoods.setLayoutManager(manager);
         viewMiddle = new ViewMiddle(this);
         viewRight = new ViewRight(this);
+
+        searchView.setIconifiedByDefault(false);
+        searchView.setSubmitButtonEnabled(true);
+        searchView.setQueryHint("请输入物品名称");
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            //输入完成后，提交时触发的方法，一般情况是点击输入法中的搜索按钮才会触发，表示现在正式提交了
+            public boolean onQueryTextSubmit(String query) {
+                Log.d("sys","444");
+                if (TextUtils.isEmpty(query)) {
+                    ToastUtil.shortToast(AllGoodsActivity.this, "请输入查找内容！");
+                } else {
+                    searchGoods(query);
+                }
+                return true;
+            }
+
+            //在输入时触发的方法，当字符真正显示到searchView中才触发，像是拼音，在输入法组词的时候不会触发
+            public boolean onQueryTextChange(String newText) {
+                if (TextUtils.isEmpty(newText)) {
+                    refreshView("全部");
+                }
+                return true;
+            }
+        });
     }
 
     private void initVaule() {
@@ -133,6 +162,39 @@ public class AllGoodsActivity extends BaseActivity {
         }
     }
 
+    // 查找商品
+    public void searchGoods(String searchTxt) {
+        Log.d("sys",searchTxt);
+        mGoods.clear();
+        Map<String, Object> params = new HashMap<>();
+        params.put("title", searchTxt);
+        okHttp.doPost(Constant.baseURL + "goods/searchGoods", new CallBack(AllGoodsActivity.this) {
+
+            @Override
+            public void onError(Response response, Exception e) throws IOException {
+                ToastUtil.shortToast(AllGoodsActivity.this, "无此商品");
+            }
+
+            @Override
+            public void callBackSuccess(Response response, Object o) throws IOException {
+                JSONObject json = JSON.parseObject((String) o);
+                Object jsonArray = json.get("data");
+                System.out.println(jsonArray);
+                List<Goods> listGood = JSON.parseArray(jsonArray + "", Goods.class);
+                for (Goods good : listGood) {
+                    good.setPics(ImageLoadUtils.displayGoodsImage(good.getPicture()));
+                    mGoods.add(good);
+                }
+                reGoods.setNestedScrollingEnabled(false);
+                adapter = new ListAllGoodsAdapter(AllGoodsActivity.this, mGoods);
+                reGoods.setAdapter(adapter);
+
+                if(mGoods.size() == 0)
+                    ToastUtil.shortToast(AllGoodsActivity.this, "无此商品");
+            }
+        }, params);
+    }
+
     public void refreshView(String showText) {
         mGoods.clear();
         Log.d("sort", showText);
@@ -182,5 +244,6 @@ public class AllGoodsActivity extends BaseActivity {
         });
         adapter.notifyDataSetChanged();
     }
+
 
 }

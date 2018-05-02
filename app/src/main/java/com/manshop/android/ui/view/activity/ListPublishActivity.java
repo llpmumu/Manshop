@@ -77,6 +77,7 @@ public class ListPublishActivity extends BaseActivity {
     private OkHttp okhttp = OkHttp.getOkhttpHelper();
 
     public void initData() {
+        mGood.clear();
         final List<String> mPic = new ArrayList<>();
         final Map<String, Object> param = new HashMap<>();
         param.put("uid", MyApplication.getInstance().getUserId());
@@ -106,5 +107,12 @@ public class ListPublishActivity extends BaseActivity {
                 recyclerview.setAdapter(adapter);
             }
         }, param);
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        Log.d("----", "onRestart: 刷新");
+        initData();
     }
 }

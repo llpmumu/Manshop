@@ -10,4 +10,7 @@ public class Constant {
 
     public static String baseURL="http://10.0.2.2:8080/";
     public static String baseImageURL = "http://10.0.2.2:8088/image/";
+
+//    public static String baseURL="http://10.0.2.2:8080/";
+//    public static String baseImageURL = "http://10.0.2.2/image/";
 }

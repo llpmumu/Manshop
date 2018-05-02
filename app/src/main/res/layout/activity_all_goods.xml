@@ -21,16 +21,23 @@
             app:titleTextColor="@color/textColor">
 
             <TextView
-                android:id="@+id/toolbar_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="全部商品"
-                android:textColor="#fff"
-                android:textSize="20sp" />
+            android:id="@+id/toolbar_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="全部商品"
+            android:textColor="#fff"
+            android:textSize="20sp" />
+
         </android.support.v7.widget.Toolbar>
 
     </LinearLayout>
+
+    <android.support.v7.widget.SearchView
+        android:id="@+id/searchEdit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/search_selector"/>
 
     <com.manshop.android.view.ExpandTabView
         android:id="@+id/expandtab_view"
@@ -41,5 +48,5 @@
     <android.support.v7.widget.RecyclerView
         android:id="@+id/re_goods"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content" />
 </LinearLayout>

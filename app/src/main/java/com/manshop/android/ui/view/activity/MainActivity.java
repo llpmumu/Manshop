@@ -121,19 +121,19 @@ public class MainActivity extends BaseActivity {
                                 viewPager.setCurrentItem(0);
                                 Log.d("page", "---------0");
                                 tvPageName.setText("漫街");
-                                toolbarMenu.setVisible(true);
+//                                toolbarMenu.setVisible(true);
                                 break;
                             case R.id.item_message:
                                 viewPager.setCurrentItem(1);
                                 Log.d("page", "---------1");
                                 tvPageName.setText("消息");
-                                toolbarMenu.setVisible(false);
+//                                toolbarMenu.setVisible(false);
                                 break;
                             case R.id.item_personal:
                                 viewPager.setCurrentItem(2);
                                 Log.d("page", "---------2");
                                 tvPageName.setText("我的");
-                                toolbarMenu.setVisible(false);
+//                                toolbarMenu.setVisible(false);
                                 break;
                         }
                         return false;
@@ -163,19 +163,19 @@ public class MainActivity extends BaseActivity {
                         viewPager.setCurrentItem(0);
                         Log.d("page", "---------0");
                         tvPageName.setText("漫街");
-                        toolbarMenu.setVisible(true);
+//                        toolbarMenu.setVisible(true);
                         break;
                     case R.id.item_message:
                         viewPager.setCurrentItem(1);
                         Log.d("page", "---------1");
                         tvPageName.setText("消息");
-                        toolbarMenu.setVisible(false);
+//                        toolbarMenu.setVisible(false);
                         break;
                     case R.id.item_personal:
                         viewPager.setCurrentItem(2);
                         Log.d("page", "---------2");
                         tvPageName.setText("我的");
-                        toolbarMenu.setVisible(false);
+//                        toolbarMenu.setVisible(false);
                         break;
                 }
             }
@@ -218,8 +218,8 @@ public class MainActivity extends BaseActivity {
     //加载标题栏
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.item_toolbar_menu, menu);
-        toolbarMenu = menu.findItem(R.id.item_search);
+//        getMenuInflater().inflate(R.menu.item_toolbar_menu, menu);
+//        toolbarMenu = menu.findItem(R.id.item_search);
         return true;
     }
 

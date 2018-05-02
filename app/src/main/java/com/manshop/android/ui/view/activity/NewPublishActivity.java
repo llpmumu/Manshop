@@ -12,6 +12,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.Spinner;
@@ -61,6 +62,7 @@ public class NewPublishActivity extends BaseActivity implements TakePhoto.TakeRe
     private Spinner spSort;
     private Boolean isEdit;
     private Intent intent;
+//    private Button btnPulish;
     private int sortId;
     private List<String> listSort = new ArrayList<>();
     private ArrayAdapter<String> adapter;
@@ -83,7 +85,7 @@ public class NewPublishActivity extends BaseActivity implements TakePhoto.TakeRe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_publish);
         init();
-        edit();
+//        edit();
     }
 
     @Override
@@ -108,9 +110,9 @@ public class NewPublishActivity extends BaseActivity implements TakePhoto.TakeRe
         etDetail = (EditText) findViewById(R.id.etContent);
         spSort = (Spinner) findViewById(R.id.spinner_sort);
         etPrice = (EditText) findViewById(R.id.et_sale_price);
+//        btnPulish = (Button) findViewById(R.id.btn_sale_confirm);
 
-        adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item
-                , listSort);
+        adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, listSort);
         getSort();
 
         takePhoto = getTakePhoto();
@@ -127,22 +129,24 @@ public class NewPublishActivity extends BaseActivity implements TakePhoto.TakeRe
     }
 
     //编辑商品跳转数据传入
-    public void edit() {
-        intent = getIntent();
-        isEdit = intent.getBooleanExtra("isEdite", false);
-        etTitle.setText(intent.getStringExtra("title"));
-        etDetail.setText(intent.getStringExtra("detail"));
-        etPrice.setText(intent.getStringExtra("price"));
-    }
+//    public void edit() {
+//        intent = getIntent();
+//        isEdit = intent.getBooleanExtra("isEdite", false);
+//        etTitle.setText(intent.getStringExtra("title"));
+//        etDetail.setText(intent.getStringExtra("detail"));
+//        etPrice.setText(intent.getStringExtra("price"));
+////        btnPulish.setText("保存修改");
+//    }
 
 
     public void publish(View view) {
-        Map<String, Object> param = new HashMap<>();
-        if (isEdit) {
-            param.put("id", intent.getIntExtra("id", 0));
-            requestGoodData(Constant.baseURL + "goods/updateGood", param);
-        } else
-            requestGoodData(Constant.baseURL + "goods/newGood", param);
+        Map<String, Object> params = new HashMap<>();
+//        if (isEdit) {
+//            params.put("id", intent.getIntExtra("id", 0));
+//            requestGoodData(Constant.baseURL + "goods/updateGood", params);
+//        } else {
+            requestGoodData(Constant.baseURL + "goods/newGood", params);
+//        }
     }
 
     //提交数据
@@ -154,7 +158,7 @@ public class NewPublishActivity extends BaseActivity implements TakePhoto.TakeRe
         params.put("title", title);
         params.put("detail", detail);
         params.put("price", price);
-        params.put("sid",sortId);
+        params.put("sid", sortId);
         String string = "";
         ByteArrayOutputStream bStream;
         for (int i = 0; i < listBitmap.size(); i++) {

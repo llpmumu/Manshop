@@ -152,8 +152,12 @@
         <activity android:name=".ui.view.activity.WelcomeActivity" />
         <activity
             android:name=".ui.view.activity.MainActivity"
-            android:label="@string/app_name"></activity>
-        <activity android:name=".ui.view.activity.LoginActivity"></activity>
+            android:label="@string/app_name">
+
+        </activity>
+        <activity android:name=".ui.view.activity.LoginActivity">
+
+        </activity>
         <activity android:name=".ui.view.activity.RegisterActivity" />
         <activity android:name=".ui.view.activity.SearchActivity" />
         <activity android:name=".ui.view.activity.ListPublishActivity" />
@@ -169,15 +173,16 @@
         <activity android:name=".ui.view.activity.OrderDetailActivity" />
         <activity android:name=".ui.view.activity.ListOrderActivity" />
         <activity android:name=".ui.view.activity.AnimeDataActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity android:name=".ui.view.activity.ListSellActivity" />
         <activity android:name=".ui.view.activity.ChatActivity" />
-        <activity android:name=".ui.view.activity.AllGoodsActivity"></activity>
+        <activity android:name=".ui.view.activity.AllGoodsActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity android:name=".ui.view.activity.AnimeDetailActivity"></activity>
     </application>
 
