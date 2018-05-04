@@ -295,18 +295,18 @@ public class NewPublishActivity extends BaseActivity implements TakePhoto.TakeRe
         return Uri.fromFile(file);
     }
 
-    private Bitmap convertUri(Uri uri) {
-        InputStream is = null;
-        try {
-            is = getContentResolver().openInputStream(uri);
-            Bitmap bitmap = BitmapFactory.decodeStream(is);
-            is.close();
-            return bitmap;
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
+//    private Bitmap convertUri(Uri uri) {
+//        InputStream is = null;
+//        try {
+//            is = getContentResolver().openInputStream(uri);
+//            Bitmap bitmap = BitmapFactory.decodeStream(is);
+//            is.close();
+//            return bitmap;
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//        return null;
+//    }
 
     public void photoPath(String path) {
         Map<String, Object> map = new HashMap<>();

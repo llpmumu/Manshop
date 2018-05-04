@@ -21,6 +21,7 @@ import com.manshop.android.ui.view.activity.ListOrderActivity;
 import com.manshop.android.ui.view.activity.ListSellActivity;
 import com.manshop.android.ui.view.activity.LoginActivity;
 import com.manshop.android.ui.view.activity.ListPublishActivity;
+import com.manshop.android.ui.view.activity.PerInfoActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -63,7 +64,6 @@ public class PersonalFragment extends Fragment {
         LvPer = (ListView) view.findViewById(R.id.lv_per);
         adapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_list_item_1, mPerList);
         LvPer.setAdapter(adapter);
-
     }
 
     public void showUser(SharedPreferences user) {
@@ -74,8 +74,8 @@ public class PersonalFragment extends Fragment {
             tvLogin.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-//                    Intent intent = new Intent(getActivity(), PerInfoActivity.class);
-//                    startActivity(intent);
+                    Intent intent = new Intent(getActivity(), PerInfoActivity.class);
+                    startActivity(intent);
                 }
             });
             btnToLogin.setVisibility(View.GONE);

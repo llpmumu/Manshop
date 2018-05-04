@@ -78,4 +78,5 @@ dependencies {
     compile project(':reclib-qq')
     compile project(':reclib-testemoticons')
 
+    compile project(path: ':library')
 }
