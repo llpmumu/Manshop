@@ -3,6 +3,8 @@ package com.manshop.android.ui.view.activity;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Environment;
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -11,6 +13,8 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.TextView;
 
+import com.hhl.library.FlowTagLayout;
+import com.hhl.library.OnTagSelectListener;
 import com.jph.takephoto.app.TakePhoto;
 import com.jph.takephoto.app.TakePhotoImpl;
 import com.jph.takephoto.model.InvokeParam;
@@ -21,9 +25,8 @@ import com.jph.takephoto.permission.PermissionManager;
 import com.jph.takephoto.permission.TakePhotoInvocationHandler;
 import com.longsh.optionframelibrary.OptionBottomDialog;
 import com.manshop.android.R;
+import com.manshop.android.adapter.TagAdapter;
 import com.manshop.android.utils.BitmapUtil;
-import com.sgb.library.FlowAdapter;
-import com.sgb.library.FlowLayout;
 
 import java.io.File;
 import java.io.IOException;
@@ -41,9 +44,9 @@ public class PerInfoActivity extends AppCompatActivity implements TakePhoto.Take
     private InvokeParam invokeParam;
     private BitmapUtil bitmapUtil = new BitmapUtil();
 
-    private FlowLayout mFlowLayout;
-    private MyAdapter mAdapter;
-    private List<String> mTags = new ArrayList<>();
+    private FlowTagLayout mFlowLayout;
+    private TagAdapter<String> mTagAdapter;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,21 +58,58 @@ public class PerInfoActivity extends AppCompatActivity implements TakePhoto.Take
 
     public void initView() {
         takePhoto = getTakePhoto();
-        mFlowLayout = (FlowLayout) findViewById(R.id.flowlayout);
-        mFlowLayout.setAdapter(mAdapter = new MyAdapter(mTags));
-        mFlowLayout.setChoiceMode(FlowLayout.CHOICE_MODE_MULTIPLE);
-        mFlowLayout.setMaxChecked(5);
+//        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+//        fab.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+//                        .setAction("Action", null).show();
+//            }
+//        });
+
+        mFlowLayout = (FlowTagLayout) findViewById(R.id.flow_tag);
+        //移动研发标签
+        mTagAdapter = new TagAdapter<>(this);
+        mFlowLayout.setTagCheckedMode(FlowTagLayout.FLOW_TAG_CHECKED_MULTI);
+        mFlowLayout.setAdapter(mTagAdapter);
+        mFlowLayout.setOnTagSelectListener(new OnTagSelectListener() {
+            @Override
+            public void onItemSelect(FlowTagLayout parent, List<Integer> selectedList) {
+                if (selectedList != null && selectedList.size() > 0) {
+                    StringBuilder sb = new StringBuilder();
+
+                    for (int i : selectedList) {
+                        sb.append(parent.getAdapter().getItem(i));
+                        sb.append(":");
+                    }
+                    Snackbar.make(parent, "移动研发:" + sb.toString(), Snackbar.LENGTH_LONG)
+                            .setAction("Action", null).show();
+                }else{
+                    Snackbar.make(parent, "没有选择标签", Snackbar.LENGTH_LONG)
+                            .setAction("Action", null).show();
+                }
+            }
+        });
+
     }
 
-    public void initData(){
-        mTags.add("海贼");
-        mTags.add("ganggangde ");
-        mTags.add("huoying");
-        mTags.add("maomi");
-        mTags.add("shouban");
-        mTags.add("fuzhuang");
-        mTags.add("xihuan");
+    public void initData() {
+        List<String> dataSource = new ArrayList<>();
+        dataSource.add("android");
+        dataSource.add("安卓");
+        dataSource.add("SDK源码");
+        dataSource.add("IOS");
+        dataSource.add("iPhone");
+        dataSource.add("游戏");
+        dataSource.add("fragment");
+        dataSource.add("viewcontroller");
+        dataSource.add("cocoachina");
+        dataSource.add("移动研发工程师");
+        dataSource.add("移动互联网");
+        dataSource.add("高薪+期权");
+        mTagAdapter.onlyAddAll(dataSource);
     }
+
 
     //下面为拍照功能
     public void showDialog() {
@@ -91,22 +131,6 @@ public class PerInfoActivity extends AppCompatActivity implements TakePhoto.Take
                 }
             }
         });
-    }
-
-    private class MyAdapter extends FlowAdapter<String> {
-        public MyAdapter(List<String> dataList) {
-            super(dataList);
-        }
-
-        @Override
-        public View getView(int position, FlowLayout parent) {
-            TextView view = (TextView) LayoutInflater.from(parent.getContext()).inflate(R.layout.item_tag, parent, false);
-
-            String obj = getItem(position);
-            view.setText(obj);
-
-            return view;
-        }
     }
 
     /**

@@ -51,23 +51,10 @@
             android:layout_height="wrap_content"
             android:text="标签" />
 
-        <!--<com.manshop.android.view.FlowTagView-->
-            <!--android:id="@+id/container"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:padding="10dp"-->
-            <!--app:tagSpacing="10dp"-->
-            <!--app:lineSpacing="10dp"/>-->
-
-        <com.sgb.library.FlowLayout
-            android:id="@+id/flowlayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:choiceMode="none"
-            app:itemBottom="5dp"
-            app:itemLeft="5dp"
-            app:itemRight="5dp"
-            app:itemTop="5dp" />
+        <com.hhl.library.FlowTagLayout
+            android:id="@+id/flow_tag"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
     </LinearLayout>
 
 

@@ -77,6 +77,5 @@ dependencies {
     compile 'com.github.huangyanbin:SmartTable:1.7.1'
     compile project(':reclib-qq')
     compile project(':reclib-testemoticons')
-
     compile project(path: ':library')
 }
