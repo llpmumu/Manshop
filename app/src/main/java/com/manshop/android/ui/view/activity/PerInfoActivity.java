@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.TextView;
@@ -24,8 +25,10 @@ import com.jph.takephoto.permission.InvokeListener;
 import com.jph.takephoto.permission.PermissionManager;
 import com.jph.takephoto.permission.TakePhotoInvocationHandler;
 import com.longsh.optionframelibrary.OptionBottomDialog;
+import com.makeramen.roundedimageview.RoundedImageView;
 import com.manshop.android.R;
 import com.manshop.android.adapter.TagAdapter;
+import com.manshop.android.ui.base.BaseActivity;
 import com.manshop.android.utils.BitmapUtil;
 
 import java.io.File;
@@ -35,9 +38,14 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
+
 import static java.util.Arrays.asList;
 
-public class PerInfoActivity extends AppCompatActivity implements TakePhoto.TakeResultListener, InvokeListener {
+public class PerInfoActivity extends BaseActivity implements TakePhoto.TakeResultListener, InvokeListener {
+    @Bind(R.id.icon_image)
+    RoundedImageView imgHead;
     //打开相机、相册
     private static final String TAG = "photo";
     private TakePhoto takePhoto;
@@ -46,32 +54,43 @@ public class PerInfoActivity extends AppCompatActivity implements TakePhoto.Take
 
     private FlowTagLayout mFlowLayout;
     private TagAdapter<String> mTagAdapter;
+    private static final int isSelectCount=3;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_per_info);
-        initData();
+        ButterKnife.bind(PerInfoActivity.this);
+        showToolbar();
         initView();
+    }
+    @Override
+    public void showToolbar() {
+        super.showToolbar();
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        return super.onOptionsItemSelected(item);
     }
 
     public void initView() {
+        //上传拍照
         takePhoto = getTakePhoto();
-//        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-//        fab.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-//                        .setAction("Action", null).show();
-//            }
-//        });
+        imgHead.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showDialog();
+            }
+        });
 
+        //标签
         mFlowLayout = (FlowTagLayout) findViewById(R.id.flow_tag);
-        //移动研发标签
         mTagAdapter = new TagAdapter<>(this);
         mFlowLayout.setTagCheckedMode(FlowTagLayout.FLOW_TAG_CHECKED_MULTI);
         mFlowLayout.setAdapter(mTagAdapter);
+//        if ()
         mFlowLayout.setOnTagSelectListener(new OnTagSelectListener() {
             @Override
             public void onItemSelect(FlowTagLayout parent, List<Integer> selectedList) {
@@ -80,9 +99,9 @@ public class PerInfoActivity extends AppCompatActivity implements TakePhoto.Take
 
                     for (int i : selectedList) {
                         sb.append(parent.getAdapter().getItem(i));
-                        sb.append(":");
+                        sb.append(";");
                     }
-                    Snackbar.make(parent, "移动研发:" + sb.toString(), Snackbar.LENGTH_LONG)
+                    Snackbar.make(parent, "兴趣:" + sb.toString(), Snackbar.LENGTH_LONG)
                             .setAction("Action", null).show();
                 }else{
                     Snackbar.make(parent, "没有选择标签", Snackbar.LENGTH_LONG)
@@ -90,7 +109,7 @@ public class PerInfoActivity extends AppCompatActivity implements TakePhoto.Take
                 }
             }
         });
-
+        initData();
     }
 
     public void initData() {

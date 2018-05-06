@@ -188,7 +188,7 @@ public class NewPublishActivity extends BaseActivity implements TakePhoto.TakeRe
         }, params);
     }
 
-    //提交数据
+    //获取分类
     public void getSort() {
         okhttp.doGet(Constant.baseURL + "sort/getSmallSort", new CallBack(NewPublishActivity.this) {
             @Override

@@ -26,6 +26,7 @@ import com.manshop.android.utils.SharePreferenceUtil;
 
 import java.io.File;
 
+import butterknife.ButterKnife;
 import cn.jpush.im.android.api.JMessageClient;
 import cn.jpush.im.android.api.event.LoginStateChangeEvent;
 import cn.jpush.im.android.api.model.UserInfo;
