@@ -30,6 +30,7 @@ import com.manshop.android.R;
 import com.manshop.android.adapter.TagAdapter;
 import com.manshop.android.ui.base.BaseActivity;
 import com.manshop.android.utils.BitmapUtil;
+import com.manshop.android.utils.ToastUtil;
 
 import java.io.File;
 import java.io.IOException;
@@ -54,7 +55,9 @@ public class PerInfoActivity extends BaseActivity implements TakePhoto.TakeResul
 
     private FlowTagLayout mFlowLayout;
     private TagAdapter<String> mTagAdapter;
-    private static final int isSelectCount=3;
+    private List<Integer> isSelectedList = new ArrayList<>();
+    private int getIsSelectCount = 0;
+    private static final int isSelectCount = 3;
 
 
     @Override
@@ -65,6 +68,7 @@ public class PerInfoActivity extends BaseActivity implements TakePhoto.TakeResul
         showToolbar();
         initView();
     }
+
     @Override
     public void showToolbar() {
         super.showToolbar();
@@ -90,25 +94,37 @@ public class PerInfoActivity extends BaseActivity implements TakePhoto.TakeResul
         mTagAdapter = new TagAdapter<>(this);
         mFlowLayout.setTagCheckedMode(FlowTagLayout.FLOW_TAG_CHECKED_MULTI);
         mFlowLayout.setAdapter(mTagAdapter);
-//        if ()
-        mFlowLayout.setOnTagSelectListener(new OnTagSelectListener() {
-            @Override
-            public void onItemSelect(FlowTagLayout parent, List<Integer> selectedList) {
-                if (selectedList != null && selectedList.size() > 0) {
-                    StringBuilder sb = new StringBuilder();
+        Log.d("info", getIsSelectCount + "qqq");
+        if (getIsSelectCount > isSelectCount)
+            ToastUtil.shortToast(PerInfoActivity.this, "最多选择" + isSelectCount + "个标签");
+        else {
+            mFlowLayout.setOnTagSelectListener(new OnTagSelectListener() {
+                @Override
+                public void onItemSelect(FlowTagLayout parent, List<Integer> selectedList) {
+                    Log.d("info", selectedList.size() + "zzz");
+                    getIsSelectCount = selectedList.size();
+                    if (selectedList.size() > isSelectCount) {
+                        initView();
+                        return;
+                    } else {
+                        if (selectedList != null && selectedList.size() > 0) {
+                            StringBuilder sb = new StringBuilder();
 
-                    for (int i : selectedList) {
-                        sb.append(parent.getAdapter().getItem(i));
-                        sb.append(";");
+                            for (int i : selectedList) {
+                                sb.append(parent.getAdapter().getItem(i));
+                                sb.append(";");
+                            }
+                            Snackbar.make(parent, "兴趣:" + sb.toString(), Snackbar.LENGTH_LONG)
+                                    .setAction("Action", null).show();
+                        } else {
+                            Snackbar.make(parent, "没有选择标签", Snackbar.LENGTH_LONG)
+                                    .setAction("Action", null).show();
+                        }
                     }
-                    Snackbar.make(parent, "兴趣:" + sb.toString(), Snackbar.LENGTH_LONG)
-                            .setAction("Action", null).show();
-                }else{
-                    Snackbar.make(parent, "没有选择标签", Snackbar.LENGTH_LONG)
-                            .setAction("Action", null).show();
+//                    isSelectedList = selectedList.clone();
                 }
-            }
-        });
+            });
+        }
         initData();
     }
 
