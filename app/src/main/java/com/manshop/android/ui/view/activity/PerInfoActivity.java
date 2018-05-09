@@ -14,6 +14,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.TextView;
 
+import com.donkingliang.labels.LabelsView;
 import com.hhl.library.FlowTagLayout;
 import com.hhl.library.OnTagSelectListener;
 import com.jph.takephoto.app.TakePhoto;
@@ -53,12 +54,9 @@ public class PerInfoActivity extends BaseActivity implements TakePhoto.TakeResul
     private InvokeParam invokeParam;
     private BitmapUtil bitmapUtil = new BitmapUtil();
 
-    private FlowTagLayout mFlowLayout;
+    private LabelsView labelsView;
     private TagAdapter<String> mTagAdapter;
-    private List<Integer> isSelectedList = new ArrayList<>();
-    private int getIsSelectCount = 0;
-    private static final int isSelectCount = 3;
-
+    private List<String> isSelectedList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,46 +88,32 @@ public class PerInfoActivity extends BaseActivity implements TakePhoto.TakeResul
         });
 
         //标签
-        mFlowLayout = (FlowTagLayout) findViewById(R.id.flow_tag);
-        mTagAdapter = new TagAdapter<>(this);
-        mFlowLayout.setTagCheckedMode(FlowTagLayout.FLOW_TAG_CHECKED_MULTI);
-        mFlowLayout.setAdapter(mTagAdapter);
-        Log.d("info", getIsSelectCount + "qqq");
-        if (getIsSelectCount > isSelectCount)
-            ToastUtil.shortToast(PerInfoActivity.this, "最多选择" + isSelectCount + "个标签");
-        else {
-            mFlowLayout.setOnTagSelectListener(new OnTagSelectListener() {
-                @Override
-                public void onItemSelect(FlowTagLayout parent, List<Integer> selectedList) {
-                    Log.d("info", selectedList.size() + "zzz");
-                    getIsSelectCount = selectedList.size();
-                    if (selectedList.size() > isSelectCount) {
-                        initView();
-                        return;
-                    } else {
-                        if (selectedList != null && selectedList.size() > 0) {
-                            StringBuilder sb = new StringBuilder();
-
-                            for (int i : selectedList) {
-                                sb.append(parent.getAdapter().getItem(i));
-                                sb.append(";");
-                            }
-                            Snackbar.make(parent, "兴趣:" + sb.toString(), Snackbar.LENGTH_LONG)
-                                    .setAction("Action", null).show();
-                        } else {
-                            Snackbar.make(parent, "没有选择标签", Snackbar.LENGTH_LONG)
-                                    .setAction("Action", null).show();
-                        }
-                    }
-//                    isSelectedList = selectedList.clone();
-                }
-            });
-        }
+        labelsView = (LabelsView) findViewById(R.id.flow_tag);
         initData();
+//        labelsView.setOnLabelSelectChangeListener(new LabelsView.OnLabelSelectChangeListener() {
+//            @Override
+//            public void onLabelSelectChange(TextView label, Object data, boolean isSelect, int position) {
+////                if (isSelect)
+////                    isSelectedList.add(data.toString());
+//
+//            }
+//        });
+        labelsView.setSelects(1,2,5);
+
+        labelsView.setOnLabelClickListener(new LabelsView.OnLabelClickListener() {
+            @Override
+            public void onLabelClick(TextView label, Object data, int position) {
+                if (isSelectedList.size() == 5)
+                    ToastUtil.shortToast(PerInfoActivity.this, "最多选择5个标签");
+                isSelectedList = labelsView.getSelectLabelDatas();
+                Log.d("tag", isSelectedList.size() + "  000");
+            }
+        });
     }
 
     public void initData() {
-        List<String> dataSource = new ArrayList<>();
+        ArrayList<String> dataSource = new ArrayList<>();
+        ;
         dataSource.add("android");
         dataSource.add("安卓");
         dataSource.add("SDK源码");
@@ -142,7 +126,8 @@ public class PerInfoActivity extends BaseActivity implements TakePhoto.TakeResul
         dataSource.add("移动研发工程师");
         dataSource.add("移动互联网");
         dataSource.add("高薪+期权");
-        mTagAdapter.onlyAddAll(dataSource);
+        labelsView.setLabels(dataSource);
+        ;
     }
 
 

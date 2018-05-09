@@ -34,8 +34,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center"
-        >
+        android:gravity="center">
         <!--头像-->
         <com.makeramen.roundedimageview.RoundedImageView
             android:id="@+id/icon_image"
@@ -82,12 +81,27 @@
             android:layout_height="wrap_content"
             android:text="标签" />
 
-        <com.hhl.library.FlowTagLayout
+        <!--<com.hhl.library.FlowTagLayout-->
+        <!--android:id="@+id/flow_tag"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginTop="5dp"-->
+        <!--android:layout_marginLeft="10dp" />-->
+        <com.donkingliang.labels.LabelsView
             android:id="@+id/flow_tag"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:layout_marginLeft="10dp" />
+            app:labelBackground="@drawable/round_rectangle_bg"
+            app:labelTextColor="@drawable/label_text_color"
+            app:labelTextPaddingBottom="5dp"
+            app:labelTextPaddingLeft="10dp"
+            app:labelTextPaddingRight="10dp"
+            app:labelTextPaddingTop="5dp"
+            app:labelTextSize="14sp"
+            app:lineMargin="10dp"
+            app:maxSelect="5"
+            app:selectType="MULTI"
+            app:wordMargin="10dp" />
 
     </LinearLayout>
 

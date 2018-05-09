@@ -75,6 +75,7 @@ dependencies {
     compile 'com.github.w446108264:AndroidEmoji:1.0.0'
     compile 'com.android.support:multidex:1.0.1'
     compile 'com.github.huangyanbin:SmartTable:1.7.1'
+    compile 'com.github.donkingliang:LabelsView:1.4.0'
     compile project(':reclib-qq')
     compile project(':reclib-testemoticons')
     compile project(path: ':library')
