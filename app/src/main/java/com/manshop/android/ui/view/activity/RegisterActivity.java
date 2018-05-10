@@ -74,7 +74,7 @@ public class RegisterActivity extends BaseActivity {
     public void register(View v) {
         final String phone = etPhone.getText().toString();
         final String password = etPassword.getText().toString();
-        String nickName = etNickName.getText().toString();
+        final String nickName = etNickName.getText().toString();
         final Map<String, Object> param = new HashMap<>();
         param.put("username",nickName);
         param.put("phone", phone);
@@ -91,6 +91,7 @@ public class RegisterActivity extends BaseActivity {
 
             @Override
             public void callBackSuccess(Response response, Object o) throws IOException {
+                registerOptionalUserInfo.setNickname(nickName);
                 registerOptionalUserInfo.setAvatar("https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=256814278,2196155154&fm=27&gp=0.jpg");
                 JMessageClient.register(phone, password, registerOptionalUserInfo, new BasicCallback() {
                     @Override
