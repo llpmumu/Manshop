@@ -1,5 +1,6 @@
 package com.manshop.android.ui.view.activity;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Environment;
@@ -14,14 +15,19 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.donkingliang.labels.LabelsView;
 import com.hhl.library.FlowTagLayout;
 import com.hhl.library.OnTagSelectListener;
 import com.jph.takephoto.app.TakePhoto;
 import com.jph.takephoto.app.TakePhotoImpl;
+import com.jph.takephoto.compress.CompressConfig;
+import com.jph.takephoto.model.CropOptions;
 import com.jph.takephoto.model.InvokeParam;
+import com.jph.takephoto.model.LubanOptions;
 import com.jph.takephoto.model.TContextWrap;
 import com.jph.takephoto.model.TResult;
+import com.jph.takephoto.model.TakePhotoOptions;
 import com.jph.takephoto.permission.InvokeListener;
 import com.jph.takephoto.permission.PermissionManager;
 import com.jph.takephoto.permission.TakePhotoInvocationHandler;
@@ -42,20 +48,23 @@ import java.util.Map;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import cn.jpush.im.android.api.JMessageClient;
+import cn.jpush.im.api.BasicCallback;
 
-import static java.util.Arrays.asList;
 
 public class PerInfoActivity extends BaseActivity implements TakePhoto.TakeResultListener, InvokeListener {
     @Bind(R.id.icon_image)
     RoundedImageView imgHead;
     //打开相机、相册
+    private File headFile;
+    private CropOptions cropOptions;  //裁剪参数
+    private CompressConfig config;
     private static final String TAG = "photo";
     private TakePhoto takePhoto;
     private InvokeParam invokeParam;
     private BitmapUtil bitmapUtil = new BitmapUtil();
 
     private LabelsView labelsView;
-    private TagAdapter<String> mTagAdapter;
     private List<String> isSelectedList = new ArrayList<>();
 
     @Override
@@ -74,12 +83,27 @@ public class PerInfoActivity extends BaseActivity implements TakePhoto.TakeResul
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        return super.onOptionsItemSelected(item);
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                JMessageClient.updateUserAvatar(headFile, new BasicCallback() {
+                    @Override
+                    public void gotResult(int i, String s) {
+                        Log.d("info",i + s);
+                    }
+                });
+                finish();
+                break;
+            default:
+        }
+        return true;
     }
 
     public void initView() {
         //上传拍照
         takePhoto = getTakePhoto();
+//        configCompress(takePhoto);
+        configTakePhotoOption(takePhoto);
+        cropOptions = new CropOptions.Builder().setAspectX(1).setAspectY(1).setWithOwnCrop(true).create();
         imgHead.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -90,30 +114,18 @@ public class PerInfoActivity extends BaseActivity implements TakePhoto.TakeResul
         //标签
         labelsView = (LabelsView) findViewById(R.id.flow_tag);
         initData();
-//        labelsView.setOnLabelSelectChangeListener(new LabelsView.OnLabelSelectChangeListener() {
-//            @Override
-//            public void onLabelSelectChange(TextView label, Object data, boolean isSelect, int position) {
-////                if (isSelect)
-////                    isSelectedList.add(data.toString());
-//
-//            }
-//        });
-        labelsView.setSelects(1,2,5);
-
         labelsView.setOnLabelClickListener(new LabelsView.OnLabelClickListener() {
             @Override
             public void onLabelClick(TextView label, Object data, int position) {
                 if (isSelectedList.size() == 5)
                     ToastUtil.shortToast(PerInfoActivity.this, "最多选择5个标签");
                 isSelectedList = labelsView.getSelectLabelDatas();
-                Log.d("tag", isSelectedList.size() + "  000");
             }
         });
     }
 
     public void initData() {
         ArrayList<String> dataSource = new ArrayList<>();
-        ;
         dataSource.add("android");
         dataSource.add("安卓");
         dataSource.add("SDK源码");
@@ -127,7 +139,6 @@ public class PerInfoActivity extends BaseActivity implements TakePhoto.TakeResul
         dataSource.add("移动互联网");
         dataSource.add("高薪+期权");
         labelsView.setLabels(dataSource);
-        ;
     }
 
 
@@ -142,11 +153,14 @@ public class PerInfoActivity extends BaseActivity implements TakePhoto.TakeResul
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 if (position == 0) {
-                    Uri uri = getImageCropUri();
-                    takePhoto.onPickFromCapture(uri);
+                    headFile = getFile();
+                    Uri imageUri = Uri.fromFile(headFile);
+                    takePhoto.onPickFromCaptureWithCrop(imageUri, cropOptions);
                     optionBottomDialog.dismiss();
                 } else if (position == 1) {
-                    takePhoto.onPickFromGallery();
+                    headFile = getFile();
+                    Uri imageUri = Uri.fromFile(headFile);
+                    takePhoto.onPickFromGalleryWithCrop(imageUri, cropOptions);
                     optionBottomDialog.dismiss();
                 }
             }
@@ -163,22 +177,41 @@ public class PerInfoActivity extends BaseActivity implements TakePhoto.TakeResul
         return takePhoto;
     }
 
+    public File getFile() {
+        File file = new File(Environment.getExternalStorageDirectory(), "/head/" + System.currentTimeMillis() + ".jpg");
+        if (!file.getParentFile().exists()) {
+            file.getParentFile().mkdirs();
+        }
+        return file;
+    }
 
-    public void photoPath(String path) {
-        Map<String, Object> map = new HashMap<>();
-        map.put("path", path);
+    //压缩
+    public void configCompress(TakePhoto takePhoto) {
+        LubanOptions option = new LubanOptions.Builder().setMaxHeight(50).setMaxWidth(50).setMaxSize(102400).create();
+        config = CompressConfig.ofLuban(option);
+        config.enableReserveRaw(true);
+        takePhoto.onEnableCompress(config, true);
+    }
+
+    //界面
+    public void configTakePhotoOption(TakePhoto takePhoto) {
+        TakePhotoOptions.Builder builder = new TakePhotoOptions.Builder();
+        builder.setWithOwnGallery(false);
+        builder.setCorrectImage(true);
+        takePhoto.setTakePhotoOptions(builder.create());
     }
 
     @Override
     public void takeSuccess(TResult result) {
-        Log.i(TAG, "takeSuccess：" + result.getImage().getCompressPath());
+//        Log.i(TAG, "takeSuccess：" + result.getImage().getCompressPath());
+        Log.i(TAG, "takeSuccess：" + result.getImage().getOriginalPath());
         String iconPath = result.getImage().getOriginalPath();
         try {
             Bitmap bitmap = bitmapUtil.getBitmapFormUri(PerInfoActivity.this, Uri.parse("file://" + iconPath));
+            imgHead.setImageBitmap(bitmap);
         } catch (IOException e) {
             e.printStackTrace();
         }
-        photoPath(iconPath);
     }
 
     @Override
@@ -191,11 +224,23 @@ public class PerInfoActivity extends BaseActivity implements TakePhoto.TakeResul
         Log.i(TAG, getResources().getString(R.string.msg_operation_canceled));
     }
 
-    //获得照片的输出保存Uri
-    public Uri getImageCropUri() {
-        File file = new File(Environment.getExternalStorageDirectory(), "/head/" + System.currentTimeMillis() + ".jpg");
-        if (!file.getParentFile().exists()) file.getParentFile().mkdirs();
-        return Uri.fromFile(file);
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        takePhoto.onSaveInstanceState(outState);
+        super.onSaveInstanceState(outState);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        takePhoto.onActivityResult(requestCode, resultCode, data);
+        super.onActivityResult(requestCode, resultCode, data);
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        PermissionManager.TPermissionType type = PermissionManager.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        PermissionManager.handlePermissionsResult(this, type, invokeParam, this);
     }
 
     @Override

@@ -78,17 +78,19 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent" />
 
+                <TextView
+                    android:id="@+id/tv_tip"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_centerInParent="true"
+                    android:gravity="center"
+                    android:text="该省目前没有漫展"
+                    android:textSize="20sp"
+                    android:visibility="gone" />
+
             </LinearLayout>
 
-            <TextView
-                android:id="@+id/tv_tip"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_centerInParent="true"
-                android:gravity="center"
-                android:text="该省目前没有漫展"
-                android:textSize="20sp"
-                android:visibility="gone"/>
+
         </LinearLayout>
     </LinearLayout>
 </LinearLayout>
