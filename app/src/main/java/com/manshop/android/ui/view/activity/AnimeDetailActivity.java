@@ -108,8 +108,8 @@ public class AnimeDetailActivity extends BaseActivity {
                 Anime anime = json.getObject("data", Anime.class);
                 Glide.with(AnimeDetailActivity.this).load(anime.getPictrue()).into(ivPic);
                 tvJapanName.setText(anime.getJapanName());
-                tvProduce.setText(anime.getProduce());
-                tvProducer.setText(anime.getProducer());
+                tvProduce.setText(anime.getProducer());
+                tvProducer.setText(anime.getProduce());
                 tvYear.setText(anime.getYear());
                 tvEpisodes.setText(anime.getEpisodes());
                 tvDetail.setText(anime.getDetail());

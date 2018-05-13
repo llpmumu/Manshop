@@ -17,6 +17,8 @@ import android.widget.Toast;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.cjj.MaterialRefreshLayout;
+import com.cjj.MaterialRefreshListener;
 import com.manshop.android.MyApplication;
 import com.manshop.android.R;
 import com.manshop.android.adapter.HomeGoodsListAdapter;
@@ -46,6 +48,7 @@ public class HomeFragment extends Fragment {
     private RecyclerView recyclerview;
     private HomeGoodsListAdapter adapter;
     private List<Goods> mGood = new ArrayList<>();
+    private MaterialRefreshLayout materialRefreshLayout;
     //轮播图
     private List<Integer> images = new ArrayList<>();
     private OkHttp okhttp = OkHttp.getOkhttpHelper();
@@ -66,6 +69,7 @@ public class HomeFragment extends Fragment {
     }
 
     private void init(View view) {
+        materialRefreshLayout = (MaterialRefreshLayout) view.findViewById(R.id.matfresh_refresh);
         // 轮播图
         Banner banner = (Banner) view.findViewById(R.id.banner);
         images.add(R.drawable.img_lunbo1);
@@ -117,6 +121,19 @@ public class HomeFragment extends Fragment {
                 startActivity(new Intent(getActivity(), AnimeDataActivity.class));
             }
         });
+
+        materialRefreshLayout.setMaterialRefreshListener(new MaterialRefreshListener() {
+            @Override
+            public void onRefresh(final MaterialRefreshLayout materialRefreshLayout) {
+                initData();
+                materialRefreshLayout.finishRefresh();
+            }
+
+            @Override
+            public void onRefreshLoadMore(MaterialRefreshLayout materialRefreshLayout) {
+                //上拉刷新...
+            }
+        });
     }
 
 
@@ -146,7 +163,7 @@ public class HomeFragment extends Fragment {
                 adapter = new HomeGoodsListAdapter(getActivity(), mGood);
                 recyclerview.setAdapter(adapter);
             }
-        },param);
+        }, param);
     }
 
 }
