@@ -13,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -35,8 +36,11 @@ import com.longsh.optionframelibrary.OptionBottomDialog;
 import com.makeramen.roundedimageview.RoundedImageView;
 import com.manshop.android.R;
 import com.manshop.android.adapter.TagAdapter;
+import com.manshop.android.okHttp.CallBack;
+import com.manshop.android.okHttp.OkHttp;
 import com.manshop.android.ui.base.BaseActivity;
 import com.manshop.android.utils.BitmapUtil;
+import com.manshop.android.utils.Constant;
 import com.manshop.android.utils.ToastUtil;
 
 import java.io.File;
@@ -49,12 +53,20 @@ import java.util.Map;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import cn.jpush.im.android.api.JMessageClient;
+import cn.jpush.im.android.api.model.UserInfo;
 import cn.jpush.im.api.BasicCallback;
+import okhttp3.Response;
+
+import static cn.jpush.im.android.api.model.UserInfo.Field.nickname;
 
 
 public class PerInfoActivity extends BaseActivity implements TakePhoto.TakeResultListener, InvokeListener {
     @Bind(R.id.icon_image)
     RoundedImageView imgHead;
+    @Bind(R.id.et_nickname)
+    EditText etName;
+    @Bind(R.id.et_signature)
+    EditText etSignature;
     //打开相机、相册
     private File headFile;
     private CropOptions cropOptions;  //裁剪参数
@@ -63,9 +75,11 @@ public class PerInfoActivity extends BaseActivity implements TakePhoto.TakeResul
     private TakePhoto takePhoto;
     private InvokeParam invokeParam;
     private BitmapUtil bitmapUtil = new BitmapUtil();
+    private UserInfo userInfo;
 
     private LabelsView labelsView;
     private List<String> isSelectedList = new ArrayList<>();
+    private OkHttp okHttp = OkHttp.getOkhttpHelper();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,12 +99,7 @@ public class PerInfoActivity extends BaseActivity implements TakePhoto.TakeResul
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
-                JMessageClient.updateUserAvatar(headFile, new BasicCallback() {
-                    @Override
-                    public void gotResult(int i, String s) {
-                        Log.d("info",i + s);
-                    }
-                });
+                updateInfo();
                 finish();
                 break;
             default:
@@ -99,6 +108,15 @@ public class PerInfoActivity extends BaseActivity implements TakePhoto.TakeResul
     }
 
     public void initView() {
+        userInfo = JMessageClient.getMyInfo();
+        //个人信息
+        etName.setText(userInfo.getNickname());
+        etSignature.setText(userInfo.getSignature());
+        if (userInfo.getAvatarFile() != null) {
+            Glide.with(PerInfoActivity.this).load(userInfo.getAvatarFile().getAbsolutePath()).into(imgHead);
+        } else {
+            imgHead.setImageResource(R.drawable.jmui_head_icon);
+        }
         //上传拍照
         takePhoto = getTakePhoto();
 //        configCompress(takePhoto);
@@ -113,7 +131,7 @@ public class PerInfoActivity extends BaseActivity implements TakePhoto.TakeResul
 
         //标签
         labelsView = (LabelsView) findViewById(R.id.flow_tag);
-        initData();
+        initTagData();
         labelsView.setOnLabelClickListener(new LabelsView.OnLabelClickListener() {
             @Override
             public void onLabelClick(TextView label, Object data, int position) {
@@ -124,7 +142,8 @@ public class PerInfoActivity extends BaseActivity implements TakePhoto.TakeResul
         });
     }
 
-    public void initData() {
+    //标签数据
+    public void initTagData() {
         ArrayList<String> dataSource = new ArrayList<>();
         dataSource.add("android");
         dataSource.add("安卓");
@@ -139,6 +158,38 @@ public class PerInfoActivity extends BaseActivity implements TakePhoto.TakeResul
         dataSource.add("移动互联网");
         dataSource.add("高薪+期权");
         labelsView.setLabels(dataSource);
+    }
+
+    public void updateInfo() {
+        final Map<String, Object> param = new HashMap<>();
+        Log.d("info", userInfo.getUserName() + "");
+        param.put("phone", ""+userInfo.getUserName());
+        param.put("username",etName.getText());
+        okHttp.doPost(Constant.baseURL + "user/updateInfo", new CallBack(PerInfoActivity.this) {
+
+            @Override
+            public void onError(Response response, Exception e) throws IOException {
+            }
+
+            @Override
+            public void callBackSuccess(Response response, Object o) throws IOException {
+                userInfo.setNickname(etName.getText().toString());
+                JMessageClient.updateMyInfo(nickname, userInfo, new BasicCallback() {
+                    @Override
+                    public void gotResult(int i, String s) {
+                        if (i == 0)
+                            Log.d("updateInfo","修改成功");
+//                            ToastUtil.shortToast(PerInfoActivity.this,"修改昵称成功");
+                    }
+                });
+                JMessageClient.updateUserAvatar(headFile, new BasicCallback() {
+                    @Override
+                    public void gotResult(int i, String s) {
+                        Log.d("info", i + s);
+                    }
+                });
+            }
+        }, param);
     }
 
 

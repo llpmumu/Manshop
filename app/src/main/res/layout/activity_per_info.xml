@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="#F9F9FB"
     tools:context="com.manshop.android.ui.view.activity.PerInfoActivity">
 
     <LinearLayout
@@ -33,14 +34,13 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="110dp"
         android:gravity="center">
         <!--头像-->
         <com.makeramen.roundedimageview.RoundedImageView
             android:id="@+id/icon_image"
             android:layout_width="90dp"
             android:layout_height="90dp"
-            android:layout_marginRight="50dp"
             android:src="@drawable/ic_unlogin"
             android:visibility="visible"
             app:riv_border_color="@color/transparent"
@@ -48,24 +48,62 @@
             app:riv_oval="true" />
     </LinearLayout>
 
-
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:gravity="left"
-        android:paddingLeft="20dp"
-        android:paddingTop="10dp">
+        android:orientation="vertical">
 
-        <TextView
+        <View style="@style/line" />
+
+        <LinearLayout
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="昵称" />
+            android:layout_height="50dp"
+            android:background="@color/white"
+            android:paddingLeft="20dp"
+            android:paddingTop="10dp">
 
-        <EditText
-            android:layout_width="300dp"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:background="@drawable/bg_edittext" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:gravity="center"
+                android:text="昵称"
+                android:textSize="18dp"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/et_nickname"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:background="@null" />
+        </LinearLayout>
+
+        <View style="@style/line" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:background="@color/white"
+            android:paddingLeft="20dp"
+            android:paddingTop="10dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="签名"
+                android:textSize="18dp"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/et_signature"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:background="@null" />
+        </LinearLayout>
+
+        <View style="@style/line" />
     </LinearLayout>
 
     <LinearLayout
@@ -79,18 +117,14 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="标签" />
+            android:text="标签"
+            android:visibility="gone" />
 
-        <!--<com.hhl.library.FlowTagLayout-->
-        <!--android:id="@+id/flow_tag"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_marginTop="5dp"-->
-        <!--android:layout_marginLeft="10dp" />-->
         <com.donkingliang.labels.LabelsView
             android:id="@+id/flow_tag"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:visibility="gone"
             app:labelBackground="@drawable/round_rectangle_bg"
             app:labelTextColor="@drawable/label_text_color"
             app:labelTextPaddingBottom="5dp"

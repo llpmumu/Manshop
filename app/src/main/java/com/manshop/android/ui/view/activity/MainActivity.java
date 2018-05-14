@@ -27,8 +27,10 @@ import com.manshop.android.ui.view.fragment.HomeFragment;
 import com.manshop.android.ui.view.fragment.ConversationFragment;
 import com.manshop.android.ui.view.fragment.PersonalFragment;
 import com.manshop.android.utils.Constant;
+import com.manshop.android.utils.HandleResponseCode;
 
 import cn.jpush.im.android.api.JMessageClient;
+import cn.jpush.im.android.api.callback.GetUserInfoCallback;
 import cn.jpush.im.android.api.model.UserInfo;
 
 
@@ -191,8 +193,22 @@ public class MainActivity extends BaseActivity {
         SharedPreferences share = getSharedPreferences("User", MODE_PRIVATE);
         Log.d("user", "login");
         if (share.getInt("id", -1) != -1) {
-            Glide.with(MainActivity.this).load(share.getString("head", "")).into(head);
-//            Glide.with(MainActivity.this).load(Constant.baseURL+"image/2.jpg").into(head);
+//            Glide.with(MainActivity.this).load(share.getString("head", "")).into(head);
+            JMessageClient.getUserInfo(share.getString("phone", ""), new GetUserInfoCallback() {
+                @Override
+                public void gotResult(int i, String s, UserInfo userInfo) {
+                    if (i == 0) {
+                        if (userInfo.getAvatarFile() != null) {
+                            Glide.with(MainActivity.this).load(userInfo.getAvatarFile().getAbsolutePath()).into(head);
+//                      holder.business_head.setImageBitmap(BitmapFactory.decodeFile(userInfo.getAvatarFile().getAbsolutePath()));
+                        } else {
+                            head.setImageResource(R.drawable.jmui_head_icon);
+                        }
+                    } else {
+                        HandleResponseCode.onHandle(MainActivity.this, i, false);
+                    }
+                }
+            });
             tvUsername.setText(share.getString("username", ""));
             Log.d("user", share.getString("head", ""));
             Log.d("user", share.getString("username", ""));

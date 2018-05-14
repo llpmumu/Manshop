@@ -95,7 +95,7 @@
                     android:layout_marginLeft="14dp"
                     android:gravity="center_vertical">
 
-                    <ImageView
+                    <com.makeramen.roundedimageview.RoundedImageView
                         android:id="@+id/msg_item_head_icon"
                         android:layout_width="47.33dp"
                         android:layout_height="47.33dp"

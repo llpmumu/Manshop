@@ -102,7 +102,7 @@ public class GoodDetailActivity extends BaseActivity {
             public void callBackSuccess(Response response, Object o) throws IOException {
                 JSONObject json = JSON.parseObject((String) o);
                 Goods good = json.getObject("data", Goods.class);
-                Glide.with(GoodDetailActivity.this).load(good.getUser().getHead()).into(RivPhoto);
+//                Glide.with(GoodDetailActivity.this).load(good.getUser().getHead()).into(RivPhoto);
                 tvUsername.setText(good.getUser().getUsername());
                 tvPrice.setText(good.getPrice()+"￥");
                 tvDetail.setText(good.getDetail());
@@ -157,6 +157,12 @@ public class GoodDetailActivity extends BaseActivity {
             public void gotResult(int i, String s, UserInfo userInfo) {
                 if (i == 0) {
                     mUserInfo = userInfo;
+                    if (userInfo.getAvatarFile() != null) {
+                        Glide.with(GoodDetailActivity.this).load(userInfo.getAvatarFile().getAbsolutePath()).into(RivPhoto);
+//                      holder.business_head.setImageBitmap(BitmapFactory.decodeFile(userInfo.getAvatarFile().getAbsolutePath()));
+                    } else {
+                        RivPhoto.setImageResource(R.drawable.jmui_head_icon);
+                    }
                 } else {
                     HandleResponseCode.onHandle(GoodDetailActivity.this, i, false);
                 }

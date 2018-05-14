@@ -179,9 +179,11 @@
         <activity android:name=".ui.view.activity.AnimeDataActivity"></activity>
         <activity android:name=".ui.view.activity.ListSellActivity" />
         <activity android:name=".ui.view.activity.ChatActivity" />
-        <activity android:name=".ui.view.activity.AllGoodsActivity"></activity>
+        <activity android:name=".ui.view.activity.AllGoodsActivity"
+            android:windowSoftInputMode="stateHidden"/>
         <activity android:name=".ui.view.activity.AnimeDetailActivity" />
-        <activity android:name=".ui.view.activity.PerInfoActivity">
+        <activity android:name=".ui.view.activity.PerInfoActivity"
+            android:windowSoftInputMode="stateHidden">
 
         </activity>
     </application>

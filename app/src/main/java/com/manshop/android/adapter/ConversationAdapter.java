@@ -16,6 +16,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.makeramen.roundedimageview.RoundedImageView;
 import com.manshop.android.MyApplication;
 import com.manshop.android.R;
 import com.manshop.android.utils.SharePreferenceUtil;
@@ -217,7 +218,7 @@ public class ConversationAdapter extends BaseAdapter {
         if (convertView == null) {
             convertView = LayoutInflater.from(mContext).inflate(R.layout.item_message_list, null);
         }
-        final ImageView headIcon = ViewHolder.get(convertView, R.id.msg_item_head_icon);
+        final RoundedImageView headIcon = ViewHolder.get(convertView, R.id.msg_item_head_icon);
         TextView convName = ViewHolder.get(convertView, R.id.conv_item_name);
         TextView content = ViewHolder.get(convertView, R.id.msg_item_content);
         TextView datetime = ViewHolder.get(convertView, R.id.msg_item_date);

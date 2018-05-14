@@ -21,10 +21,16 @@ import com.manshop.android.ui.view.activity.ListOrderActivity;
 import com.manshop.android.ui.view.activity.ListSellActivity;
 import com.manshop.android.ui.view.activity.LoginActivity;
 import com.manshop.android.ui.view.activity.ListPublishActivity;
+import com.manshop.android.ui.view.activity.MainActivity;
 import com.manshop.android.ui.view.activity.PerInfoActivity;
+import com.manshop.android.utils.HandleResponseCode;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import cn.jpush.im.android.api.JMessageClient;
+import cn.jpush.im.android.api.callback.GetUserInfoCallback;
+import cn.jpush.im.android.api.model.UserInfo;
 
 import static android.content.Context.MODE_PRIVATE;
 
@@ -70,7 +76,23 @@ public class PersonalFragment extends Fragment {
         if (user.getInt("id", -1) != -1) {
 //            head.setVisibility(View.VISIBLE);
             Glide.with(getActivity()).load(user.getString("head", "")).into(head);
-            tvLogin.setText(user.getString("username", ""));
+            JMessageClient.getUserInfo(user.getString("phone", ""), new GetUserInfoCallback() {
+                @Override
+                public void gotResult(int i, String s, UserInfo userInfo) {
+                    if (i == 0) {
+                        if (userInfo.getAvatarFile() != null) {
+                            tvLogin.setText(userInfo.getNickname());
+                            Glide.with(getContext()).load(userInfo.getAvatarFile().getAbsolutePath()).into(head);
+//                      holder.business_head.setImageBitmap(BitmapFactory.decodeFile(userInfo.getAvatarFile().getAbsolutePath()));
+                        } else {
+                            head.setImageResource(R.drawable.jmui_head_icon);
+                        }
+                    } else {
+                        HandleResponseCode.onHandle(getContext(), i, false);
+                    }
+                }
+            });
+//            tvLogin.setText(user.getString("username", ""));
             tvLogin.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -124,5 +146,19 @@ public class PersonalFragment extends Fragment {
         mPerList.add("我卖出的");
 //        mPerList.add("我买到的");
 //        mPerList.add("我收藏的");
+    }
+
+//    @Override
+//    protected void onRestart() {
+//        super.onRestart();
+//        initAddress();
+//    }
+
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        SharedPreferences user = getActivity().getSharedPreferences("User", MODE_PRIVATE);
+        showUser(user);
     }
 }
