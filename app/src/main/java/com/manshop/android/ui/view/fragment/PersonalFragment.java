@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -35,12 +36,13 @@ import cn.jpush.im.android.api.model.UserInfo;
 import static android.content.Context.MODE_PRIVATE;
 
 public class PersonalFragment extends Fragment {
-    private ListView LvPer;
+    //    private ListView LvPer;
     private TextView tvLogin;
     private RoundedImageView head;
     private Button btnToLogin;
-    private ArrayAdapter<String> adapter;
-    private List<String> mPerList = new ArrayList<>();
+    private LinearLayout linearLayoutShare;
+    private LinearLayout linearLayoutBuy;
+    private LinearLayout linearLayoutSell;
 
     public static PersonalFragment newInstance(String info) {
         PersonalFragment fragment = new PersonalFragment();
@@ -65,11 +67,9 @@ public class PersonalFragment extends Fragment {
         btnToLogin = (Button) view.findViewById(R.id.btn_to_login);
         showUser(user);
 
-        //ListView列表
-        initPer();
-        LvPer = (ListView) view.findViewById(R.id.lv_per);
-        adapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_list_item_1, mPerList);
-        LvPer.setAdapter(adapter);
+        linearLayoutShare = (LinearLayout) view.findViewById(R.id.share);
+        linearLayoutBuy = (LinearLayout) view.findViewById(R.id.buy);
+        linearLayoutSell = (LinearLayout) view.findViewById(R.id.sell);
     }
 
     public void showUser(SharedPreferences user) {
@@ -116,43 +116,29 @@ public class PersonalFragment extends Fragment {
     }
 
     public void addListener() {
-        LvPer.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        //发布的
+        linearLayoutShare.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                mPerList.get(position);
-                switch (position) {
-                    case 0:
-                        //发布的
-                        Intent intent = new Intent(getActivity(), ListPublishActivity.class);
-                        startActivity(intent);
-                        break;
-                    case 1:
-                        //买到的
-                        startActivity(new Intent(getContext(), ListOrderActivity.class));
-                        break;
-                    case 2:
-                        //卖出的
-                        startActivity(new Intent(getContext(), ListSellActivity.class));
-                        break;
-                    default:
-                }
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), ListPublishActivity.class);
+                startActivity(intent);
+            }
+        });
+        //买到的
+        linearLayoutBuy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getContext(), ListOrderActivity.class));
+            }
+        });
+        //卖出的
+        linearLayoutSell.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getContext(), ListSellActivity.class));
             }
         });
     }
-
-    public void initPer() {
-        mPerList.add("我发布的");
-        mPerList.add("我买到的");
-        mPerList.add("我卖出的");
-//        mPerList.add("我买到的");
-//        mPerList.add("我收藏的");
-    }
-
-//    @Override
-//    protected void onRestart() {
-//        super.onRestart();
-//        initAddress();
-//    }
 
 
     @Override

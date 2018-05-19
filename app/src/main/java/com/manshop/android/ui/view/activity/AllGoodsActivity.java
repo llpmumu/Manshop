@@ -108,7 +108,7 @@ public class AllGoodsActivity extends BaseActivity {
         mViewArray.add(viewRight);
         ArrayList<String> mTextArray = new ArrayList<String>();
         mTextArray.add("全部");
-        mTextArray.add("价格");
+        mTextArray.add("价格");
         expandTabView.setValue(mTextArray, mViewArray);
         expandTabView.setTitle(viewMiddle.getShowText(), 0);
         expandTabView.setTitle(viewRight.getShowText(), 1);
@@ -162,7 +162,7 @@ public class AllGoodsActivity extends BaseActivity {
         }
     }
 
-    // 查找商品
+    // 关键词查找商品
     public void searchGoods(String searchTxt) {
         Log.d("sys",searchTxt);
         mGoods.clear();
@@ -195,6 +195,8 @@ public class AllGoodsActivity extends BaseActivity {
         }, params);
     }
 
+
+    //类别查找商品
     public void refreshView(String showText) {
         mGoods.clear();
         Log.d("sort", showText);
@@ -224,6 +226,7 @@ public class AllGoodsActivity extends BaseActivity {
         }, params);
     }
 
+    //刷新界面按价格排序
     public void refreshView(int position, final String showText) {
         Collections.sort(mGoods, new Comparator<Goods>() {
             @Override

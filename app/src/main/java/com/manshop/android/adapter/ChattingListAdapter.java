@@ -569,31 +569,6 @@ public class ChattingListAdapter extends BaseAdapter {
                 holder.headIcon.setImageResource(R.drawable.jmui_head_icon);
             }
 
-            // 点击头像跳转到个人信息界面
-//            holder.headIcon.setOnClickListener(new View.OnClickListener() {
-//
-//                @Override
-//                public void onClick(View arg0) {
-//                    Intent intent = new Intent();
-//                    if (msg.getDirect() == MessageDirect.send) {
-//                        intent.putExtra(MyApplication.TARGET_ID, JMessageClient.getMyInfo().getUserName());
-//                        intent.setClass(mContext, PersonalActivity.class);
-//                        mContext.startActivity(intent);
-//                    } else {
-//                        String targetID = userInfo.getUserName();
-//                        intent.putExtra(MyApplication.TARGET_ID, targetID);
-//                        intent.putExtra(MyApplication.TARGET_APP_KEY, userInfo.getAppKey());
-//                        intent.putExtra(MyApplication.GROUP_ID, mGroupId);
-//                        if (userInfo.isFriend()) {
-//                            intent.setClass(mContext, FriendInfoActivity.class);
-//                        } else {
-//                            intent.setClass(mContext, GroupNotFriendActivity.class);
-//                        }
-//                        ((Activity) mContext).startActivityForResult(intent,
-//                                MyApplication.REQUEST_CODE_FRIEND_INFO);
-//                    }
-//                }
-//            });
 
             holder.headIcon.setTag(position);
             holder.headIcon.setOnLongClickListener(mLongClickListener);

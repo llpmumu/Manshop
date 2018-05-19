@@ -92,7 +92,7 @@ public class DeliveryActivity extends BaseActivity {
             params.put("delivery", 1);
         else
             params.put("delivery", 2);
-        okHttp.doPost(Constant.baseURL + "order/updataOrder", new CallBack(DeliveryActivity.this) {
+        okHttp.doPost(Constant.baseURL + "order/updateOrder", new CallBack(DeliveryActivity.this) {
 
             @Override
             public void onError(Response response, Exception e) throws IOException {
@@ -117,7 +117,7 @@ public class DeliveryActivity extends BaseActivity {
         params.put("trackingnum", "");
         params.put("state", 1);
         params.put("delivery", 1);
-        okHttp.doPost(Constant.baseURL + "order/updataOrder", new CallBack(DeliveryActivity.this) {
+        okHttp.doPost(Constant.baseURL + "order/updateOrder", new CallBack(DeliveryActivity.this) {
 
             @Override
             public void onError(Response response, Exception e) throws IOException {

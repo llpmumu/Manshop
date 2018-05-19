@@ -155,67 +155,6 @@ public class ChatActivity extends BaseActivity implements FuncLayout.OnFuncKeyBo
             }
             mChatAdapter = new ChattingListAdapter(mContext, mConv, longClickListener);
         }
-//        else {
-//            //群聊
-//            mIsSingle = false;
-//            mGroupId = intent.getLongExtra(GROUP_ID, 0);
-//            final boolean fromGroup = intent.getBooleanExtra("fromGroup", false);
-//            if (fromGroup) {
-//                mChatView.setChatTitle(mTitle, intent.getIntExtra(MEMBERS_COUNT, 0));
-//                mConv = JMessageClient.getGroupConversation(mGroupId);
-//                mChatAdapter = new ChattingListAdapter(mContext, mConv, longClickListener);//长按聊天内容监听
-//            } else {
-//                mAtMsgId = intent.getIntExtra("atMsgId", -1);
-//                mAtAllMsgId = intent.getIntExtra("atAllMsgId", -1);
-//                mConv = JMessageClient.getGroupConversation(mGroupId);
-//                if (mConv != null) {
-//                    GroupInfo groupInfo = (GroupInfo) mConv.getTargetInfo();
-//                    UserInfo userInfo = groupInfo.getGroupMemberInfo(mMyInfo.getUserName(), mMyInfo.getAppKey());
-//                    //如果自己在群聊中，聊天标题显示群人数
-//                    if (userInfo != null) {
-//                        if (!TextUtils.isEmpty(groupInfo.getGroupName())) {
-//                            mChatView.setChatTitle(mTitle, groupInfo.getGroupMembers().size());
-//                        } else {
-//                            mChatView.setChatTitle(mTitle, groupInfo.getGroupMembers().size());
-//                        }
-//                        mChatView.showRightBtn();
-//                    } else {
-//                        if (!TextUtils.isEmpty(mTitle)) {
-//                            mChatView.setChatTitle(mTitle);
-//                        } else {
-//                            mChatView.setChatTitle(R.string.group);
-//                        }
-//                        mChatView.dismissRightBtn();
-//                    }
-//                } else {
-//                    mConv = Conversation.createGroupConversation(mGroupId);
-//                }
-//                //更新群名
-//                JMessageClient.getGroupInfo(mGroupId, new GetGroupInfoCallback(false) {
-//                    @Override
-//                    public void gotResult(int status, String desc, GroupInfo groupInfo) {
-//                        if (status == 0) {
-//                            mGroupInfo = groupInfo;
-//                            mUIHandler.sendEmptyMessage(REFRESH_CHAT_TITLE);
-//                        }
-//                    }
-//                });
-//                if (mAtMsgId != -1) {
-//                    mUnreadMsgCnt = mConv.getUnReadMsgCnt();
-//                    // 如果 @我 的消息位于屏幕显示的消息之上，显示 有人@我 的按钮
-//                    if (mAtMsgId + 8 <= mConv.getLatestMessage().getId()) {
-//                        mChatView.showAtMeButton();
-//                    }
-//                    mChatAdapter = new ChattingListAdapter(mContext, mConv, longClickListener, mAtMsgId);
-//                } else {
-//                    mChatAdapter = new ChattingListAdapter(mContext, mConv, longClickListener);
-//                }
-//
-//            }
-//            //聊天信息标志改变
-//            mChatView.setGroupIcon();
-//        }
-
         String draft = intent.getStringExtra(DRAFT);
         if (draft != null && !TextUtils.isEmpty(draft)) {
             ekBar.getEtChat().setText(draft);
@@ -525,64 +464,6 @@ public class ChatActivity extends BaseActivity implements FuncLayout.OnFuncKeyBo
 
     public void onEvent(MessageEvent event) {
         final Message message = event.getMessage();
-
-        //若为群聊相关事件，如添加、删除群成员
-//        if (message.getContentType() == ContentType.eventNotification) {
-//            GroupInfo groupInfo = (GroupInfo) message.getTargetInfo();
-//            long groupId = groupInfo.getGroupID();
-//            EventNotificationContent.EventNotificationType type = ((EventNotificationContent) message
-//                    .getContent()).getEventNotificationType();
-//            if (groupId == mGroupId) {
-//                switch (type) {
-//                    case group_member_added:
-//                        //添加群成员事件
-//                        List<String> userNames = ((EventNotificationContent) message.getContent()).getUserNames();
-//                        //群主把当前用户添加到群聊，则显示聊天详情按钮
-//                        refreshGroupNum();
-//                        if (userNames.contains(mMyInfo.getNickname()) || userNames.contains(mMyInfo.getUserName())) {
-//                            runOnUiThread(new Runnable() {
-//                                @Override
-//                                public void run() {
-//                                    mChatView.showRightBtn();
-//                                }
-//                            });
-//                        }
-//
-//                        break;
-//                    case group_member_removed:
-//                        //删除群成员事件
-//                        userNames = ((EventNotificationContent) message.getContent()).getUserNames();
-//                        //群主删除了当前用户，则隐藏聊天详情按钮
-//                        if (userNames.contains(mMyInfo.getNickname()) || userNames.contains(mMyInfo.getUserName())) {
-//                            runOnUiThread(new Runnable() {
-//                                @Override
-//                                public void run() {
-//                                    mChatView.dismissRightBtn();
-//                                    GroupInfo groupInfo = (GroupInfo) mConv.getTargetInfo();
-//                                    if (TextUtils.isEmpty(groupInfo.getGroupName())) {
-//                                        mChatView.setChatTitle(R.string.group);
-//                                    } else {
-//                                        mChatView.setChatTitle(groupInfo.getGroupName());
-//                                    }
-//                                    mChatView.dismissGroupNum();
-//                                }
-//                            });
-//                        } else {
-//                            refreshGroupNum();
-//                        }
-//
-//                        break;
-//                    case group_member_exit:
-//                        EventNotificationContent content = (EventNotificationContent) message.getContent();
-//                        if (content.getUserNames().contains(JMessageClient.getMyInfo().getUserName())) {
-//                            mChatAdapter.notifyDataSetChanged();
-//                        } else {
-//                            refreshGroupNum();
-//                        }
-//                        break;
-//                }
-//            }
-//        }
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
@@ -645,27 +526,6 @@ public class ChatActivity extends BaseActivity implements FuncLayout.OnFuncKeyBo
             }
         }
     }
-
-//    private void refreshGroupNum() {
-//        Conversation conv = JMessageClient.getGroupConversation(mGroupId);
-//        GroupInfo groupInfo = (GroupInfo) conv.getTargetInfo();
-//        if (!TextUtils.isEmpty(groupInfo.getGroupName())) {
-//            android.os.Message handleMessage = mUIHandler.obtainMessage();
-//            handleMessage.what = REFRESH_GROUP_NAME;
-//            Bundle bundle = new Bundle();
-//            bundle.putString(GROUP_NAME, groupInfo.getGroupName());
-//            bundle.putInt(MEMBERS_COUNT, groupInfo.getGroupMembers().size());
-//            handleMessage.setData(bundle);
-//            handleMessage.sendToTarget();
-//        } else {
-//            android.os.Message handleMessage = mUIHandler.obtainMessage();
-//            handleMessage.what = REFRESH_GROUP_NUM;
-//            Bundle bundle = new Bundle();
-//            bundle.putInt(MEMBERS_COUNT, groupInfo.getGroupMembers().size());
-//            handleMessage.setData(bundle);
-//            handleMessage.sendToTarget();
-//        }
-//    }
 
     private ChattingListAdapter.ContentLongClickListener longClickListener = new ChattingListAdapter.ContentLongClickListener() {
 
@@ -897,201 +757,128 @@ public class ChatActivity extends BaseActivity implements FuncLayout.OnFuncKeyBo
         }
     }
 
-//    public void onEventMainThread(ImageEvent event) {
-//        Intent intent;
-//        switch (event.getFlag()) {
-//            case MyApplication.IMAGE_MESSAGE:
-//                int from = PickImageActivity.FROM_LOCAL;
-//                int requestCode = RequestCode.PICK_IMAGE;
-//                if (ContextCompat.checkSelfPermission(ChatActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
-//                        != PackageManager.PERMISSION_GRANTED) {
-//                    Toast.makeText(this, "请在应用管理中打开“读写存储”访问权限！", Toast.LENGTH_LONG).show();
-//                } else {
-//                    PickImageActivity.start(ChatActivity.this, requestCode, from, tempFile(), true, 9,
-//                            true, false, 0, 0);
-//                }
-//                break;
-//            case MyApplication.TAKE_PHOTO_MESSAGE:
-//                if ((ContextCompat.checkSelfPermission(ChatActivity.this, Manifest.permission.CAMERA)
-//                        != PackageManager.PERMISSION_GRANTED) || (ContextCompat.checkSelfPermission(ChatActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
-//                        != PackageManager.PERMISSION_GRANTED) || (ContextCompat.checkSelfPermission(ChatActivity.this, Manifest.permission.RECORD_AUDIO)
-//                        != PackageManager.PERMISSION_GRANTED)) {
-//                    Toast.makeText(this, "请在应用管理中打开“相机,读写存储,录音”访问权限！", Toast.LENGTH_LONG).show();
-//                } else {
-//                    intent = new Intent(ChatActivity.this, CameraActivity.class);
-//                    startActivityForResult(intent, RequestCode.TAKE_PHOTO);
-//                }
-//                break;
-//            case MyApplication.TAKE_LOCATION:
-//                if (ContextCompat.checkSelfPermission(ChatActivity.this, Manifest.permission.ACCESS_FINE_LOCATION)
-//                        != PackageManager.PERMISSION_GRANTED) {
-//                    Toast.makeText(this, "请在应用管理中打开“位置”访问权限！", Toast.LENGTH_LONG).show();
-//                } else {
-//                    intent = new Intent(mContext, MapPickerActivity.class);
-//                    intent.putExtra(MyApplication.TARGET_ID, mTargetId);
-//                    intent.putExtra(MyApplication.TARGET_APP_KEY, mTargetAppKey);
-//                    intent.putExtra(MyApplication.GROUP_ID, mGroupId);
-//                    intent.putExtra("sendLocation", true);
-//                    startActivityForResult(intent, MyApplication.REQUEST_CODE_SEND_LOCATION);
-//                }
-//                break;
-//            case MyApplication.FILE_MESSAGE:
-//                if (ContextCompat.checkSelfPermission(this,
-//                        Manifest.permission.WRITE_EXTERNAL_STORAGE)
-//                        != PackageManager.PERMISSION_GRANTED) {
-//                    Toast.makeText(this, "请在应用管理中打开“读写存储”访问权限！", Toast.LENGTH_LONG).show();
+
+//    @Override
+//    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+////        switch (requestCode) {
+////            case RequestCode.PICK_IMAGE://4
+////                onPickImageActivityResult(requestCode, data);
+////                break;
+////        }
 //
-//                } else {
-//                    intent = new Intent(mContext, SendFileActivity.class);
-//                    intent.putExtra(MyApplication.TARGET_ID, mTargetId);
-//                    intent.putExtra(MyApplication.TARGET_APP_KEY, mTargetAppKey);
-//                    intent.putExtra(MyApplication.GROUP_ID, mGroupId);
-//                    startActivityForResult(intent, MyApplication.REQUEST_CODE_SEND_FILE);
-//                }
-//                break;
-//            case MyApplication.BUSINESS_CARD:
-//                intent = new Intent(mContext, FriendListActivity.class);
-//                intent.putExtra("isSingle", mIsSingle);
-//                intent.putExtra("userId", mTargetId);
-//                intent.putExtra("groupId", mGroupId);
-//                startActivity(intent);
-//                break;
-//            case MyApplication.TACK_VIDEO:
-//            case MyApplication.TACK_VOICE:
-//                ToastUtil.shortToast(mContext, "该功能正在添加中");
-//                break;
-//            default:
-//                break;
-//        }
-//
-//    }
-
-//    private String tempFile() {
-//        String filename = StringUtil.get32UUID() + JPG;
-//        return StorageUtil.getWritePath(filename, StorageType.TYPE_TEMP);
-//    }
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-//        switch (requestCode) {
-//            case RequestCode.PICK_IMAGE://4
-//                onPickImageActivityResult(requestCode, data);
-//                break;
-//        }
-
-        switch (resultCode) {
-            case MyApplication.RESULT_CODE_AT_MEMBER:
-                if (!mIsSingle) {
-                    GroupInfo groupInfo = (GroupInfo) mConv.getTargetInfo();
-                    String username = data.getStringExtra(MyApplication.TARGET_ID);
-                    String appKey = data.getStringExtra(MyApplication.TARGET_APP_KEY);
-                    UserInfo userInfo = groupInfo.getGroupMemberInfo(username, appKey);
-                    if (null == mAtList) {
-                        mAtList = new ArrayList<UserInfo>();
-                    }
-                    mAtList.add(userInfo);
-                    mLongClick = true;
-                    ekBar.getEtChat().appendMention(data.getStringExtra(MyApplication.NAME));
-                    ekBar.getEtChat().setSelection(ekBar.getEtChat().getText().length());
-                }
-                break;
-            case MyApplication.RESULT_CODE_AT_ALL:
-                mAtAll = data.getBooleanExtra(MyApplication.ATALL, false);
-                mLongClick = true;
-                if (mAtAll) {
-                    ekBar.getEtChat().setText(ekBar.getEtChat().getText().toString() + "所有成员 ");
-                    ekBar.getEtChat().setSelection(ekBar.getEtChat().getText().length());
-                }
-                break;
-//            case RequestCode.TAKE_PHOTO:
-//                if (data != null) {
-//                    String name = data.getStringExtra("take_photo");
-//                    Bitmap bitmap = BitmapFactory.decodeFile(name);
-//                    ImageContent.createImageContentAsync(bitmap, new ImageContent.CreateImageContentCallback() {
-//                        @Override
-//                        public void gotResult(int responseCode, String responseMessage, ImageContent imageContent) {
-//                            if (responseCode == 0) {
-//                                Message msg = mConv.createSendMessage(imageContent);
-//                                handleSendMsg(msg.getId());
-//                            }
-//                        }
-//                    });
-//                }
-//                break;
-//            case RequestCode.TAKE_VIDEO:
-//                if (data != null) {
-//                    String path = data.getStringExtra("video");
-//                    try {
-//                        FileContent fileContent = new FileContent(new File(path));
-//                        fileContent.setStringExtra("video", "mp4");
-//                        Message msg = mConv.createSendMessage(fileContent);
-//                        handleSendMsg(msg.getId());
-//                    } catch (Exception e) {
-//                        e.printStackTrace();
+//        switch (resultCode) {
+//            case MyApplication.RESULT_CODE_AT_MEMBER:
+//                if (!mIsSingle) {
+//                    GroupInfo groupInfo = (GroupInfo) mConv.getTargetInfo();
+//                    String username = data.getStringExtra(MyApplication.TARGET_ID);
+//                    String appKey = data.getStringExtra(MyApplication.TARGET_APP_KEY);
+//                    UserInfo userInfo = groupInfo.getGroupMemberInfo(username, appKey);
+//                    if (null == mAtList) {
+//                        mAtList = new ArrayList<UserInfo>();
 //                    }
+//                    mAtList.add(userInfo);
+//                    mLongClick = true;
+//                    ekBar.getEtChat().appendMention(data.getStringExtra(MyApplication.NAME));
+//                    ekBar.getEtChat().setSelection(ekBar.getEtChat().getText().length());
 //                }
 //                break;
-            case MyApplication.RESULT_CODE_SEND_LOCATION:
-                //之前是在地图选择那边做的发送逻辑,这里是通过msgID拿到的message放到ui上.但是发现问题,message的status始终是send_going状态
-                //因为那边发送的是自己创建的对象,这里通过id取出来的不是同一个对象.尽管内容都是一样的.所以为了保证发送的对象个ui上拿出来的
-                //对象是同一个,就地图那边传过来数据,在这边进行创建message
-                double latitude = data.getDoubleExtra("latitude", 0);
-                double longitude = data.getDoubleExtra("longitude", 0);
-                int mapview = data.getIntExtra("mapview", 0);
-                String street = data.getStringExtra("street");
-                String path = data.getStringExtra("path");
-                LocationContent locationContent = new LocationContent(latitude,
-                        longitude, mapview, street);
-                locationContent.setStringExtra("path", path);
-                Message message = mConv.createSendMessage(locationContent);
-                MessageSendingOptions options = new MessageSendingOptions();
-                options.setNeedReadReceipt(true);
-                JMessageClient.sendMessage(message, options);
-                mChatAdapter.addMsgFromReceiptToList(message);
-
-                int customMsgId = data.getIntExtra("customMsg", -1);
-                if (-1 != customMsgId) {
-                    Message customMsg = mConv.getMessage(customMsgId);
-                    mChatAdapter.addMsgToList(customMsg);
-                }
-                mChatView.setToBottom();
-                break;
-            case MyApplication.RESULT_CODE_SEND_FILE:
-                int[] intArrayExtra = data.getIntArrayExtra(MsgIDs);
-                for (int msgId : intArrayExtra) {
-                    handleSendMsg(msgId);
-                }
-                break;
-            case MyApplication.RESULT_CODE_CHAT_DETAIL:
-                String title = data.getStringExtra(MyApplication.CONV_TITLE);
-                if (!mIsSingle) {
-                    GroupInfo groupInfo = (GroupInfo) mConv.getTargetInfo();
-                    UserInfo userInfo = groupInfo.getGroupMemberInfo(mMyInfo.getUserName(), mMyInfo.getAppKey());
-                    //如果自己在群聊中，同时显示群人数
-                    if (userInfo != null) {
-                        if (TextUtils.isEmpty(title)) {
-                            mChatView.setChatTitle(IdHelper.getString(mContext, "group"),
-                                    data.getIntExtra(MEMBERS_COUNT, 0));
-                        } else {
-                            mChatView.setChatTitle(title, data.getIntExtra(MEMBERS_COUNT, 0));
-                        }
-                    } else {
-                        if (TextUtils.isEmpty(title)) {
-                            mChatView.setChatTitle(IdHelper.getString(mContext, "group"));
-                        } else {
-                            mChatView.setChatTitle(title);
-                        }
-                        mChatView.dismissGroupNum();
-                    }
-
-                } else mChatView.setChatTitle(title);
-                if (data.getBooleanExtra("deleteMsg", false)) {
-                    mChatAdapter.clearMsgList();
-                }
-                break;
-        }
-
-    }
+//            case MyApplication.RESULT_CODE_AT_ALL:
+//                mAtAll = data.getBooleanExtra(MyApplication.ATALL, false);
+//                mLongClick = true;
+//                if (mAtAll) {
+//                    ekBar.getEtChat().setText(ekBar.getEtChat().getText().toString() + "所有成员 ");
+//                    ekBar.getEtChat().setSelection(ekBar.getEtChat().getText().length());
+//                }
+//                break;
+////            case RequestCode.TAKE_PHOTO:
+////                if (data != null) {
+////                    String name = data.getStringExtra("take_photo");
+////                    Bitmap bitmap = BitmapFactory.decodeFile(name);
+////                    ImageContent.createImageContentAsync(bitmap, new ImageContent.CreateImageContentCallback() {
+////                        @Override
+////                        public void gotResult(int responseCode, String responseMessage, ImageContent imageContent) {
+////                            if (responseCode == 0) {
+////                                Message msg = mConv.createSendMessage(imageContent);
+////                                handleSendMsg(msg.getId());
+////                            }
+////                        }
+////                    });
+////                }
+////                break;
+////            case RequestCode.TAKE_VIDEO:
+////                if (data != null) {
+////                    String path = data.getStringExtra("video");
+////                    try {
+////                        FileContent fileContent = new FileContent(new File(path));
+////                        fileContent.setStringExtra("video", "mp4");
+////                        Message msg = mConv.createSendMessage(fileContent);
+////                        handleSendMsg(msg.getId());
+////                    } catch (Exception e) {
+////                        e.printStackTrace();
+////                    }
+////                }
+////                break;
+//            case MyApplication.RESULT_CODE_SEND_LOCATION:
+//                //之前是在地图选择那边做的发送逻辑,这里是通过msgID拿到的message放到ui上.但是发现问题,message的status始终是send_going状态
+//                //因为那边发送的是自己创建的对象,这里通过id取出来的不是同一个对象.尽管内容都是一样的.所以为了保证发送的对象个ui上拿出来的
+//                //对象是同一个,就地图那边传过来数据,在这边进行创建message
+//                double latitude = data.getDoubleExtra("latitude", 0);
+//                double longitude = data.getDoubleExtra("longitude", 0);
+//                int mapview = data.getIntExtra("mapview", 0);
+//                String street = data.getStringExtra("street");
+//                String path = data.getStringExtra("path");
+//                LocationContent locationContent = new LocationContent(latitude,
+//                        longitude, mapview, street);
+//                locationContent.setStringExtra("path", path);
+//                Message message = mConv.createSendMessage(locationContent);
+//                MessageSendingOptions options = new MessageSendingOptions();
+//                options.setNeedReadReceipt(true);
+//                JMessageClient.sendMessage(message, options);
+//                mChatAdapter.addMsgFromReceiptToList(message);
+//
+//                int customMsgId = data.getIntExtra("customMsg", -1);
+//                if (-1 != customMsgId) {
+//                    Message customMsg = mConv.getMessage(customMsgId);
+//                    mChatAdapter.addMsgToList(customMsg);
+//                }
+//                mChatView.setToBottom();
+//                break;
+//            case MyApplication.RESULT_CODE_SEND_FILE:
+//                int[] intArrayExtra = data.getIntArrayExtra(MsgIDs);
+//                for (int msgId : intArrayExtra) {
+//                    handleSendMsg(msgId);
+//                }
+//                break;
+//            case MyApplication.RESULT_CODE_CHAT_DETAIL:
+//                String title = data.getStringExtra(MyApplication.CONV_TITLE);
+//                if (!mIsSingle) {
+//                    GroupInfo groupInfo = (GroupInfo) mConv.getTargetInfo();
+//                    UserInfo userInfo = groupInfo.getGroupMemberInfo(mMyInfo.getUserName(), mMyInfo.getAppKey());
+//                    //如果自己在群聊中，同时显示群人数
+//                    if (userInfo != null) {
+//                        if (TextUtils.isEmpty(title)) {
+//                            mChatView.setChatTitle(IdHelper.getString(mContext, "group"),
+//                                    data.getIntExtra(MEMBERS_COUNT, 0));
+//                        } else {
+//                            mChatView.setChatTitle(title, data.getIntExtra(MEMBERS_COUNT, 0));
+//                        }
+//                    } else {
+//                        if (TextUtils.isEmpty(title)) {
+//                            mChatView.setChatTitle(IdHelper.getString(mContext, "group"));
+//                        } else {
+//                            mChatView.setChatTitle(title);
+//                        }
+//                        mChatView.dismissGroupNum();
+//                    }
+//
+//                } else mChatView.setChatTitle(title);
+//                if (data.getBooleanExtra("deleteMsg", false)) {
+//                    mChatAdapter.clearMsgList();
+//                }
+//                break;
+//        }
+//
+//    }
 
 
     /**
